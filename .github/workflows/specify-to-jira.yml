@@ -1,32 +1,376 @@
-name: Create Jira Issues from Specify Tasks
+name: Specify → Jira Automation
 
 on:
   push:
     paths:
+      - "specs/**/plan.md"
+      - "specs/**/spec.md"
       - "specs/**/tasks.md"
 
+permissions:
+  contents: write  # required to update tasks.md
+
 jobs:
-  create_issues:
+  process_feature:
     runs-on: ubuntu-latest
+
+    env:
+      JIRA_URL: ${{ secrets.JIRA_URL }}
+      JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract tasks from Specify task file(s)
-        id: extract
+      ############################################################
+      # 1. Identify the feature folder (specs/<feature>/)
+      ############################################################
+      - name: Identify feature folder
+        id: feature
         run: |
-          echo "tasks<<EOF" >> $GITHUB_OUTPUT
-          grep -R "^- " specs | sed 's/^- //' >> $GITHUB_OUTPUT
+          FEATURE_DIR=$(git diff --name-only HEAD^ HEAD | grep "^specs/" | cut -d'/' -f1-2 | head -1)
+          echo "dir=$FEATURE_DIR" >> $GITHUB_OUTPUT
+          echo "Feature detected: $FEATURE_DIR"
+
+      ############################################################
+      # 2. Extract plan.md title and content
+      ############################################################
+      - name: Extract plan.md details
+        id: plan
+        run: |
+          FILE="${{ steps.feature.outputs.dir }}/plan.md"
+          TITLE="${{ steps.feature.outputs.dir }}"
+          CONTENT=""
+
+          if [ -f "$FILE" ]; then
+            if grep -q "^# " "$FILE"; then
+              TITLE=$(grep -m1 "^# " "$FILE" | sed 's/^# //')
+            fi
+
+            CONTENT=$(cat "$FILE")
+          else
+            CONTENT="No plan.md found."
+          fi
+
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Create Jira issues
-        uses: atlassian/gajira-create@v3
-        with:
-          project: CW
-          issuetype: Task
-          summary: ${{ steps.extract.outputs.tasks }}
-        env:
-          JIRA_BASE_URL: ${{ secrets.JIRA_URL }}
-          JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
-          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      ############################################################
+      # 3. Detect MVP
+      ############################################################
+      - name: Detect MVP
+        id: mvp
+        run: |
+          MVP=false
+          if grep -Rqi "MVP" "${{ steps.feature.outputs.dir }}/plan.md" 2>/dev/null; then MVP=true; fi
+          if grep -Rqi "MVP" "${{ steps.feature.outputs.dir }}/spec.md" 2>/dev/null; then MVP=true; fi
+
+          echo "value=$MVP" >> $GITHUB_OUTPUT
+          echo "MVP detected: $MVP"
+
+      ############################################################
+      # 4. Gather all files from both feature folder and code folders
+      ############################################################
+      - name: Gather all relevant files
+        id: files
+        run: |
+          echo "list<<EOF" >> $GITHUB_OUTPUT
+          for d in "src" "apps" "api" "backend" "frontend" "packages" "services" "${{ steps.feature.outputs.dir }}"; do
+            if [ -d "$d" ]; then
+              find "$d" -type f
+            fi
+          done
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      ############################################################
+      # 5. Derive allowed components (Strategy A + API mapping + infra)
+      ############################################################
+      - name: Derive Components
+        id: components
+        run: |
+          ALLOWED=(
+            "typescript" "javascript" "python" "golang"
+            "frontend-ui" "documentation" "testing"
+
+            # backend
+            "backend-api" "api-auth" "api-training" "api-exercise"
+            "api-user" "api-progress" "api-metrics" "api-notifications"
+            "api-payments" "api-integrations"
+
+            # infra
+            "infrastructure" "infra-docker" "infra-kubernetes"
+            "infra-ci" "infra-cd" "infra-monitoring" "infra-logging"
+            "infra-database" "infra-security" "infra-networking"
+          )
+
+          declare -A COMPONENTS
+          FILES="${{ steps.files.outputs.list }}"
+
+          while IFS= read -r FILE; do
+            case "$FILE" in
+              *.ts|*.tsx) COMPONENTS["typescript"]=1 ;;
+              *.js|*.jsx) COMPONENTS["javascript"]=1 ;;
+              *.py)       COMPONENTS["python"]=1 ;;
+              *.go)       COMPONENTS["golang"]=1 ;;
+              *.html|*.css) COMPONENTS["frontend-ui"]=1 ;;
+              *.md)       COMPONENTS["documentation"]=1 ;;
+            esac
+
+            # API folder mapping
+            case "$FILE" in
+              *auth*|*login*|*session*|*token*) COMPONENTS["api-auth"]=1 ;;
+              *training*) COMPONENTS["api-training"]=1 ;;
+              *exercise*|*exercises*) COMPONENTS["api-exercise"]=1 ;;
+              *user*|*profile*) COMPONENTS["api-user"]=1 ;;
+              *progress*) COMPONENTS["api-progress"]=1 ;;
+              *metrics*) COMPONENTS["api-metrics"]=1 ;;
+              *notify*|*notification*) COMPONENTS["api-notifications"]=1 ;;
+              *payment*|*billing*|*stripe*) COMPONENTS["api-payments"]=1 ;;
+              *integration*|*third-party*) COMPONENTS["api-integrations"]=1 ;;
+            esac
+
+            # Infra mapping
+            case "$FILE" in
+              *docker*|*Dockerfile*) COMPONENTS["infra-docker"]=1 ;;
+              *k8s*|*kubernetes*|*yaml*) COMPONENTS["infra-kubernetes"]=1 ;;
+              *ci*|*github*|*.yml) COMPONENTS["infra-ci"]=1 ;;
+              *cd*|*deploy*) COMPONENTS["infra-cd"]=1 ;;
+              *monitor*|*prometheus*|*grafana*) COMPONENTS["infra-monitoring"]=1 ;;
+              *log*|*logging*) COMPONENTS["infra-logging"]=1 ;;
+              *db*|*database*|*sql*) COMPONENTS["infra-database"]=1 ;;
+              *security*|*authz*) COMPONENTS["infra-security"]=1 ;;
+              *network*) COMPONENTS["infra-networking"]=1 ;;
+            esac
+
+          done <<< "$FILES"
+
+          # fallback backend-api if any api-* detected but none matched
+          if [[ ${#COMPONENTS[@]} -gt 0 ]]; then
+            COMPONENTS["backend-api"]=1
+          fi
+
+          # Filter only allowed components
+          FINAL=()
+          for c in "${!COMPONENTS[@]}"; do
+            if printf '%s\n' "${ALLOWED[@]}" | grep -qx "$c"; then
+              FINAL+=("{\"name\": \"$c\"}")
+            fi
+          done
+
+          JSON="[${FINAL[*]}]"
+          echo "json=$JSON" >> $GITHUB_OUTPUT
+          echo "Components JSON: $JSON"
+
+      ############################################################
+      # 6. Ensure components exist in Jira, create if missing
+      ############################################################
+      - name: Ensure Jira components exist
+        id: ensurecomponents
+        run: |
+          PROJECT="COACHCW"
+          COMPONENTS_JSON='${{ steps.components.outputs.json }}'
+
+          # Get existing components
+          EXISTING=$(curl -s -u "$JIRA_EMAIL:$JIRA_API_TOKEN" "$JIRA_URL/rest/api/3/project/$PROJECT/components" | jq -r '.[].name')
+
+          echo "$COMPONENTS_JSON" | jq -c '.[]' | while read item; do
+            NAME=$(echo "$item" | jq -r '.name')
+            if echo "$EXISTING" | grep -qx "$NAME"; then
+              echo "Component exists: $NAME"
+            else
+              echo "Creating missing component: $NAME"
+              curl -s -X POST \
+                -H "Content-Type: application/json" \
+                -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+                --data "{\"name\": \"$NAME\", \"project\": \"COACHCW\"}" \
+                "$JIRA_URL/rest/api/3/component"
+            fi
+          done
+
+      ############################################################
+      # 7. Find or create Epic (tight JQL)
+      ############################################################
+      - name: Find or create Epic
+        id: epic
+        run: |
+          TITLE="${{ steps.plan.outputs.title }}"
+          COMPONENTS_JSON='${{ steps.components.outputs.json }}'
+
+          JQL="project = COACHCW AND issuetype = Epic AND summary = \"$TITLE\""
+          SEARCH=$(curl -s -G \
+            -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+            --data-urlencode "jql=$JQL" \
+            "$JIRA_URL/rest/api/3/search")
+
+          EPIC=$(echo "$SEARCH" | jq -r '.issues[0].key // empty')
+
+          if [ -n "$EPIC" ]; then
+            echo "Epic exists: $EPIC"
+            echo "key=$EPIC" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # labels
+          if [ "${{ steps.mvp.outputs.value }}" = "true" ]; then
+            LABELS='["MVP"]'
+          else
+            LABELS='[]'
+          fi
+
+          DATA=$(cat <<EOF
+{
+  "fields": {
+    "project": { "key": "COACHCW" },
+    "issuetype": { "name": "Epic" },
+    "summary": "${TITLE}",
+    "description": "${{ steps.plan.outputs.content }}",
+    "labels": $LABELS,
+    "components": $COMPONENTS_JSON
+  }
+}
+EOF
+          )
+
+          RESPONSE=$(curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+            --data "$DATA" \
+            "$JIRA_URL/rest/api/3/issue")
+
+          KEY=$(echo "$RESPONSE" | jq -r '.key')
+          echo "key=$KEY" >> $GITHUB_OUTPUT
+
+      ############################################################
+      # 8. Extract requirement + AC from spec.md
+      ############################################################
+      - name: Extract spec data
+        id: specdata
+        run: |
+          FILE="${{ steps.feature.outputs.dir }}/spec.md"
+          REQ=""
+          ACS=""
+
+          if [ -f "$FILE" ]; then
+            REQ=$(sed -n '/Requirement/,/Acceptance Criteria:/p' "$FILE" | sed '1d;$d')
+
+            ACS=$(sed -n '/Acceptance Criteria:/,$p' "$FILE" | grep -E "^- " | sed 's/^- //')
+          fi
+
+          echo "requirement<<EOF" >> $GITHUB_OUTPUT
+          echo "$REQ" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "ac_list<<EOF" >> $GITHUB_OUTPUT
+          echo "$ACS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      ############################################################
+      # 9. Extract tasks
+      ############################################################
+      - name: Extract tasks
+        id: tasks
+        run: |
+          FILE="${{ steps.feature.outputs.dir }}/tasks.md"
+          echo "list<<EOF" >> $GITHUB_OUTPUT
+          if [ -f "$FILE" ]; then
+            grep -E "^- " "$FILE" | sed 's/^- //'
+          fi
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      ############################################################
+      # 10. Create Jira Stories with duplicates prevented
+      ############################################################
+      - name: Create Jira Stories
+        id: createstories
+        run: |
+          EPIC="${{ steps.epic.outputs.key }}"
+          REQUIREMENT="${{ steps.specdata.outputs.requirement }}"
+          AC_LIST="${{ steps.specdata.outputs.ac_list }}"
+          COMPONENTS_JSON='${{ steps.components.outputs.json }}'
+
+          echo "" > story_keys.txt
+
+          IFS=$'\n'
+          for TASK in ${{ steps.tasks.outputs.list }}; do
+            [ -z "$TASK" ] && continue
+
+            # strict duplicate check
+            JQL="project = COACHCW AND parent = \"$EPIC\" AND issuetype = Story AND summary = \"$TASK\""
+            RESULT=$(curl -s -G \
+              -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+              --data-urlencode "jql=$JQL" \
+              "$JIRA_URL/rest/api/3/search")
+
+            EXISTING=$(echo "$RESULT" | jq -r '.issues[0].key // empty')
+
+            if [ -n "$EXISTING" ]; then
+              echo "$TASK|||$EXISTING" >> story_keys.txt
+              continue
+            fi
+
+            # create formatted description
+            DESC="🟪 *Requirement*  
+${REQUIREMENT}
+
+🟩 *Acceptance Criteria*"
+            while IFS= read -r AC; do
+              [ -z "$AC" ] && continue
+              DESC="$DESC"$'\n'"- $AC"
+            done <<< "$AC_LIST"
+
+            DATA=$(python3 - <<EOF
+import json
+payload = {
+  "fields": {
+    "project": {"key": "COACHCW"},
+    "issuetype": {"name": "Story"},
+    "summary": """$TASK""",
+    "parent": {"key": """$EPIC"""},
+    "description": """$DESC""",
+    "components": $COMPONENTS_JSON
+  }
+}
+print(json.dumps(payload))
+EOF
+            )
+
+            RESPONSE=$(curl -s -X POST \
+              -H "Content-Type: application/json" \
+              -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+              --data "$DATA" \
+              "$JIRA_URL/rest/api/3/issue")
+
+            KEY=$(echo "$RESPONSE" | jq -r '.key')
+            echo "$TASK|||$KEY" >> story_keys.txt
+          done
+
+      ############################################################
+      # 11. Update tasks.md with Jira keys + push
+      ############################################################
+      - name: Sync Jira keys back into tasks.md & commit
+        run: |
+          FILE="${{ steps.feature.outputs.dir }}/tasks.md"
+          [ ! -f "$FILE" ] && exit 0
+
+          while IFS='|||' read -r TASK KEY; do
+            [ -z "$TASK" ] && continue
+            [ -z "$KEY" ] && continue
+
+            if ! grep -q "$KEY" "$FILE"; then
+              sed -i "s/^- $TASK$/- $TASK  ($KEY)/" "$FILE"
+            fi
+          done < story_keys.txt
+
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "chore: sync Jira issue keys into tasks.md"
+          git push
