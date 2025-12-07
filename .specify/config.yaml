@@ -1,0 +1,4 @@
+# Specify configuration for CoachCW
+
+branches:
+  work: main   # Tells Specify: whenever templates reference "work", use "main"
