@@ -1,0 +1,32 @@
+name: Create Jira Issues from Specify Tasks
+
+on:
+  push:
+    paths:
+      - "specs/**/tasks.md"
+
+jobs:
+  create_issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract tasks from Specify task file(s)
+        id: extract
+        run: |
+          echo "tasks<<EOF" >> $GITHUB_OUTPUT
+          grep -R "^- " specs | sed 's/^- //' >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Jira issues
+        uses: atlassian/gajira-create@v3
+        with:
+          project: CW
+          issuetype: Task
+          summary: ${{ steps.extract.outputs.tasks }}
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
