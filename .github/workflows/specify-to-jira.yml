@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  sync_to_jira:
+  jira_sync:
     runs-on: ubuntu-latest
 
     env:
@@ -21,17 +21,161 @@ jobs:
       PROJECT_KEY: COACHCW
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
+      # ---------------------------------------------------------
+      # 1. Detect feature folder
+      # ---------------------------------------------------------
       - name: Detect feature folder
         id: feature
         run: |
-          FEATURE=$(git diff --name-only HEAD^ HEAD | grep "^specs/" | cut -d'/' -f1-2 | sort -u | head -1)
-          if [ -z "$FEATURE" ]; then
-            echo "No spec changes."
-            exit 0
-          fi
+          FEATURE=$(git diff --name-only HEAD^ HEAD | grep '^specs/' | cut -d'/' -f1-2 | head -1)
           echo "dir=$FEATURE" >> $GITHUB_OUTPUT
 
-      - name: Load plan + spec
+      # ---------------------------------------------------------
+      # 2. Extract plan/spec/tasks
+      # ---------------------------------------------------------
+      - name: Extract spec data
+        id: extract
+        run: |
+          DIR="${{ steps.feature.outputs.dir }}"
+
+          TITLE=$(grep -m1 '^# ' "$DIR/plan.md" | sed 's/^# //')
+          [ -z "$TITLE" ] && TITLE="$DIR"
+
+          REQUIREMENT=$(sed -n '/Requirement/,/Acceptance Criteria:/p' "$DIR/spec.md" | sed '1d;$d')
+          AC_LIST=$(sed -n '/Acceptance Criteria:/,$p' "$DIR/spec.md" | grep '^- ' | sed 's/^- //')
+          TASKS=$(grep '^- ' "$DIR/tasks.md" | sed 's/^- //')
+
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+          echo "requirement<<EOF" >> $GITHUB_OUTPUT
+          echo "$REQUIREMENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "ac<<EOF" >> $GITHUB_OUTPUT
+          echo "$AC_LIST" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "tasks<<EOF" >> $GITHUB_OUTPUT
+          echo "$TASKS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # ---------------------------------------------------------
+      # 3. Create or reuse Epic
+      # ---------------------------------------------------------
+      - name: Create or find Epic
+        id: epic
+        run: |
+          TITLE="${{ steps.extract.outputs.title }}"
+
+          JQL="project = $PROJECT_KEY AND issuetype = Epic AND summary = \"$TITLE\""
+
+          RESULT=$(curl -s -G \
+            -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+            --data-urlencode "jql=$JQL" \
+            "$JIRA_URL/rest/api/3/search")
+
+          EPIC=$(echo "$RESULT" | jq -r '.issues[0].key // empty')
+
+          if [ -n "$EPIC" ]; then
+            echo "key=$EPIC" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          jq -n \
+            --arg project "$PROJECT_KEY" \
+            --arg summary "$TITLE" \
+            '{ fields: {
+                project: { key: $project },
+                issuetype: { name: "Epic" },
+                summary: $summary,
+                description: "Created automatically from Specify"
+              }}' > /tmp/epic.json
+
+          RESPONSE=$(curl -s -X POST \
+            -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data @/tmp/epic.json \
+            "$JIRA_URL/rest/api/3/issue")
+
+          KEY=$(echo "$RESPONSE" | jq -r '.key')
+          echo "key=$KEY" >> $GITHUB_OUTPUT
+
+      # ---------------------------------------------------------
+      # 4. Create Stories
+      # ---------------------------------------------------------
+      - name: Create Stories
+        id: stories
+        run: |
+          EPIC="${{ steps.epic.outputs.key }}"
+          REQUIREMENT="${{ steps.extract.outputs.requirement }}"
+          AC_ITEMS="${{ steps.extract.outputs.ac }}"
+          TASKS="${{ steps.extract.outputs.tasks }}"
+
+          echo "" > story_keys.txt
+
+          IFS=$'\n'
+          for T in $TASKS; do
+            [ -z "$T" ] && continue
+
+            JQL="project = $PROJECT_KEY AND parent = \"$EPIC\" AND summary = \"$T\""
+            RESULT=$(curl -s -G \
+              -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+              --data-urlencode "jql=$JQL" \
+              "$JIRA_URL/rest/api/3/search")
+
+            EXIST=$(echo "$RESULT" | jq -r '.issues[0].key // empty')
+            if [ -n "$EXIST" ]; then
+              echo "$T|||$EXIST" >> story_keys.txt
+              continue
+            fi
+
+            DESC="Requirement:\n$REQUIREMENT\n\nAcceptance Criteria:"
+            while IFS=$'\n' read -r AC; do
+              [ -n "$AC" ] && DESC="$DESC\n- $AC"
+            done <<< "$AC_ITEMS"
+
+            jq -n \
+              --arg project "$PROJECT_KEY" \
+              --arg epic "$EPIC" \
+              --arg summary "$T" \
+              --arg description "$DESC" \
+              '{ fields: {
+                  project: { key: $project },
+                  issuetype: { name: "Story" },
+                  summary: $summary,
+                  parent: { key: $epic },
+                  description: $description
+                }}' > /tmp/story.json
+
+            RESPONSE=$(curl -s -X POST \
+              -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
+              -H "Content-Type: application/json" \
+              --data @/tmp/story.json \
+              "$JIRA_URL/rest/api/3/issue")
+
+            NEWKEY=$(echo "$RESPONSE" | jq -r '.key')
+            echo "$T|||$NEWKEY" >> story_keys.txt
+          done
+
+      # ---------------------------------------------------------
+      # 5. Sync keys into tasks.md (calls external python script)
+      # ---------------------------------------------------------
+      - name: Sync keys back into tasks.md
+        run: |
+          DIR="${{ steps.feature.outputs.dir }}"
+          FILE="$DIR/tasks.md"
+
+          python3 .github/scripts/sync_tasks.py "$FILE"
+
+          if git diff --quiet; then
+            echo "No updates required."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "sync: Jira story keys added"
+          git push
