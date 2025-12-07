@@ -8,16 +8,17 @@ on:
       - "specs/**/tasks.md"
 
 permissions:
-  contents: write  # required to update tasks.md
+  contents: write  # needed to push updated tasks.md
 
 jobs:
   process_feature:
     runs-on: ubuntu-latest
 
     env:
-      JIRA_URL: ${{ secrets.JIRA_URL }}
+      JIRA_URL: ${{ secrets.JIRA_URL }}          # e.g. https://yourdomain.atlassian.net (no trailing slash)
       JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
       JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      JIRA_PROJECT_KEY: COACHCW
 
     steps:
       - name: Checkout repository
@@ -29,8 +30,14 @@ jobs:
       - name: Identify feature folder
         id: feature
         run: |
-          FEATURE_DIR=$(git diff --name-only HEAD^ HEAD | grep "^specs/" | cut -d'/' -f1-2 | head -1)
-          echo "dir=$FEATURE_DIR" >> $GITHUB_OUTPUT
+          set -e
+          # Look at changed files, grab the first specs/<feature>/...
+          FEATURE_DIR=$(git diff --name-only HEAD^ HEAD | grep "^specs/" | cut -d'/' -f1-2 | sort -u | head -1 || true)
+          if [ -z "$FEATURE_DIR" ]; then
+            echo "No specs/<feature> changes detected; exiting."
+            exit 0
+          fi
+          echo "dir=$FEATURE_DIR" >> "$GITHUB_OUTPUT"
           echo "Feature detected: $FEATURE_DIR"
 
       ############################################################
@@ -39,154 +46,239 @@ jobs:
       - name: Extract plan.md details
         id: plan
         run: |
-          FILE="${{ steps.feature.outputs.dir }}/plan.md"
-          TITLE="${{ steps.feature.outputs.dir }}"
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
+          FILE="$FEATURE_DIR/plan.md"
+          TITLE="$FEATURE_DIR"
           CONTENT=""
 
           if [ -f "$FILE" ]; then
             if grep -q "^# " "$FILE"; then
               TITLE=$(grep -m1 "^# " "$FILE" | sed 's/^# //')
             fi
-
             CONTENT=$(cat "$FILE")
           else
             CONTENT="No plan.md found."
           fi
 
-          echo "title=$TITLE" >> $GITHUB_OUTPUT
-          echo "content<<EOF" >> $GITHUB_OUTPUT
-          echo "$CONTENT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          {
+            echo "content<<EOF"
+            echo "$CONTENT"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       ############################################################
-      # 3. Detect MVP
+      # 3. Detect MVP (plan.md or spec.md contains 'MVP')
       ############################################################
       - name: Detect MVP
         id: mvp
         run: |
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
           MVP=false
-          if grep -Rqi "MVP" "${{ steps.feature.outputs.dir }}/plan.md" 2>/dev/null; then MVP=true; fi
-          if grep -Rqi "MVP" "${{ steps.feature.outputs.dir }}/spec.md" 2>/dev/null; then MVP=true; fi
-
-          echo "value=$MVP" >> $GITHUB_OUTPUT
+          if [ -f "$FEATURE_DIR/plan.md" ] && grep -Rqi "MVP" "$FEATURE_DIR/plan.md"; then MVP=true; fi
+          if [ -f "$FEATURE_DIR/spec.md" ] && grep -Rqi "MVP" "$FEATURE_DIR/spec.md"; then MVP=true; fi
+          echo "value=$MVP" >> "$GITHUB_OUTPUT"
           echo "MVP detected: $MVP"
 
       ############################################################
-      # 4. Gather all files from both feature folder and code folders
+      # 4. Gather all relevant files (feature + default code dirs)
       ############################################################
       - name: Gather all relevant files
         id: files
         run: |
-          echo "list<<EOF" >> $GITHUB_OUTPUT
-          for d in "src" "apps" "api" "backend" "frontend" "packages" "services" "${{ steps.feature.outputs.dir }}"; do
-            if [ -d "$d" ]; then
-              find "$d" -type f
-            fi
-          done
-          echo "EOF" >> $GITHUB_OUTPUT
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
+          {
+            echo "list<<EOF"
+            for d in "src" "apps" "api" "backend" "frontend" "packages" "services" "$FEATURE_DIR"; do
+              if [ -d "$d" ]; then
+                find "$d" -type f
+              fi
+            done
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       ############################################################
-      # 5. Derive allowed components (Strategy A + API mapping + infra)
+      # 5. Derive components (languages + API mapping + infra)
       ############################################################
-      - name: Derive Components
+      - name: Derive components
         id: components
         run: |
-          ALLOWED=(
-            "typescript" "javascript" "python" "golang"
-            "frontend-ui" "documentation" "testing"
-
-            # backend
-            "backend-api" "api-auth" "api-training" "api-exercise"
-            "api-user" "api-progress" "api-metrics" "api-notifications"
-            "api-payments" "api-integrations"
-
-            # infra
-            "infrastructure" "infra-docker" "infra-kubernetes"
-            "infra-ci" "infra-cd" "infra-monitoring" "infra-logging"
-            "infra-database" "infra-security" "infra-networking"
-          )
-
-          declare -A COMPONENTS
+          set -e
           FILES="${{ steps.files.outputs.list }}"
 
-          while IFS= read -r FILE; do
-            case "$FILE" in
-              *.ts|*.tsx) COMPONENTS["typescript"]=1 ;;
-              *.js|*.jsx) COMPONENTS["javascript"]=1 ;;
-              *.py)       COMPONENTS["python"]=1 ;;
-              *.go)       COMPONENTS["golang"]=1 ;;
-              *.html|*.css) COMPONENTS["frontend-ui"]=1 ;;
-              *.md)       COMPONENTS["documentation"]=1 ;;
-            esac
+          python3 << 'PY'
+import os, json, sys
 
-            # API folder mapping
-            case "$FILE" in
-              *auth*|*login*|*session*|*token*) COMPONENTS["api-auth"]=1 ;;
-              *training*) COMPONENTS["api-training"]=1 ;;
-              *exercise*|*exercises*) COMPONENTS["api-exercise"]=1 ;;
-              *user*|*profile*) COMPONENTS["api-user"]=1 ;;
-              *progress*) COMPONENTS["api-progress"]=1 ;;
-              *metrics*) COMPONENTS["api-metrics"]=1 ;;
-              *notify*|*notification*) COMPONENTS["api-notifications"]=1 ;;
-              *payment*|*billing*|*stripe*) COMPONENTS["api-payments"]=1 ;;
-              *integration*|*third-party*) COMPONENTS["api-integrations"]=1 ;;
-            esac
+files = os.environ.get("FILES", "").splitlines()
 
-            # Infra mapping
-            case "$FILE" in
-              *docker*|*Dockerfile*) COMPONENTS["infra-docker"]=1 ;;
-              *k8s*|*kubernetes*|*yaml*) COMPONENTS["infra-kubernetes"]=1 ;;
-              *ci*|*github*|*.yml) COMPONENTS["infra-ci"]=1 ;;
-              *cd*|*deploy*) COMPONENTS["infra-cd"]=1 ;;
-              *monitor*|*prometheus*|*grafana*) COMPONENTS["infra-monitoring"]=1 ;;
-              *log*|*logging*) COMPONENTS["infra-logging"]=1 ;;
-              *db*|*database*|*sql*) COMPONENTS["infra-database"]=1 ;;
-              *security*|*authz*) COMPONENTS["infra-security"]=1 ;;
-              *network*) COMPONENTS["infra-networking"]=1 ;;
-            esac
+allowed = {
+    "typescript", "javascript", "python", "golang",
+    "frontend-ui", "documentation", "testing",
+    "backend-api", "api-auth", "api-training", "api-exercise",
+    "api-user", "api-progress", "api-metrics", "api-notifications",
+    "api-payments", "api-integrations",
+    "infrastructure", "infra-docker", "infra-kubernetes",
+    "infra-ci", "infra-cd", "infra-monitoring", "infra-logging",
+    "infra-database", "infra-security", "infra-networking",
+}
 
-          done <<< "$FILES"
+components = set()
 
-          # fallback backend-api if any api-* detected but none matched
-          if [[ ${#COMPONENTS[@]} -gt 0 ]]; then
-            COMPONENTS["backend-api"]=1
-          fi
+for f in files:
+    lf = f.lower()
+    # language/file-type based
+    if lf.endswith((".ts", ".tsx")):
+        components.add("typescript")
+    if lf.endswith((".js", ".jsx")):
+        components.add("javascript")
+    if lf.endswith(".py"):
+        components.add("python")
+    if lf.endswith(".go"):
+        components.add("golang")
+    if lf.endswith((".html", ".css")):
+        components.add("frontend-ui")
+    if lf.endswith(".md"):
+        components.add("documentation")
 
-          # Filter only allowed components
-          FINAL=()
-          for c in "${!COMPONENTS[@]}"; do
-            if printf '%s\n' "${ALLOWED[@]}" | grep -qx "$c"; then
-              FINAL+=("{\"name\": \"$c\"}")
-            fi
-          done
+    # API folder mapping
+    if any(x in lf for x in ["auth", "login", "session", "token"]):
+        components.add("api-auth")
+    if "training" in lf:
+        components.add("api-training")
+    if "exercise" in lf or "exercises" in lf:
+        components.add("api-exercise")
+    if "user" in lf or "profile" in lf:
+        components.add("api-user")
+    if "progress" in lf:
+        components.add("api-progress")
+    if "metrics" in lf:
+        components.add("api-metrics")
+    if "notify" in lf or "notification" in lf:
+        components.add("api-notifications")
+    if any(x in lf for x in ["payment", "billing", "stripe"]):
+        components.add("api-payments")
+    if "integration" in lf or "third-party" in lf:
+        components.add("api-integrations")
 
-          JSON="[${FINAL[*]}]"
-          echo "json=$JSON" >> $GITHUB_OUTPUT
-          echo "Components JSON: $JSON"
+    # Infra mapping
+    if "docker" in lf or "dockerfile" in lf:
+        components.add("infra-docker")
+    if "k8s" in lf or "kubernetes" in lf:
+        components.add("infra-kubernetes")
+    if "/.github/" in lf or "ci" in lf:
+        components.add("infra-ci")
+    if "deploy" in lf or "cd" in lf:
+        components.add("infra-cd")
+    if any(x in lf for x in ["monitor", "prometheus", "grafana"]):
+        components.add("infra-monitoring")
+    if "logging" in lf or "/log" in lf:
+        components.add("infra-logging")
+    if any(x in lf for x in ["database", "db", ".sql"]):
+        components.add("infra-database")
+    if "security" in lf or "authz" in lf:
+        components.add("infra-security")
+    if "network" in lf:
+        components.add("infra-networking")
+
+# If any api-* present, add backend-api as a catch-all
+if any(c.startswith("api-") for c in components):
+    components.add("backend-api")
+
+# Filter to allowed & convert to Jira component objects
+final = [{"name": c} for c in sorted(components) if c in allowed]
+
+json_str = json.dumps(final)
+print(f"json={json_str}")
+PY
+          # Capture python output for GITHUB_OUTPUT
+          python_output=$(python3 << 'PY'
+import os, json, sys
+
+# re-run same logic but only emit the json=... line (already printed above)
+# We just need to forward stdin's last line to GITHUB_OUTPUT, so instead:
+print("")  # no-op, since we already printed in previous step
+PY
+          )
+          # The python above already printed "json=...", but GitHub won't see it.
+          # Re-run logic from file: we instead just re-parse quickly:
+          # Simpler: re-run small python just to recompute JSON string cleanly:
+          COMPONENTS_JSON=$(python3 - << 'PY'
+import os, json
+
+# Rebuild from 'FILES' again quickly (duplicated logic kept small for reliability)
+files = os.environ.get("FILES", "").splitlines()
+allowed = {
+    "typescript", "javascript", "python", "golang",
+    "frontend-ui", "documentation", "testing",
+    "backend-api", "api-auth", "api-training", "api-exercise",
+    "api-user", "api-progress", "api-metrics", "api-notifications",
+    "api-payments", "api-integrations",
+    "infrastructure", "infra-docker", "infra-kubernetes",
+    "infra-ci", "infra-cd", "infra-monitoring", "infra-logging",
+    "infra-database", "infra-security", "infra-networking",
+}
+components = set()
+for f in files:
+    lf = f.lower()
+    if lf.endswith((".ts", ".tsx")): components.add("typescript")
+    if lf.endswith((".js", ".jsx")): components.add("javascript")
+    if lf.endswith(".py"): components.add("python")
+    if lf.endswith(".go"): components.add("golang")
+    if lf.endswith((".html", ".css")): components.add("frontend-ui")
+    if lf.endswith(".md"): components.add("documentation")
+    if any(x in lf for x in ["auth", "login", "session", "token"]): components.add("api-auth")
+    if "training" in lf: components.add("api-training")
+    if "exercise" in lf or "exercises" in lf: components.add("api-exercise")
+    if "user" in lf or "profile" in lf: components.add("api-user")
+    if "progress" in lf: components.add("api-progress")
+    if "metrics" in lf: components.add("api-metrics")
+    if "notify" in lf or "notification" in lf: components.add("api-notifications")
+    if any(x in lf for x in ["payment", "billing", "stripe"]): components.add("api-payments")
+    if "integration" in lf or "third-party" in lf: components.add("api-integrations")
+    if "docker" in lf or "dockerfile" in lf: components.add("infra-docker")
+    if "k8s" in lf or "kubernetes" in lf: components.add("infra-kubernetes")
+    if "/.github/" in lf or "ci" in lf: components.add("infra-ci")
+    if "deploy" in lf or "cd" in lf: components.add("infra-cd")
+    if any(x in lf for x in ["monitor", "prometheus", "grafana"]): components.add("infra-monitoring")
+    if "logging" in lf or "/log" in lf: components.add("infra-logging")
+    if any(x in lf for x in ["database", "db", ".sql"]): components.add("infra-database")
+    if "security" in lf or "authz" in lf: components.add("infra-security")
+    if "network" in lf: components.add("infra-networking")
+if any(c.startswith("api-") for c in components):
+    components.add("backend-api")
+final = [{"name": c} for c in sorted(components) if c in allowed]
+print(json.dumps(final))
+PY
+          )
+          echo "json=$COMPONENTS_JSON" >> "$GITHUB_OUTPUT"
+          echo "Components JSON: $COMPONENTS_JSON"
 
       ############################################################
-      # 6. Ensure components exist in Jira, create if missing
+      # 6. Ensure Jira components exist (create if missing)
       ############################################################
       - name: Ensure Jira components exist
-        id: ensurecomponents
         run: |
-          PROJECT="COACHCW"
+          set -e
+          PROJECT="$JIRA_PROJECT_KEY"
           COMPONENTS_JSON='${{ steps.components.outputs.json }}'
 
-          # Get existing components
           EXISTING=$(curl -s -u "$JIRA_EMAIL:$JIRA_API_TOKEN" "$JIRA_URL/rest/api/3/project/$PROJECT/components" | jq -r '.[].name')
 
-          echo "$COMPONENTS_JSON" | jq -c '.[]' | while read item; do
+          echo "$COMPONENTS_JSON" | jq -c '.[]' | while read -r item; do
             NAME=$(echo "$item" | jq -r '.name')
             if echo "$EXISTING" | grep -qx "$NAME"; then
               echo "Component exists: $NAME"
             else
-              echo "Creating missing component: $NAME"
+              echo "Creating component: $NAME"
+              echo "{\"name\": \"$NAME\", \"project\": \"$PROJECT\"}" > /tmp/component_payload.json
               curl -s -X POST \
                 -H "Content-Type: application/json" \
                 -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
-                --data "{\"name\": \"$NAME\", \"project\": \"COACHCW\"}" \
-                "$JIRA_URL/rest/api/3/component"
+                --data @/tmp/component_payload.json \
+                "$JIRA_URL/rest/api/3/component" > /dev/null
             fi
           done
 
@@ -196,109 +288,143 @@ jobs:
       - name: Find or create Epic
         id: epic
         run: |
+          set -e
           TITLE="${{ steps.plan.outputs.title }}"
           COMPONENTS_JSON='${{ steps.components.outputs.json }}'
+          PROJECT="$JIRA_PROJECT_KEY"
 
-          JQL="project = COACHCW AND issuetype = Epic AND summary = \"$TITLE\""
-          SEARCH=$(curl -s -G \
+          # strict match on summary
+          JQL="project = $PROJECT AND issuetype = Epic AND summary = \"${TITLE}\""
+          RESPONSE=$(curl -s -G \
             -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
             --data-urlencode "jql=$JQL" \
             "$JIRA_URL/rest/api/3/search")
 
-          EPIC=$(echo "$SEARCH" | jq -r '.issues[0].key // empty')
+          EPIC_KEY=$(echo "$RESPONSE" | jq -r '.issues[0].key // empty')
 
-          if [ -n "$EPIC" ]; then
-            echo "Epic exists: $EPIC"
-            echo "key=$EPIC" >> $GITHUB_OUTPUT
+          if [ -n "$EPIC_KEY" ]; then
+            echo "Epic exists: $EPIC_KEY"
+            echo "key=$EPIC_KEY" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # labels
+          # labels for Epic
           if [ "${{ steps.mvp.outputs.value }}" = "true" ]; then
             LABELS='["MVP"]'
           else
             LABELS='[]'
           fi
 
-          DATA=$(cat <<EOF
-{
-  "fields": {
-    "project": { "key": "COACHCW" },
-    "issuetype": { "name": "Epic" },
-    "summary": "${TITLE}",
-    "description": "${{ steps.plan.outputs.content }}",
-    "labels": $LABELS,
-    "components": $COMPONENTS_JSON
-  }
-}
-EOF
-          )
+          # Build epic payload JSON in /tmp
+          python3 << 'PY'
+import os, json, textwrap, pathlib
 
-          RESPONSE=$(curl -s -X POST \
+title = os.environ["TITLE"]
+description = os.environ.get("PLAN_CONTENT", "")
+components = json.loads(os.environ.get("COMPONENTS_JSON", "[]"))
+labels = json.loads(os.environ.get("LABELS_JSON", "[]"))
+
+payload = {
+    "fields": {
+        "project": {"key": os.environ["JIRA_PROJECT_KEY"]},
+        "issuetype": {"name": "Epic"},
+        "summary": title,
+        "description": description,
+        "labels": labels,
+        "components": components,
+    }
+}
+path = pathlib.Path("/tmp/epic_payload.json")
+path.write_text(json.dumps(payload))
+PY
+          # Pass env to python
+          PLAN_CONTENT="${{ steps.plan.outputs.content }}" \
+          COMPONENTS_JSON="$COMPONENTS_JSON" \
+          LABELS_JSON="$LABELS" \
+          TITLE="$TITLE" \
+          JIRA_PROJECT_KEY="$PROJECT" \
+          python3 /tmp/epic_payload.json 2>/dev/null || true
+
+          # Actually we already wrote /tmp/epic_payload.json above
+
+          EPIC_RESPONSE=$(curl -s -X POST \
             -H "Content-Type: application/json" \
             -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
-            --data "$DATA" \
+            --data @/tmp/epic_payload.json \
             "$JIRA_URL/rest/api/3/issue")
 
-          KEY=$(echo "$RESPONSE" | jq -r '.key')
-          echo "key=$KEY" >> $GITHUB_OUTPUT
+          EPIC_KEY=$(echo "$EPIC_RESPONSE" | jq -r '.key')
+          echo "Created Epic: $EPIC_KEY"
+          echo "key=$EPIC_KEY" >> "$GITHUB_OUTPUT"
 
       ############################################################
-      # 8. Extract requirement + AC from spec.md
+      # 8. Extract spec Requirement + Acceptance Criteria
       ############################################################
       - name: Extract spec data
         id: specdata
         run: |
-          FILE="${{ steps.feature.outputs.dir }}/spec.md"
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
+          FILE="$FEATURE_DIR/spec.md"
           REQ=""
           ACS=""
 
           if [ -f "$FILE" ]; then
             REQ=$(sed -n '/Requirement/,/Acceptance Criteria:/p' "$FILE" | sed '1d;$d')
-
             ACS=$(sed -n '/Acceptance Criteria:/,$p' "$FILE" | grep -E "^- " | sed 's/^- //')
           fi
 
-          echo "requirement<<EOF" >> $GITHUB_OUTPUT
-          echo "$REQ" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "requirement<<EOF"
+            echo "$REQ"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
-          echo "ac_list<<EOF" >> $GITHUB_OUTPUT
-          echo "$ACS" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "ac_list<<EOF"
+            echo "$ACS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       ############################################################
-      # 9. Extract tasks
+      # 9. Extract tasks from tasks.md
       ############################################################
       - name: Extract tasks
         id: tasks
         run: |
-          FILE="${{ steps.feature.outputs.dir }}/tasks.md"
-          echo "list<<EOF" >> $GITHUB_OUTPUT
-          if [ -f "$FILE" ]; then
-            grep -E "^- " "$FILE" | sed 's/^- //'
-          fi
-          echo "EOF" >> $GITHUB_OUTPUT
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
+          FILE="$FEATURE_DIR/tasks.md"
+          {
+            echo "list<<EOF"
+            if [ -f "$FILE" ]; then
+              grep -E "^- " "$FILE" | sed 's/^- //'
+            fi
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       ############################################################
-      # 10. Create Jira Stories with duplicates prevented
+      # 10. Create Jira Stories (prevent duplicates)
       ############################################################
       - name: Create Jira Stories
         id: createstories
         run: |
-          EPIC="${{ steps.epic.outputs.key }}"
+          set -e
+          EPIC_KEY="${{ steps.epic.outputs.key }}"
           REQUIREMENT="${{ steps.specdata.outputs.requirement }}"
           AC_LIST="${{ steps.specdata.outputs.ac_list }}"
           COMPONENTS_JSON='${{ steps.components.outputs.json }}'
+          PROJECT="$JIRA_PROJECT_KEY"
 
-          echo "" > story_keys.txt
+          TASKS="${{ steps.tasks.outputs.list }}"
+          : > story_keys.txt
 
           IFS=$'\n'
-          for TASK in ${{ steps.tasks.outputs.list }}; do
+          for TASK in $TASKS; do
             [ -z "$TASK" ] && continue
 
             # strict duplicate check
-            JQL="project = COACHCW AND parent = \"$EPIC\" AND issuetype = Story AND summary = \"$TASK\""
+            JQL="project = $PROJECT AND parent = \"$EPIC_KEY\" AND issuetype = Story AND summary = \"$TASK\""
             RESULT=$(curl -s -G \
               -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
               --data-urlencode "jql=$JQL" \
@@ -308,69 +434,120 @@ EOF
 
             if [ -n "$EXISTING" ]; then
               echo "$TASK|||$EXISTING" >> story_keys.txt
+              echo "Story exists: $EXISTING for task '$TASK'"
               continue
             fi
 
-            # create formatted description
-            DESC="🟪 *Requirement*  
-${REQUIREMENT}
+            # Build story payload JSON to /tmp/story_payload.json via Python
+            TASK_ENV="$TASK" \
+            EPIC_ENV="$EPIC_KEY" \
+            REQ_ENV="$REQUIREMENT" \
+            AC_ENV="$AC_LIST" \
+            COMP_ENV="$COMPONENTS_JSON" \
+            PROJECT_ENV="$PROJECT" \
+            python3 << 'PY'
+import os, json, pathlib
 
-🟩 *Acceptance Criteria*"
-            while IFS= read -r AC; do
-              [ -z "$AC" ] && continue
-              DESC="$DESC"$'\n'"- $AC"
-            done <<< "$AC_LIST"
+task = os.environ["TASK_ENV"]
+epic = os.environ["EPIC_ENV"]
+requirement = os.environ.get("REQ_ENV", "").strip()
+ac_raw = os.environ.get("AC_ENV", "")
+components = json.loads(os.environ.get("COMP_ENV", "[]"))
+project = os.environ["PROJECT_ENV"]
 
-            DATA=$(python3 - <<EOF
-import json
+acs = [line.strip() for line in ac_raw.splitlines() if line.strip()]
+
+desc = "🟪 *Requirement*  \n" + requirement + "\n\n🟩 *Acceptance Criteria*"
+for ac in acs:
+    desc += "\n- " + ac
+
 payload = {
-  "fields": {
-    "project": {"key": "COACHCW"},
-    "issuetype": {"name": "Story"},
-    "summary": """$TASK""",
-    "parent": {"key": """$EPIC"""},
-    "description": """$DESC""",
-    "components": $COMPONENTS_JSON
-  }
+    "fields": {
+        "project": {"key": project},
+        "issuetype": {"name": "Story"},
+        "summary": task,
+        "parent": {"key": epic},
+        "description": desc,
+        "components": components,
+    }
 }
-print(json.dumps(payload))
-EOF
-            )
 
-            RESPONSE=$(curl -s -X POST \
+path = pathlib.Path("/tmp/story_payload.json")
+path.write_text(json.dumps(payload))
+PY
+
+            STORY_RESPONSE=$(curl -s -X POST \
               -H "Content-Type: application/json" \
               -u "$JIRA_EMAIL:$JIRA_API_TOKEN" \
-              --data "$DATA" \
+              --data @/tmp/story_payload.json \
               "$JIRA_URL/rest/api/3/issue")
 
-            KEY=$(echo "$RESPONSE" | jq -r '.key')
-            echo "$TASK|||$KEY" >> story_keys.txt
+            STORY_KEY=$(echo "$STORY_RESPONSE" | jq -r '.key')
+            echo "Created Story: $STORY_KEY for task '$TASK'"
+            echo "$TASK|||$STORY_KEY" >> story_keys.txt
           done
 
       ############################################################
-      # 11. Update tasks.md with Jira keys + push
+      # 11. Sync Jira keys back into tasks.md & push
       ############################################################
-      - name: Sync Jira keys back into tasks.md & commit
+      - name: Sync Jira keys into tasks.md and push
         run: |
-          FILE="${{ steps.feature.outputs.dir }}/tasks.md"
-          [ ! -f "$FILE" ] && exit 0
+          set -e
+          FEATURE_DIR="${{ steps.feature.outputs.dir }}"
+          FILE="$FEATURE_DIR/tasks.md"
 
-          while IFS='|||' read -r TASK KEY; do
-            [ -z "$TASK" ] && continue
-            [ -z "$KEY" ] && continue
+          if [ ! -f "$FILE" ]; then
+            echo "No tasks.md to update."
+            exit 0
+          fi
 
-            if ! grep -q "$KEY" "$FILE"; then
-              sed -i "s/^- $TASK$/- $TASK  ($KEY)/" "$FILE"
-            fi
-          done < story_keys.txt
+          python3 << 'PY'
+import pathlib
+
+feature_dir = pathlib.Path("${{ steps.feature.outputs.dir }}")
+tasks_path = feature_dir / "tasks.md"
+story_keys_path = pathlib.Path("story_keys.txt")
+
+if not tasks_path.exists() or not story_keys_path.exists():
+    raise SystemExit
+
+pairs = []
+with story_keys_path.open() as f:
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+        if "|||" not in line:
+            continue
+        task, key = line.split("|||", 1)
+        task = task.strip()
+        key = key.strip()
+        if not task or not key:
+            continue
+        pairs.append((task, key))
+
+lines = tasks_path.read_text().splitlines()
+for i, line in enumerate(lines):
+    if not line.startswith("- "):
+        continue
+    body = line[2:].strip()
+    for task, key in pairs:
+        if body == task:
+            if key in line:
+                break
+            lines[i] = f"- {task}  ({key})"
+            break
+
+tasks_path.write_text("\n".join(lines) + "\n")
+PY
 
           if git diff --quiet; then
-            echo "No changes."
+            echo "No changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "$FILE"
+          git add "${{ steps.feature.outputs.dir }}/tasks.md"
           git commit -m "chore: sync Jira issue keys into tasks.md"
           git push
