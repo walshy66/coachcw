@@ -43,3 +43,4 @@
 {"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190316,"text":"lets say these are done."}
 {"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190355,"text":"are we in implementation or in tasks?"}
 {"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190447,"text":"if I'm implementing and we've completed those 3 stories for that feature, do I then loop back to specify for the next feature?"}
+{"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190612,"text":"ok I've committed that branch to github, how do I make sure that is in the main branch now?"}

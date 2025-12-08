@@ -4592,3 +4592,7 @@
 [2m2025-12-08T10:40:48.461848Z[0m [32m INFO[0m ghost snapshot blocking task finished
 [2m2025-12-08T10:40:48.461941Z[0m [32m INFO[0m ghost commit captured: 85c987b40096488bdd9cc639155da1b014ec9368
 [2m2025-12-08T10:40:48.461957Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:43:32.090362Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:43:33.285019Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:43:33.285070Z[0m [32m INFO[0m ghost commit captured: 72461256cb372add1c24ae212764a3d1cae7fbfb
+[2m2025-12-08T10:43:33.285080Z[0m [32m INFO[0m ghost snapshot gate marked ready
