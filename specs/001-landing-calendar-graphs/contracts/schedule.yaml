@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Landing Page Schedule API
+  version: "0.1.0"
+paths:
+  /clients/{clientId}/schedule:
+    get:
+      summary: Get weekly schedule for a client
+      parameters:
+        - in: path
+          name: clientId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: weekStart
+          required: true
+          description: Monday date for the requested week in ISO-8601 (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: timezone
+          required: false
+          description: IANA timezone identifier for client; defaults to server-side client setting
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Weekly sessions for the client
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [weekStart, weekEnd, timezone, sessions]
+                properties:
+                  weekStart:
+                    type: string
+                    format: date
+                  weekEnd:
+                    type: string
+                    format: date
+                  timezone:
+                    type: string
+                  today:
+                    type: string
+                    format: date
+                  sessions:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Session"
+        "404":
+          description: Client not found
+        "500":
+          description: Unexpected error
+
+components:
+  schemas:
+    Session:
+      type: object
+      required: [id, date, startTime, title, status, lastUpdated]
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+          format: date
+        startTime:
+          type: string
+          description: Time with offset
+        title:
+          type: string
+        status:
+          type: string
+          enum: [planned, completed, missed, changed]
+        durationMinutes:
+          type: integer
+          minimum: 0
+        modality:
+          type: string
+        location:
+          type: string
+        coachNotes:
+          type: string
+        lastUpdated:
+          type: string
+          format: date-time

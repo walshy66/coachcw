@@ -1,5 +1,6 @@
 # Specify configuration for CoachCW
-
+project: coachcw
+constitution: .specify/memory/constitution.md
 branches:
   work: main
 features:

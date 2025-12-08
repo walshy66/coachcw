@@ -1,0 +1,47 @@
+.graph {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.graph__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.graph__pill {
+  background: rgba(96, 165, 250, 0.15);
+  color: #bfdbfe;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.graph__empty {
+  padding: 16px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.graph__skeleton {
+  background: linear-gradient(90deg, #0f172a, #111827, #0f172a);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  height: 220px;
+  border-radius: 10px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

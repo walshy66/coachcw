@@ -1170,3 +1170,3425 @@
 [2m2025-12-07T01:06:32.117899Z[0m [32m INFO[0m ghost snapshot gate marked ready
 [2m2025-12-07T01:06:35.296851Z[0m [32m INFO[0m ToolCall: shell_command {"command":"codex cloud status"}
 [2m2025-12-07T01:06:40.110683Z[0m [32m INFO[0m ToolCall: shell_command {"command":"codex cloud --help"}
+[2m2025-12-08T08:30:50.431430Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:30:50.986972Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:30:50.987029Z[0m [32m INFO[0m ghost commit captured: a2f42a797aacdfb06ed867f72fc7ed60610b5889
+[2m2025-12-08T08:30:50.987046Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:30:57.392072Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem"}
+[2m2025-12-08T08:31:02.700842Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem -Recurse -Depth 2"}
+[2m2025-12-08T08:31:07.406689Z[0m [32m INFO[0m ToolCall: shell_command {"command":"rg --files"}
+[2m2025-12-08T08:31:13.553572Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content README.md"}
+[2m2025-12-08T08:32:45.727374Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:32:46.220781Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:32:46.220831Z[0m [32m INFO[0m ghost commit captured: ae02fd2497a9683c7e0b5290b8c6296d6053c23e
+[2m2025-12-08T08:32:46.220837Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:34:10.326654Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:34:10.826163Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:34:10.826198Z[0m [32m INFO[0m ghost commit captured: 03f7c6f7c1b3a892478873c10a87a92dab7e9a10
+[2m2025-12-08T08:34:10.826205Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:34:15.429632Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem"}
+[2m2025-12-08T08:34:20.960486Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .codex"}
+[2m2025-12-08T08:34:26.374612Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.specify.md"}
+[2m2025-12-08T08:34:37.648191Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs"}
+[2m2025-12-08T08:34:41.451610Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify"}
+[2m2025-12-08T08:34:46.281621Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify/templates"}
+[2m2025-12-08T08:35:00.900924Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify/templates/spec-template.md"}
+[2m2025-12-08T08:35:05.639806Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify/templates/checklist-template.md"}
+[2m2025-12-08T08:35:12.303034Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Review repo context and feature description; determine short name and current numbering sources"},{"status":"pending","step":"Run create-new-feature script to generate branch/spec and open files"},{"status":"pending","step":"Draft spec content and quality checklist per template"}]}
+[2m2025-12-08T08:35:17.998655Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git fetch --all --prune","with_escalated_permissions":true,"justification":"Need to fetch remote branches to compute next feature number for new spec"}
+[2m2025-12-08T08:36:12.971860Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git ls-remote --heads origin | Select-String -Pattern 'refs/heads/[0-9]+-landing-calendar-graphs$'"}
+[2m2025-12-08T08:36:17.899342Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git branch | Select-String -Pattern '^[* ]*[0-9]+-landing-calendar-graphs$'"}
+[2m2025-12-08T08:36:24.031821Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs | Where-Object { $_.Name -match '^[0-9]+-landing-calendar-graphs$' }"}
+[2m2025-12-08T08:36:29.971761Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify/scripts/powershell"}
+[2m2025-12-08T08:36:34.818685Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify/scripts/powershell/create-new-feature.ps1"}
+[2m2025-12-08T08:36:45.545981Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review repo context and feature description; determine short name and current numbering sources"},{"status":"in_progress","step":"Run create-new-feature script to generate branch/spec and open files"},{"status":"pending","step":"Draft spec content and quality checklist per template"}],"explanation":"Short name chosen: landing-calendar-graphs; no existing branches/specs match, next number = 1."}
+[2m2025-12-08T08:36:50.759939Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/create-new-feature.ps1 -Json -Number 1 -ShortName \"landing-calendar-graphs\" \"I want a clear landing page for a client that has a weekly calendar and some results graphs, and navigation to core sections of the app\"","with_escalated_permissions":true,"justification":"Need to create new spec branch and files for the requested landing page feature"}
+[2m2025-12-08T08:37:14.931731Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/spec.md"}
+[2m2025-12-08T08:37:20.355117Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content README.md"}
+[2m2025-12-08T08:38:34.194835Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
++# Feature Specification: Client Landing Page with Weekly Calendar and Results
++
++**Feature Branch**: `001-landing-calendar-graphs`  
++**Created**: 2025-12-08  
+ **Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
++**Input**: User description: "I want a clear landing page for a client that has a weekly calendar and some results graphs, and navigation to core sections of the app"
+ 
+ ## User Scenarios & Testing *(mandatory)*
+ 
+-<!--
+-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+-  
+-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+-  Think of each story as a standalone slice of functionality that can be:
+-  - Developed independently
+-  - Tested independently
+-  - Deployed independently
+-  - Demonstrated to users independently
+--->
+-
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
++### User Story 1 - See my week at a glance (Priority: P1)
++
++Clients want to open the app and immediately see their current week’s scheduled sessions with status and times.
++
++**Why this priority**: Calendar visibility is the primary reason to visit the landing page and avoids missed or late sessions.
++
++**Independent Test**: Open the landing page as a client with scheduled sessions and verify the week view shows accurate days, times, and statuses without needing other pages.
+ 
+ **Acceptance Scenarios**:
+ 
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
++1. **Given** a logged-in client with sessions scheduled in the current week, **When** they open the landing page, **Then** the current week displays with each session labeled by day, time, and status (planned/completed/missed).
++2. **Given** a client browsing a prior or upcoming week, **When** they choose “Back to this week,” **Then** the view returns to the current week with today highlighted.
+ 
+ ---
+ 
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
++### User Story 2 - Track my progress from the landing page (Priority: P2)
++
++Clients want quick visual feedback on how their training is trending without digging into reports.
++
++**Why this priority**: Seeing progress (or gaps) drives adherence and confidence in the program.
++
++**Independent Test**: Load the landing page and verify progress graphs render recent performance metrics with clear legends and time windows independent of calendar interactions.
+ 
+ **Acceptance Scenarios**:
+ 
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++1. **Given** at least four weeks of session data, **When** the client views the results area, **Then** they see at least two graphs (e.g., weekly volume and completion rate) with time frames and units labeled.
++2. **Given** the client has minimal or missing history, **When** the results area loads, **Then** an empty-state message explains the absence of data and how to generate results (e.g., complete sessions).
+ 
+ ---
+ 
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
++### User Story 3 - Jump to core sections quickly (Priority: P3)
++
++Clients want one-click access from the landing page to the main areas they use most (plan, log, coach messaging, and results).
++
++**Why this priority**: Reduces friction and keeps the landing page a true hub rather than a dead-end.
++
++**Independent Test**: From the landing page, click each navigation target and confirm it opens the intended section without extra steps.
+ 
+ **Acceptance Scenarios**:
+ 
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++1. **Given** the landing page is loaded, **When** the client selects a navigation link (e.g., Training Plan, Session Log, Messages, Results), **Then** they arrive on that section with state preserved (e.g., no loss of login or filters).
++2. **Given** a section that needs attention (e.g., missed session), **When** the client sees the navigation area, **Then** the relevant link shows a badge or note indicating action needed.
+ 
+ ---
+ 
+-[Add more user stories as needed, each with an assigned priority]
+-
+ ### Edge Cases
+ 
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
++- No scheduled sessions for the week: show an empty state with a prompt to add or request sessions.
++- Time zone differences (client vs. coach): calendar and times reflect the client’s local time while noting source time where relevant.
++- Missed or rescheduled sessions mid-week: updates reflected on refresh without stale events.
++- Very narrow screens: calendar and graphs collapse responsively without hiding labels needed to interpret them.
++- Sparse or inconsistent historical data: graphs avoid misleading trends and label gaps clearly.
++- Restricted or onboarding clients: navigation only shows sections they can access and hides blocked destinations.
+ 
+ ## Requirements *(mandatory)*
+ 
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right functional requirements.
+--->
+-
+ ### Functional Requirements
+ 
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
++- **FR-001**: The landing page MUST default to the current week and display each session’s day, local time, title, and status (planned/completed/missed/changed).
++- **FR-002**: Clients MUST be able to move to previous/next weeks and return to “this week” in one action.
++- **FR-003**: Selecting a session in the calendar MUST reveal key details (session type, duration, coach notes/highlights, location or modality).
++- **FR-004**: When no sessions exist for a shown week, the calendar MUST present an empty-state message with the next best action (e.g., request or add a session).
++- **FR-005**: The landing page MUST show at least two results graphs by default that summarize recent performance (e.g., weekly training volume, completion rate) with units, date ranges, and legends.
++- **FR-006**: Results graphs MUST clearly indicate incomplete or missing data (e.g., greyed bars or “no data” labels) rather than implying zero.
++- **FR-007**: A navigation area MUST provide one-click access to the core sections: Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
++- **FR-008**: Navigation items MUST surface badges or highlights when a section needs attention (e.g., missed session, unread coach note).
++- **FR-009**: The landing page MUST load calendar, navigation, and results areas without requiring additional authentication steps after login.
+ 
+ ### Key Entities *(include if feature involves data)*
+ 
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
++- **Week View**: The seven-day window shown on load or via week navigation, anchored to the client’s local timezone.
++- **Session Entry**: A scheduled workout/session with attributes including day/time, status, type, duration, modality/location, and coach notes.
++- **Metric Snapshot**: Aggregated performance values for a time range (e.g., weekly volume, completion rate, readiness score) displayed in graphs with units and labels.
++- **Navigation Target**: A primary section link (Training Plan, Session Log, Messages/Coach Chat, Results/Reports) optionally annotated with badges for outstanding items.
+ 
+ ## Success Criteria *(mandatory)*
+ 
+-<!--
+-  ACTION REQUIRED: Define measurable success criteria.
+-  These must be technology-agnostic and measurable.
+--->
+-
+ ### Measurable Outcomes
+ 
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++- **SC-001**: 90% of clients can identify today’s session status from the landing page within 5 seconds of load during usability testing.
++- **SC-002**: Calendar and navigation render within 2 seconds on a standard broadband connection for 95% of page loads measured over a week.
++- **SC-003**: At least two core performance metrics display for the most recent four-week window with labels and legends visible in 100% of tested accounts.
++- **SC-004**: 80% of clients can reach each core section (Training Plan, Session Log, Messages, Results) in a single click from the landing page without losing authentication or context.
++
++### Assumptions
++
++- Core sections for navigation are Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
++- Default graph metrics prioritize weekly training volume and completion rate; additional metrics can be added later if needed.
++- “Week” is Sunday–Saturday unless localization requirements override it.
+*** End Patch
+[2m2025-12-08T08:39:21.398738Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/spec.md"}
+[2m2025-12-08T08:39:37.264257Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/spec.md
+@@
+ ### User Story 1 - See my week at a glance (Priority: P1)
+ 
+-Clients want to open the app and immediately see their current weekƒ?Ts scheduled sessions with status and times.
++Clients want to open the app and immediately see their current week's scheduled sessions with status and times.
+@@
+ 1. **Given** a logged-in client with sessions scheduled in the current week, **When** they open the landing page, **Then** the current week displays with each session labeled by day, time, and status (planned/completed/missed).
+-2. **Given** a client browsing a prior or upcoming week, **When** they choose ƒ?oBack to this week,ƒ?? **Then** the view returns to the current week with today highlighted.
++2. **Given** a client browsing a prior or upcoming week, **When** they choose "Back to this week," **Then** the view returns to the current week with today highlighted.
+@@
+ - No scheduled sessions for the week: show an empty state with a prompt to add or request sessions.
+-- Time zone differences (client vs. coach): calendar and times reflect the clientƒ?Ts local time while noting source time where relevant.
++- Time zone differences (client vs. coach): calendar and times reflect the client's local time while noting source time where relevant.
+@@
+-- **FR-001**: The landing page MUST default to the current week and display each sessionƒ?Ts day, local time, title, and status (planned/completed/missed/changed).
+-- **FR-002**: Clients MUST be able to move to previous/next weeks and return to ƒ?othis weekƒ?? in one action.
++- **FR-001**: The landing page MUST default to the current week and display each session's day, local time, title, and status (planned/completed/missed/changed).
++- **FR-002**: Clients MUST be able to move to previous/next weeks and return to "this week" in one action.
+@@
+-- **FR-006**: Results graphs MUST clearly indicate incomplete or missing data (e.g., greyed bars or ƒ?ono dataƒ?? labels) rather than implying zero.
++- **FR-006**: Results graphs MUST clearly indicate incomplete or missing data (e.g., greyed bars or "no data" labels) rather than implying zero.
+@@
+-- **Week View**: The seven-day window shown on load or via week navigation, anchored to the clientƒ?Ts local timezone.
++- **Week View**: The seven-day window shown on load or via week navigation, anchored to the client's local timezone.
+@@
+-- **SC-001**: 90% of clients can identify todayƒ?Ts session status from the landing page within 5 seconds of load during usability testing.
++- **SC-001**: 90% of clients can identify today's session status from the landing page within 5 seconds of load during usability testing.
+@@
+-- ƒ?oWeekƒ?? is Sundayƒ?"Saturday unless localization requirements override it.
++- "Week" is Sunday-Saturday unless localization requirements override it.
+*** End Patch
+[2m2025-12-08T08:39:48.325266Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/001-landing-calendar-graphs/spec.md
+*** End Patch
+[2m2025-12-08T08:41:30.319318Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/spec.md
++# Feature Specification: Client Landing Page with Weekly Calendar and Results
++
++**Feature Branch**: `001-landing-calendar-graphs`  
++**Created**: 2025-12-08  
++**Status**: Draft  
++**Input**: User description: "I want a clear landing page for a client that has a weekly calendar and some results graphs, and navigation to core sections of the app"
++
++## User Scenarios & Testing *(mandatory)*
++
++### User Story 1 - See my week at a glance (Priority: P1)
++
++Clients want to open the app and immediately see their current week's scheduled sessions with status and times.
++
++**Why this priority**: Calendar visibility is the primary reason to visit the landing page and avoids missed or late sessions.
++
++**Independent Test**: Open the landing page as a client with scheduled sessions and verify the week view shows accurate days, times, and statuses without needing other pages.
++
++**Acceptance Scenarios**:
++
++1. **Given** a logged-in client with sessions scheduled in the current week, **When** they open the landing page, **Then** the current week displays with each session labeled by day, time, and status (planned/completed/missed).
++2. **Given** a client browsing a prior or upcoming week, **When** they choose "Back to this week," **Then** the view returns to the current week with today highlighted.
++
++---
++
++### User Story 2 - Track my progress from the landing page (Priority: P2)
++
++Clients want quick visual feedback on how their training is trending without digging into reports.
++
++**Why this priority**: Seeing progress (or gaps) drives adherence and confidence in the program.
++
++**Independent Test**: Load the landing page and verify progress graphs render recent performance metrics with clear legends and time windows independent of calendar interactions.
++
++**Acceptance Scenarios**:
++
++1. **Given** at least four weeks of session data, **When** the client views the results area, **Then** they see at least two graphs (e.g., weekly volume and completion rate) with time frames and units labeled.
++2. **Given** the client has minimal or missing history, **When** the results area loads, **Then** an empty-state message explains the absence of data and how to generate results (e.g., complete sessions).
++
++---
++
++### User Story 3 - Jump to core sections quickly (Priority: P3)
++
++Clients want one-click access from the landing page to the main areas they use most (plan, log, coach messaging, and results).
++
++**Why this priority**: Reduces friction and keeps the landing page a true hub rather than a dead-end.
++
++**Independent Test**: From the landing page, click each navigation target and confirm it opens the intended section without extra steps.
++
++**Acceptance Scenarios**:
++
++1. **Given** the landing page is loaded, **When** the client selects a navigation link (e.g., Training Plan, Session Log, Messages, Results), **Then** they arrive on that section with state preserved (e.g., no loss of login or filters).
++2. **Given** a section that needs attention (e.g., missed session), **When** the client sees the navigation area, **Then** the relevant link shows a badge or note indicating action needed.
++
++---
++
++### Edge Cases
++
++- No scheduled sessions for the week: show an empty state with a prompt to add or request sessions.
++- Time zone differences (client vs. coach): calendar and times reflect the client's local time while noting source time where relevant.
++- Missed or rescheduled sessions mid-week: updates reflected on refresh without stale events.
++- Very narrow screens: calendar and graphs collapse responsively without hiding labels needed to interpret them.
++- Sparse or inconsistent historical data: graphs avoid misleading trends and label gaps clearly.
++- Restricted or onboarding clients: navigation only shows sections they can access and hides blocked destinations.
++
++## Requirements *(mandatory)*
++
++### Functional Requirements
++
++- **FR-001**: The landing page MUST default to the current week and display each session's day, local time, title, and status (planned/completed/missed/changed).
++- **FR-002**: Clients MUST be able to move to previous/next weeks and return to "this week" in one action.
++- **FR-003**: Selecting a session in the calendar MUST reveal key details (session type, duration, coach notes/highlights, location or modality).
++- **FR-004**: When no sessions exist for a shown week, the calendar MUST present an empty-state message with the next best action (e.g., request or add a session).
++- **FR-005**: The landing page MUST show at least two results graphs by default that summarize recent performance (e.g., weekly training volume, completion rate) with units, date ranges, and legends.
++- **FR-006**: Results graphs MUST clearly indicate incomplete or missing data (e.g., greyed bars or "no data" labels) rather than implying zero.
++- **FR-007**: A navigation area MUST provide one-click access to the core sections: Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
++- **FR-008**: Navigation items MUST surface badges or highlights when a section needs attention (e.g., missed session, unread coach note).
++- **FR-009**: The landing page MUST load calendar, navigation, and results areas without requiring additional authentication steps after login.
++
++### Key Entities *(include if feature involves data)*
++
++- **Week View**: The seven-day window shown on load or via week navigation, anchored to the client's local timezone.
++- **Session Entry**: A scheduled workout/session with attributes including day/time, status, type, duration, modality/location, and coach notes.
++- **Metric Snapshot**: Aggregated performance values for a time range (e.g., weekly volume, completion rate, readiness score) displayed in graphs with units and labels.
++- **Navigation Target**: A primary section link (Training Plan, Session Log, Messages/Coach Chat, Results/Reports) optionally annotated with badges for outstanding items.
++
++## Success Criteria *(mandatory)*
++
++### Measurable Outcomes
++
++- **SC-001**: 90% of clients can identify today's session status from the landing page within 5 seconds of load during usability testing.
++- **SC-002**: Calendar and navigation render within 2 seconds on a standard broadband connection for 95% of page loads measured over a week.
++- **SC-003**: At least two core performance metrics display for the most recent four-week window with labels and legends visible in 100% of tested accounts.
++- **SC-004**: 80% of clients can reach each core section (Training Plan, Session Log, Messages, Results) in a single click from the landing page without losing authentication or context.
++
++### Assumptions
++
++- Core sections for navigation are Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
++- Default graph metrics prioritize weekly training volume and completion rate; additional metrics can be added later if needed.
++- "Week" is Sunday-Saturday unless localization requirements override it.
+*** End Patch
+[2m2025-12-08T08:42:12.843382Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/spec.md"}
+[2m2025-12-08T08:42:20.798700Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs/001-landing-calendar-graphs"}
+[2m2025-12-08T08:42:27.252407Z[0m [32m INFO[0m ToolCall: shell_command {"command":"New-Item -ItemType Directory -Path specs/001-landing-calendar-graphs/checklists -Force","with_escalated_permissions":true,"justification":"Need to create checklist directory for the new specification"}
+[2m2025-12-08T08:43:14.196279Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/checklists/requirements.md
++# Specification Quality Checklist: Client Landing Page with Weekly Calendar and Results
++
++**Purpose**: Validate specification completeness and quality before proceeding to planning  
++**Created**: 2025-12-08  
++**Feature**: specs/001-landing-calendar-graphs/spec.md
++
++## Content Quality
++
++- [x] No implementation details (languages, frameworks, APIs)
++- [x] Focused on user value and business needs
++- [x] Written for non-technical stakeholders
++- [x] All mandatory sections completed
++
++## Requirement Completeness
++
++- [x] No [NEEDS CLARIFICATION] markers remain
++- [x] Requirements are testable and unambiguous
++- [x] Success criteria are measurable
++- [x] Success criteria are technology-agnostic (no implementation details)
++- [x] All acceptance scenarios are defined
++- [x] Edge cases are identified
++- [x] Scope is clearly bounded
++- [x] Dependencies and assumptions identified
++
++## Feature Readiness
++
++- [x] All functional requirements have clear acceptance criteria
++- [x] User scenarios cover primary flows
++- [x] Feature meets measurable outcomes defined in Success Criteria
++- [x] No implementation details leak into specification
++
++## Notes
++
++- Reviewed after initial draft; no outstanding checklist gaps identified.
+*** End Patch
+[2m2025-12-08T08:43:39.546595Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review repo context and feature description; determine short name and current numbering sources"},{"status":"completed","step":"Run create-new-feature script to generate branch/spec and open files"},{"status":"completed","step":"Draft spec content and quality checklist per template"}],"explanation":"Spec drafted and checklist filled for feature 001-landing-calendar-graphs."}
+[2m2025-12-08T08:45:49.216830Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:45:49.742787Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:45:49.742830Z[0m [32m INFO[0m ghost commit captured: 74b8156ad68ac2e3825f1e8f752183c71ee1648f
+[2m2025-12-08T08:45:49.742837Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:48:53.271592Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:48:53.759246Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:48:53.759297Z[0m [32m INFO[0m ghost commit captured: 1e7094ade75ec839166b523d1506f575c859790c
+[2m2025-12-08T08:48:53.759304Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:49:09.124735Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/spec.md
+@@
+-1. **Given** the landing page is loaded, **When** the client selects a navigation link (e.g., Training Plan, Session Log, Messages, Results), **Then** they arrive on that section with state preserved (e.g., no loss of login or filters).
++1. **Given** the landing page is loaded, **When** the client selects a navigation link (Program, Sessions, Messages, Reports), **Then** they arrive on that section with state preserved (e.g., no loss of login or filters).
+ 2. **Given** a section that needs attention (e.g., missed session), **When** the client sees the navigation area, **Then** the relevant link shows a badge or note indicating action needed.
+@@
+-- **FR-005**: The landing page MUST show at least two results graphs by default that summarize recent performance (e.g., weekly training volume, completion rate) with units, date ranges, and legends.
++- **FR-005**: The landing page MUST show at least two results graphs by default that summarize recent performance (including sessions completed vs. scheduled as a completion rate) with units, date ranges, and legends.
+@@
+-- **FR-007**: A navigation area MUST provide one-click access to the core sections: Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
++- **FR-007**: A navigation area MUST provide one-click access to the core sections: Program, Sessions, Messages/Coach Chat, and Reports.
+@@
+-- **Navigation Target**: A primary section link (Training Plan, Session Log, Messages/Coach Chat, Results/Reports) optionally annotated with badges for outstanding items.
++- **Navigation Target**: A primary section link (Program, Sessions, Messages/Coach Chat, Reports) optionally annotated with badges for outstanding items.
+@@
+-- Core sections for navigation are Training Plan, Session Log, Messages/Coach Chat, and Results/Reports.
+-- Default graph metrics prioritize weekly training volume and completion rate; additional metrics can be added later if needed.
+-- "Week" is Sunday-Saturday unless localization requirements override it.
++- Core sections for navigation are Program, Sessions, Messages/Coach Chat, and Reports.
++- Default graph metrics prioritize sessions completed versus sessions scheduled (completion rate) and one additional recent performance view (e.g., weekly training volume); additional metrics can be added later if needed.
++- "Week" is Monday-Sunday unless localization requirements override it.
+*** End Patch
+[2m2025-12-08T08:50:27.520178Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:50:28.013655Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:50:28.013697Z[0m [32m INFO[0m ghost commit captured: 2245824bb5b1e13fc5639611fb12bc3a270e6525
+[2m2025-12-08T08:50:28.013703Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:51:04.674744Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T08:51:05.195295Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T08:51:05.195336Z[0m [32m INFO[0m ghost commit captured: 3409d8781eb1b24a51b4a8f336c68579b3c65bd0
+[2m2025-12-08T08:51:05.195342Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T08:51:08.283608Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.plan.md"}
+[2m2025-12-08T08:51:13.846951Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/setup-plan.ps1 -Json","with_escalated_permissions":true,"justification":"Required speckit step to generate plan scaffolding and paths"}
+[2m2025-12-08T08:51:29.584039Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/plan.md"}
+[2m2025-12-08T08:51:35.099178Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify/memory/constitution.md"}
+[2m2025-12-08T08:51:52.010901Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/001-landing-calendar-graphs/plan.md
+*** End Patch
+[2m2025-12-08T08:54:05.497623Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/plan.md
++# Implementation Plan: Client Landing Page with Weekly Calendar and Results
++
++**Branch**: `001-landing-calendar-graphs` | **Date**: 2025-12-08 | **Spec**: specs/001-landing-calendar-graphs/spec.md  
++**Input**: Feature specification from `/specs/001-landing-calendar-graphs/spec.md`
++
++## Summary
++
++Build a clear client landing page that defaults to the current (Monday-start) week, shows session cards with statuses, enables quick week navigation, and links to Program, Sessions, Messages, and Reports. Include results visuals emphasizing sessions completed versus sessions scheduled (completion rate) plus a secondary recent performance view. Ensure load within ~2 seconds for calendar/nav and preserve authentication across navigation.
++
++## Technical Context
++
++**Language/Version**: NEEDS CLARIFICATION (assume modern web stack; default to TypeScript/React if unconstrained)  
++**Primary Dependencies**: NEEDS CLARIFICATION (e.g., UI framework, charting lib, state/data layer)  
++**Storage**: N/A for new data; reads existing schedule/results sources provided by backend  
++**Testing**: NEEDS CLARIFICATION (assume unit + integration/UI tests; pick tools after stack choice)  
++**Target Platform**: Web (responsive desktop and mobile web)  
++**Project Type**: Web application (single frontend)  
++**Performance Goals**: Calendar + nav visible within 2s for 95% of loads; graphs render with labeled metrics within a further 1s on standard broadband  
++**Constraints**: Responsive layout for narrow screens; surface empty states for missing data; preserve session/navigation state post-login without re-auth  
++**Scale/Scope**: Single landing page experience with calendar, two+ graphs, and four nav targets
++
++## Constitution Check
++
++- Current constitution file is placeholder with no concrete principles defined; no explicit gates to evaluate.  
++- Assumed gates: prioritize user safety, clarity, and testability. No violations identified given the non-medical, informational nature of this landing page.
++
++## Project Structure
++
++### Documentation (this feature)
++
++```text
++specs/001-landing-calendar-graphs/
++├─ plan.md              # This file (/speckit.plan output)
++├─ research.md          # Phase 0 output
++├─ data-model.md        # Phase 1 output
++├─ quickstart.md        # Phase 1 output
++├─ contracts/           # Phase 1 output
++└─ tasks.md             # Phase 2 output (/speckit.tasks)
++```
++
++### Source Code (repository root)
++
++```text
++src/
++├─ pages/
++│  └─ landing/
++├─ components/
++│  ├─ calendar/
++│  ├─ graphs/
++│  └─ navigation/
++└─ services/
++
++tests/
++├─ integration/
++└─ unit/
++```
++
++**Structure Decision**: Single frontend project with feature-focused directories under `src/` for the landing page, calendar view, graphs, and navigation, plus service/data adapters. Tests split into unit (components/services) and integration (page flows). Placeholder directories to be created alongside implementation.
++
++## Complexity Tracking
++
++| Violation | Why Needed | Simpler Alternative Rejected Because |
++|-----------|------------|--------------------------------------|
++| None | n/a | n/a |
+*** End Patch
+[2m2025-12-08T09:06:04.489506Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:06:05.702389Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:06:05.702500Z[0m [32m INFO[0m ghost commit captured: 17d197883c6a1a5d2be60775171e7e513dd30f61
+[2m2025-12-08T09:06:05.702516Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:06:07.683254Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.clarify.md"}
+[2m2025-12-08T09:06:14.192353Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/check-prerequisites.ps1 -Json -PathsOnly","with_escalated_permissions":true,"justification":"Required by clarify flow to get feature paths and validate environment"}
+[2m2025-12-08T09:06:58.139717Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:06:59.295516Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:06:59.295597Z[0m [32m INFO[0m ghost commit captured: fa3899f62e69179c960297f52a909f37316daace
+[2m2025-12-08T09:06:59.295611Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:07:18.466832Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:07:19.638448Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:07:19.638565Z[0m [32m INFO[0m ghost commit captured: 7d15487c215245ce3e9e64b3b664c4d50907561a
+[2m2025-12-08T09:07:19.638585Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:07:43.062603Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/research.md
++# Research: Client Landing Page with Weekly Calendar and Results
++
++**Date**: 2025-12-08  
++**Branch**: 001-landing-calendar-graphs  
++**Spec**: specs/001-landing-calendar-graphs/spec.md
++
++## Decisions
++
++### Frontend stack baseline
++- **Decision**: Use TypeScript with React and a lightweight build tool (e.g., Vite) for the landing page.
++- **Rationale**: Fast iteration for a single-page experience, strong type safety, and common ecosystem support for charts and date handling.
++- **Alternatives considered**: Keep stack unspecified (adds risk of rework); Next.js (heavier than needed for a single landing view); plain JS (reduces safety and maintainability).
++
++### Charting library
++- **Decision**: Use Recharts (or similar declarative React charting lib) for the results graphs.
++- **Rationale**: Declarative API, good defaults for legends/labels, easy handling of empty-state data without custom canvas work.
++- **Alternatives considered**: Chart.js (imperative; more setup for responsive/reactive usage); d3 (powerful but slower to implement for simple bar/line displays).
++
++### Date/time handling
++- **Decision**: Use a small date utility (e.g., date-fns or dayjs) to anchor weeks to Monday, handle time zones, and format labels.
++- **Rationale**: Minimizes manual date math errors and keeps bundle small while enforcing Monday-start and local-time display.
++- **Alternatives considered**: Native Date only (more error-prone for week boundaries/time zones); Luxon (heavier but could be reconsidered if we need robust timezone conversions).
++
++### Data access and contracts
++- **Decision**: Assume existing backend endpoints provide (a) session schedule with status, and (b) session completion stats; fetch read-only for this feature.
++- **Rationale**: Landing page is read-focused; avoids adding write flows; aligns with spec that it should load current plan data and results.
++- **Alternatives considered**: Mock data only (insufficient for acceptance); adding new write endpoints (out of scope for this landing view).
++
++### Loading, empty, and error states
++- **Decision**: Show skeleton/loading for calendar and graphs; empty-state messaging when no sessions in week or insufficient history; concise inline error message on fetch failure with a retry affordance.
++- **Rationale**: Matches spec requirements for empty/missing data and keeps user oriented without redirecting.
++- **Alternatives considered**: Blocking spinner (hurts perceived performance); silent failures (violates clarity and testability).
++
++### Testing approach
++- **Decision**: Use component/unit tests (e.g., Vitest + React Testing Library) plus a minimal integration flow test for landing page load states and nav links.
++- **Rationale**: Covers rendering logic and interactions (week navigation, link targets, empty/missing data) without heavy E2E overhead.
++- **Alternatives considered**: Full E2E only (slower feedback, less granularity); unit-only (misses page-level wiring).
++
++### Performance and responsiveness
++- **Decision**: Lazy-load charts after calendar/nav render; ensure responsive layouts for narrow screens with stacked blocks and preserved labels.
++- **Rationale**: Meets 2s render target for calendar/nav and keeps graphs readable on small viewports.
++- **Alternatives considered**: Render everything immediately (risk slower first paint); defer graphs to separate page (conflicts with spec desire for at-a-glance results).
++
++### Accessibility and localization
++- **Decision**: Provide semantic landmarks (main/nav), keyboard focus order for nav links, aria labels on chart summaries, and local date/time formatting with Monday-start weeks.
++- **Rationale**: Ensures the landing page is usable and interpretable; aligns with clarity goals in spec.
++- **Alternatives considered**: Rely on defaults (risks inaccessible nav and charts; unclear date formats).
+*** End Patch
+[2m2025-12-08T09:10:39.985689Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:10:41.241664Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:10:41.241732Z[0m [32m INFO[0m ghost commit captured: be62c3d6f13180ee532ec83841406f64467ed85b
+[2m2025-12-08T09:10:41.241744Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:10:49.610400Z[0m [32m INFO[0m ToolCall: shell_command {"command":"New-Item -ItemType Directory -Path specs/001-landing-calendar-graphs/contracts -Force","with_escalated_permissions":true,"justification":"Create contracts directory for Phase 1 outputs"}
+[2m2025-12-08T09:11:48.986292Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/data-model.md
++# Data Model: Client Landing Page with Weekly Calendar and Results
++
++**Date**: 2025-12-08  
++**Branch**: 001-landing-calendar-graphs  
++**Spec**: specs/001-landing-calendar-graphs/spec.md
++
++## Entities
++
++### Week View
++- **Description**: Seven-day window anchored to Monday in the client’s local time.
++- **Fields**:
++  - `startDate` (date, required): Monday of the shown week in client local time.
++  - `endDate` (date, required): Sunday of the shown week in client local time.
++  - `timezone` (string, required): IANA identifier for the client.
++  - `today` (date, required): Current local date to highlight.
++- **Rules**:
++  - Must always include exactly 7 contiguous days starting Monday.
++  - All session entries must fall within `startDate`–`endDate` when displayed.
++
++### Session Entry
++- **Description**: A scheduled workout/session for the client within a week.
++- **Fields**:
++  - `id` (string, required): Unique session identifier.
++  - `date` (date, required): Local calendar date of the session.
++  - `startTime` (time with offset, required): Local start time.
++  - `title` (string, required): Short label (e.g., “Intervals”, “Recovery”).
++  - `status` (enum, required): planned | completed | missed | changed.
++  - `durationMinutes` (integer, optional): Planned or actual duration.
++  - `modality` (string, optional): e.g., run, bike, strength, mobility.
++  - `location` (string, optional): place or virtual link.
++  - `coachNotes` (string, optional): Highlights/instructions surfaced on select.
++  - `lastUpdated` (datetime, required): For freshness; used to avoid stale display.
++- **Rules**:
++  - `status` must be one of the enum values; changed implies rescheduled details are reflected.
++  - `startTime` and `date` respect `Week View.timezone`.
++  - Selecting a session surfaces `coachNotes` and key details.
++
++### Metric Snapshot
++- **Description**: Aggregated performance metrics for recent weeks.
++- **Fields**:
++  - `rangeLabel` (string, required): Human-readable window (e.g., “Last 4 weeks”).
++  - `completionRate` (number 0–1, optional): Sessions completed / scheduled in program for the window.
++  - `volume` (number, optional): Total training volume for the window with implied unit (e.g., minutes or distance).
++  - `unit` (string, optional): Unit for volume (e.g., minutes, km).
++  - `samples` (array, required): Per-week data points with fields:
++    - `weekStart` (date, required): Monday of that week.
++    - `sessionsScheduled` (integer, required): Count in program.
++    - `sessionsCompleted` (integer, required): Count completed.
++    - `volume` (number, optional): Volume for that week.
++    - `unit` (string, optional): Unit for volume.
++  - `hasData` (boolean, required): Whether meaningful historical data exists.
++- **Rules**:
++  - If `hasData` is false or `samples` empty, show empty-state messaging.
++  - Completion rate is derived from `sessionsCompleted`/`sessionsScheduled`; avoid implying zero when data missing.
++
++### Navigation Target
++- **Description**: Link destinations for core sections.
++- **Fields**:
++  - `id` (string, required): program | sessions | messages | reports.
++  - `label` (string, required): Display text.
++  - `url` (string, required): Destination route.
++  - `badge` (string, optional): Attention indicator (e.g., missed session, unread).
++- **Rules**:
++  - One-click access; must not require re-auth.
++  - Badges are present only when an attention condition exists.
++
++## Relationships
++- Week View has many Session Entries constrained to its date range.
++- Metric Snapshot `samples` align to week starts; completion rate derives from aggregated sample counts.
++- Navigation Targets are independent of Week View but may reflect week status via badges.
++
++## Validation & Derived Behavior
++- Reject or flag sessions outside the current Week View when rendering that view.
++- Mark today within the Week View using `today` against `startDate`/`endDate`.
++- Empty/missing Metric Snapshots trigger a descriptive empty state rather than zeros.
++- Time zone shifts use the client’s `timezone`; all times shown in local time.
+*** End Patch
+[2m2025-12-08T09:13:05.144378Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/contracts/schedule.yaml
++openapi: 3.0.0
++info:
++  title: Landing Page Schedule API
++  version: "0.1.0"
++paths:
++  /clients/{clientId}/schedule:
++    get:
++      summary: Get weekly schedule for a client
++      parameters:
++        - in: path
++          name: clientId
++          required: true
++          schema:
++            type: string
++        - in: query
++          name: weekStart
++          required: true
++          description: Monday date for the requested week in ISO-8601 (YYYY-MM-DD)
++          schema:
++            type: string
++            format: date
++        - in: query
++          name: timezone
++          required: false
++          description: IANA timezone identifier for client; defaults to server-side client setting
++          schema:
++            type: string
++      responses:
++        "200":
++          description: Weekly sessions for the client
++          content:
++            application/json:
++              schema:
++                type: object
++                required: [weekStart, weekEnd, timezone, sessions]
++                properties:
++                  weekStart:
++                    type: string
++                    format: date
++                  weekEnd:
++                    type: string
++                    format: date
++                  timezone:
++                    type: string
++                  today:
++                    type: string
++                    format: date
++                  sessions:
++                    type: array
++                    items:
++                      $ref: "#/components/schemas/Session"
++        "404":
++          description: Client not found
++        "500":
++          description: Unexpected error
++
++components:
++  schemas:
++    Session:
++      type: object
++      required: [id, date, startTime, title, status, lastUpdated]
++      properties:
++        id:
++          type: string
++        date:
++          type: string
++          format: date
++        startTime:
++          type: string
++          description: Time with offset
++        title:
++          type: string
++        status:
++          type: string
++          enum: [planned, completed, missed, changed]
++        durationMinutes:
++          type: integer
++          minimum: 0
++        modality:
++          type: string
++        location:
++          type: string
++        coachNotes:
++          type: string
++        lastUpdated:
++          type: string
++          format: date-time
+*** End Patch
+[2m2025-12-08T09:14:16.891665Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/contracts/metrics.yaml
++openapi: 3.0.0
++info:
++  title: Landing Page Metrics API
++  version: "0.1.0"
++paths:
++  /clients/{clientId}/metrics/completion:
++    get:
++      summary: Get recent completion metrics for a client
++      parameters:
++        - in: path
++          name: clientId
++          required: true
++          schema:
++            type: string
++        - in: query
++          name: weeks
++          required: false
++          description: Number of weeks to include (default 4, max 12)
++          schema:
++            type: integer
++            minimum: 1
++            maximum: 12
++      responses:
++        "200":
++          description: Completion metrics for recent weeks
++          content:
++            application/json:
++              schema:
++                $ref: "#/components/schemas/MetricSnapshot"
++        "404":
++          description: Client not found
++        "500":
++          description: Unexpected error
++
++components:
++  schemas:
++    MetricSample:
++      type: object
++      required: [weekStart, sessionsScheduled, sessionsCompleted]
++      properties:
++        weekStart:
++          type: string
++          format: date
++          description: Monday of the week in client local date
++        sessionsScheduled:
++          type: integer
++          minimum: 0
++        sessionsCompleted:
++          type: integer
++          minimum: 0
++        volume:
++          type: number
++          description: Optional total volume for the week
++        unit:
++          type: string
++          description: Unit for volume (e.g., minutes, km)
++    MetricSnapshot:
++      type: object
++      required: [rangeLabel, hasData, samples]
++      properties:
++        rangeLabel:
++          type: string
++        completionRate:
++          type: number
++          format: float
++          minimum: 0
++          maximum: 1
++        volume:
++          type: number
++          description: Aggregated volume for the window
++        unit:
++          type: string
++        samples:
++          type: array
++          items:
++            $ref: "#/components/schemas/MetricSample"
++        hasData:
++          type: boolean
+*** End Patch
+[2m2025-12-08T09:14:39.247452Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/quickstart.md
++# Quickstart: Client Landing Page with Weekly Calendar and Results
++
++**Branch**: 001-landing-calendar-graphs  
++**Spec**: specs/001-landing-calendar-graphs/spec.md  
++**Plan**: specs/001-landing-calendar-graphs/plan.md  
++**Research**: specs/001-landing-calendar-graphs/research.md
++
++## Goals
++- Render a Monday-start weekly calendar with session status, quick week navigation, and session detail reveal.
++- Show completion-rate graph (sessions completed vs. scheduled) plus one additional performance view.
++- Provide one-click nav to Program, Sessions, Messages, Reports with badges when attention needed.
++
++## Steps
++1) **Install & bootstrap**  
++   - Initialize frontend stack (TypeScript + React + Vite) and add dependencies: date-fns/dayjs, Recharts (or chosen chart lib), testing (Vitest + React Testing Library).  
++   - Establish base folders: `src/pages/landing`, `src/components/{calendar,graphs,navigation}`, `src/services`.
++
++2) **Data contracts**  
++   - Implement read-only fetchers for schedule and metrics using `contracts/schedule.yaml` and `contracts/metrics.yaml`.  
++   - Normalize times to client timezone; derive `today`, `weekStart`, `weekEnd` in the client.  
++   - Handle error + empty responses with clear copy.
++
++3) **Landing layout**  
++   - Compose page with three regions: calendar (default to current week), results area (completion rate + secondary metric), nav links.  
++   - Ensure responsive stacking for narrow screens; keep labels/legends visible.  
++   - Lazy-load charts after calendar/nav paint to meet 2s target.
++
++4) **Interactions**  
++   - Week navigation: previous/next and “Back to this week.”  
++   - Session selection: show key details (type, duration, notes, modality/location).  
++   - Nav links: Program, Sessions, Messages, Reports; badges for attention states.
++
++5) **States**  
++   - Loading: skeletons for calendar and graphs.  
++   - Empty: no-week sessions -> prompt to add/request; no metrics -> descriptive empty state.  
++   - Error: inline message + retry affordance; do not redirect.
++
++6) **Testing**  
++   - Unit/component tests for calendar rendering, week navigation, session detail reveal, empty/error states, and nav link targets.  
++   - Integration test for landing page load: calendar + nav visible <2s threshold, charts load with labels, authentication preserved.
++
++7) **Accessibility & localization**  
++   - Use semantic `main`/`nav`, focus order on nav links, aria labels for chart summaries, local date/time formatting with Monday start.
+*** End Patch
+[2m2025-12-08T09:16:45.371552Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:16:46.544231Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:16:46.544315Z[0m [32m INFO[0m ghost commit captured: 3cd24193ed9241c610951d39d8a8322c3efceecb
+[2m2025-12-08T09:16:46.544331Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:17:38.187809Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:17:39.364149Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:17:39.364235Z[0m [32m INFO[0m ghost commit captured: e006211af67909c7a58c18d13008611bed696fc7
+[2m2025-12-08T09:17:39.364254Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:17:42.161541Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.tasks.md"}
+[2m2025-12-08T09:17:46.721854Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/check-prerequisites.ps1 -Json","with_escalated_permissions":true,"justification":"Required step for tasks generation to retrieve feature paths and available docs"}
+[2m2025-12-08T09:17:55.228931Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/spec.md"}
+[2m2025-12-08T09:17:59.445264Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/plan.md"}
+[2m2025-12-08T09:18:03.738838Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/data-model.md"}
+[2m2025-12-08T09:18:07.988762Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/001-landing-calendar-graphs/data-model.md
+*** End Patch
+[2m2025-12-08T09:18:47.851691Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-12-08T09:19:27.041099Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:19:28.202566Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:19:28.202634Z[0m [32m INFO[0m ghost commit captured: 31cf74e3d7cdb3833bb72492ea59e2e1d85454a5
+[2m2025-12-08T09:19:28.202646Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:19:48.056757Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:19:49.291083Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:19:49.291169Z[0m [32m INFO[0m ghost commit captured: 46197f7a878b21fe3fb497629224a04dc76d3f7a
+[2m2025-12-08T09:19:49.291185Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:20:07.560427Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-landing-calendar-graphs/tasks.md
++# Tasks: Client Landing Page with Weekly Calendar and Results
++
++## Dependencies
++- Story completion order: US1 (calendar) → US2 (results graphs) → US3 (navigation). US2 and US3 can proceed in parallel once calendar data/loading is in place.
++
++## Phases & Tasks
++
++### Phase 1: Setup
++- [ ] T001 Initialize frontend project (TypeScript + React + Vite) and base folders `src/pages/landing`, `src/components/{calendar,graphs,navigation}`, `src/services`, `tests/unit`, `tests/integration`
++- [ ] T002 Add dependencies: date-fns/dayjs, Recharts (or chosen chart lib), React Testing Library + Vitest, and fetch polyfill if needed; commit lockfile
++- [ ] T003 Configure lint/format/test scripts (package.json) and base tsconfig for path aliases to `src`
++
++### Phase 2: Foundational
++- [ ] T004 Create shared types for Week View, Session Entry, Metric Snapshot in `src/services/types.ts`
++- [ ] T005 Implement schedule fetcher matching `contracts/schedule.yaml` in `src/services/schedule.ts`
++- [ ] T006 Implement metrics fetcher matching `contracts/metrics.yaml` in `src/services/metrics.ts`
++- [ ] T007 Add utility for week math (Monday start) and timezone-safe formatting in `src/services/date.ts`
++- [ ] T008 [P] Add global layout shell and route for landing page in `src/pages/landing/index.tsx`
++
++### Phase 3: User Story 1 (P1) - See my week at a glance
++- [ ] T009 [US1] Build calendar display component with week navigation (prev/next/“back to this week”) in `src/components/calendar/WeekCalendar.tsx`
++- [ ] T010 [US1] Render session cards with status, time, title, and “changed/missed/completed/planned” states; highlight today in `WeekCalendar.tsx`
++- [ ] T011 [US1] Add session detail reveal (type, duration, notes, modality/location) on select in `WeekCalendar.tsx`
++- [ ] T012 [US1] Handle loading, empty week, and error states with clear messaging in `WeekCalendar.tsx`
++- [ ] T013 [US1] Integration test: landing page loads calendar, shows current week, supports week navigation and detail reveal in `tests/integration/landing.calendar.test.tsx`
++
++### Phase 4: User Story 2 (P2) - Track my progress from the landing page
++- [ ] T014 [US2] Implement completion-rate chart (sessions completed vs. scheduled) with labels/legend in `src/components/graphs/CompletionChart.tsx`
++- [ ] T015 [US2] Implement secondary performance graph (e.g., weekly volume) in `src/components/graphs/VolumeChart.tsx`
++- [ ] T016 [US2] Add empty-state and missing-data handling (no data vs. zero) for graphs in `src/components/graphs/*`
++- [ ] T017 [US2] Lazy-load graphs after calendar/nav render to meet 2s target in `src/pages/landing/index.tsx`
++- [ ] T018 [US2] Unit tests for graph rendering, labels, empty states in `tests/unit/graphs.test.tsx`
++
++### Phase 5: User Story 3 (P3) - Jump to core sections quickly
++- [ ] T019 [US3] Build navigation area with links to Program, Sessions, Messages, Reports in `src/components/navigation/NavLinks.tsx`
++- [ ] T020 [US3] Add badge indicators for attention states (missed session, unread message) in `NavLinks.tsx`
++- [ ] T021 [US3] Ensure nav links preserve auth/session and open targets correctly; add tests in `tests/unit/navigation.test.tsx`
++
++### Phase 6: Polish & Cross-Cutting
++- [ ] T022 Add responsive layout for narrow screens; ensure labels/legends remain visible in `src/pages/landing/index.tsx` and components
++- [ ] T023 Add accessibility pass: semantic landmarks, focus order on nav links, aria labels for chart summaries in components
++- [ ] T024 Document quickstart/run instructions and testing commands in `specs/001-landing-calendar-graphs/quickstart.md` (update if needed)
++- [ ] T025 Final integration test: landing page end-to-end load with calendar, graphs, nav, and states in `tests/integration/landing.e2e.test.tsx`
++
++## Parallel Execution Examples
++- T008 [P] layout shell can proceed while services (T005–T007) are built.
++- T014–T016 graphs can start after services (T005–T007), in parallel with navigation (T019–T020) once calendar data flow is stable.
++
++## MVP Scope
++- Complete through Phase 3 (US1) to deliver calendar visibility with navigation and session detail, satisfying primary visit intent.
++
++## Validation
++- All tasks follow checklist format with IDs; story labels present for story phases; parallelizable tasks marked [P].
+*** End Patch
+[2m2025-12-08T09:20:45.876733Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:20:47.046418Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:20:47.046504Z[0m [32m INFO[0m ghost commit captured: c1ece8971e79beb7c2b5fee867dfb6a9e8c17d89
+[2m2025-12-08T09:20:47.046520Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:20:49.607653Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.analyze.md"}
+[2m2025-12-08T09:20:54.658646Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks","with_escalated_permissions":true,"justification":"Required for analysis to confirm spec/plan/tasks presence and paths"}
+[2m2025-12-08T09:21:03.716563Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/spec.md"}
+[2m2025-12-08T09:21:10.039235Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/plan.md"}
+[2m2025-12-08T09:21:15.334586Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs/001-landing-calendar-graphs/tasks.md"}
+[2m2025-12-08T09:22:46.421680Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:22:47.671090Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:22:47.671225Z[0m [32m INFO[0m ghost commit captured: 8e1b27f300719a5e85959cce0d4db56cf936b50f
+[2m2025-12-08T09:22:47.671289Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:22:55.408457Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/spec.md
+@@
+-- **SC-004**: 80% of clients can reach each core section (Training Plan, Session Log, Messages, Results) in a single click from the landing page without losing authentication or context.
++- **SC-004**: 80% of clients can reach each core section (Program, Sessions, Messages, Reports) in a single click from the landing page without losing authentication or context.
+*** End Patch
+[2m2025-12-08T09:23:26.044526Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/plan.md
+@@
+-**Language/Version**: NEEDS CLARIFICATION (assume modern web stack; default to TypeScript/React if unconstrained)  
+-**Primary Dependencies**: NEEDS CLARIFICATION (e.g., UI framework, charting lib, state/data layer)  
++**Language/Version**: TypeScript with React (Vite tooling)  
++**Primary Dependencies**: Recharts (charts), date-fns/dayjs (date handling), fetch/HTTP client as needed  
+@@
+-**Testing**: NEEDS CLARIFICATION (assume unit + integration/UI tests; pick tools after stack choice)  
++**Testing**: Vitest + React Testing Library for unit/component; light integration tests for landing flows  
+*** End Patch
+[2m2025-12-08T09:24:07.901350Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:24:09.124596Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:24:09.124657Z[0m [32m INFO[0m ghost commit captured: 650fec828c39e65514fe6d961fe5a7cac1688c2b
+[2m2025-12-08T09:24:09.124670Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:24:26.050597Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:24:27.344042Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:24:27.344125Z[0m [32m INFO[0m ghost commit captured: 083e2412a30e2b928d4b23e6fa83824c61fab2d3
+[2m2025-12-08T09:24:27.344140Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:25:02.810080Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:25:04.095685Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:25:04.095737Z[0m [32m INFO[0m ghost commit captured: a0c1d30e160104b892623dca8eb92a84296aabdf
+[2m2025-12-08T09:25:04.095747Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:26:44.751896Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:26:45.991449Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:26:45.991532Z[0m [32m INFO[0m ghost commit captured: 27b0967a62be36ca3dbaae83e299061a8e4d782b
+[2m2025-12-08T09:26:45.991546Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:27:14.393172Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:27:15.558706Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:27:15.558839Z[0m [32m INFO[0m ghost commit captured: 8f7b1697dfac380df14d6295673594a9211e337c
+[2m2025-12-08T09:27:15.558860Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:27:19.640425Z[0m [32m INFO[0m ToolCall: shell_command {"command":"@'\nSet-Location C:\\Users\\camer\\Documents\\coachcw\\coachcw\nnpm create vite@latest app -- --template react-ts --yes\n'@","with_escalated_permissions":true,"justification":"Initialize Vite React TypeScript app scaffold with network install"}
+[2m2025-12-08T09:27:33.855398Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem","with_escalated_permissions":true,"justification":"List repo contents after scaffolding"}
+[2m2025-12-08T09:27:38.242249Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app"}
+[2m2025-12-08T09:27:47.127690Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem -Filter package.json -Recurse -Depth 2"}
+[2m2025-12-08T09:27:56.626386Z[0m [32m INFO[0m ToolCall: shell_command {"command":"npm --version","with_escalated_permissions":true,"justification":"Verify npm availability before scaffolding"}
+[2m2025-12-08T09:28:18.402267Z[0m [32m INFO[0m ToolCall: shell_command {"command":"npm create vite@latest app -- --template react-ts","with_escalated_permissions":true,"justification":"Scaffold Vite React TS app; previous attempt didn't create directory"}
+[2m2025-12-08T09:28:39.012010Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app"}
+[2m2025-12-08T09:28:43.602169Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm install","with_escalated_permissions":true,"justification":"Install dependencies for Vite React TS app scaffold"}
+[2m2025-12-08T09:29:09.684667Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm install","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Install dependencies for Vite React TS app scaffold (may take longer)"}
+[2m2025-12-08T09:29:29.926656Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm install date-fns recharts @testing-library/react @testing-library/jest-dom @testing-library/user-event","with_escalated_permissions":true,"justification":"Add app dependencies for date handling, charts, and testing utilities"}
+[2m2025-12-08T09:30:00.606181Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm install date-fns recharts @testing-library/react @testing-library/jest-dom @testing-library/user-event","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Install frontend deps for date handling, charts, and testing"}
+[2m2025-12-08T09:30:18.227441Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content package.json"}
+[2m2025-12-08T09:30:25.777648Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm install -D vitest @vitest/coverage-v8 jsdom","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Add Vitest and jsdom for unit/integration testing"}
+[2m2025-12-08T09:30:53.952548Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-ChildItem src"}
+[2m2025-12-08T09:31:03.256797Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/package.json
+@@
+   "version": "0.0.0",
+   "type": "module",
+   "scripts": {
+     "dev": "vite",
+     "build": "tsc -b && vite build",
+-    "lint": "eslint .",
+-    "preview": "vite preview"
++    "lint": "eslint .",
++    "preview": "vite preview",
++    "test": "vitest",
++    "test:run": "vitest run",
++    "test:coverage": "vitest run --coverage"
+   },
+@@
+   "devDependencies": {
+@@
+     "@types/react": "^19.2.5",
+     "@types/react-dom": "^19.2.3",
+@@
+-    "typescript-eslint": "^8.46.4",
+-    "vite": "^7.2.4"
++    "typescript-eslint": "^8.46.4",
++    "vite": "^7.2.4",
++    "jsdom": "^26.0.0",
++    "vitest": "^2.1.4",
++    "@vitest/coverage-v8": "^2.1.4"
+   }
+ }
+*** End Patch
+[2m2025-12-08T09:31:11.141618Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/package.json
+@@
+   "scripts": {
+     "dev": "vite",
+     "build": "tsc -b && vite build",
+     "lint": "eslint .",
+-    "preview": "vite preview"
++    "preview": "vite preview",
++    "test": "vitest",
++    "test:run": "vitest run",
++    "test:coverage": "vitest run --coverage"
+   },
+@@
+-    "eslint-plugin-react-refresh": "^0.4.24",
+-    "globals": "^16.5.0",
+-    "typescript": "~5.9.3",
+-    "typescript-eslint": "^8.46.4",
+-    "vite": "^7.2.4"
++    "eslint-plugin-react-refresh": "^0.4.24",
++    "globals": "^16.5.0",
++    "jsdom": "^26.0.0",
++    "typescript": "~5.9.3",
++    "typescript-eslint": "^8.46.4",
++    "vite": "^7.2.4",
++    "vitest": "^2.1.4",
++    "@vitest/coverage-v8": "^2.1.4"
+   }
+ }
+*** End Patch
+[2m2025-12-08T09:31:16.294218Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; node -e \"console.log(JSON.stringify(require('./package.json'), null, 2))\""}
+[2m2025-12-08T09:31:25.176736Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/package.json
+@@
+   "scripts": {
+     "dev": "vite",
+     "build": "tsc -b && vite build",
+     "lint": "eslint .",
+-    "preview": "vite preview"
++    "preview": "vite preview",
++    "test": "vitest",
++    "test:run": "vitest run",
++    "test:coverage": "vitest run --coverage"
+   },
+@@
+-    "recharts": "^3.5.1"
++    "recharts": "^3.5.1"
+   },
+   "devDependencies": {
+     "@eslint/js": "^9.39.1",
+     "@types/node": "^24.10.1",
+@@
+-    "@vitest/coverage-v8": "^4.0.15",
++    "@vitest/coverage-v8": "^4.0.15",
+     "eslint": "^9.39.1",
+     "eslint-plugin-react-hooks": "^7.0.1",
+     "eslint-plugin-react-refresh": "^0.4.24",
+     "globals": "^16.5.0",
+     "jsdom": "^27.2.0",
+@@
+-    "vite": "^7.2.4",
+-    "vitest": "^4.0.15"
++    "vite": "^7.2.4",
++    "vitest": "^4.0.15"
+   }
+ }
+*** End Patch
+[2m2025-12-08T09:32:11.867542Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content vite.config.ts"}
+[2m2025-12-08T09:32:17.784745Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/vite.config.ts
+@@
+ import { defineConfig } from 'vite'
+ import react from '@vitejs/plugin-react'
+ 
+ // https://vite.dev/config/
+ export default defineConfig({
+   plugins: [react()],
++  test: {
++    environment: 'jsdom',
++    setupFiles: './vitest.setup.ts',
++    coverage: {
++      provider: 'v8',
++    },
++  },
+ })
+*** End Patch
+[2m2025-12-08T09:32:28.133866Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/vitest.setup.ts
++import '@testing-library/jest-dom';
+*** End Patch
+[2m2025-12-08T09:32:43.059056Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/types.ts
++export type SessionStatus = 'planned' | 'completed' | 'missed' | 'changed';
++
++export interface SessionEntry {
++  id: string;
++  date: string; // YYYY-MM-DD in client local date
++  startTime: string; // time with offset
++  title: string;
++  status: SessionStatus;
++  durationMinutes?: number;
++  modality?: string;
++  location?: string;
++  coachNotes?: string;
++  lastUpdated: string;
++}
++
++export interface WeekView {
++  startDate: string; // Monday
++  endDate: string; // Sunday
++  timezone: string;
++  today: string;
++  sessions: SessionEntry[];
++}
++
++export interface MetricSample {
++  weekStart: string; // Monday date
++  sessionsScheduled: number;
++  sessionsCompleted: number;
++  volume?: number;
++  unit?: string;
++}
++
++export interface MetricSnapshot {
++  rangeLabel: string;
++  completionRate?: number;
++  volume?: number;
++  unit?: string;
++  samples: MetricSample[];
++  hasData: boolean;
++}
++
++export interface NavigationTarget {
++  id: 'program' | 'sessions' | 'messages' | 'reports';
++  label: string;
++  url: string;
++  badge?: string;
++}
+*** End Patch
+[2m2025-12-08T09:33:04.802597Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/date.ts
++import { addDays, eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
++
++export const WEEK_START_DAY = 1; // Monday
++
++export function getWeekBounds(base: Date, timeZone: string) {
++  const start = startOfWeek(base, { weekStartsOn: WEEK_START_DAY });
++  const end = endOfWeek(base, { weekStartsOn: WEEK_START_DAY });
++  return {
++    startDate: format(start, 'yyyy-MM-dd'),
++    endDate: format(end, 'yyyy-MM-dd'),
++    today: format(base, 'yyyy-MM-dd'),
++    timezone: timeZone,
++  };
++}
++
++export function buildWeekDays(startDate: string) {
++  const start = new Date(startDate + 'T00:00:00');
++  return eachDayOfInterval({ start, end: addDays(start, 6) }).map((d) => format(d, 'yyyy-MM-dd'));
++}
++
++export function formatDisplayDate(date: string) {
++  return format(new Date(date + 'T00:00:00'), 'EEE MMM d');
++}
++
++export function formatDisplayTime(date: string, time: string) {
++  // Expects ISO date and time with offset; falls back to showing time string directly
++  const dt = new Date(`${date}T${time}`);
++  return isNaN(dt.getTime()) ? time : format(dt, 'p');
++}
+*** End Patch
+[2m2025-12-08T09:33:17.323034Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/schedule.ts
++import { getWeekBounds } from './date';
++import type { WeekView } from './types';
++
++const API_BASE = import.meta.env.VITE_API_BASE ?? '';
++
++export async function fetchWeekSchedule(clientId: string, baseDate: Date, timeZone: string): Promise<WeekView> {
++  const { startDate, endDate, today, timezone } = getWeekBounds(baseDate, timeZone);
++  const url = `${API_BASE}/clients/${clientId}/schedule?weekStart=${startDate}&timezone=${encodeURIComponent(timezone)}`;
++
++  const res = await fetch(url);
++  if (!res.ok) {
++    throw new Error(`Failed to load schedule (${res.status})`);
++  }
++  const data = await res.json();
++  return {
++    startDate: data.weekStart ?? startDate,
++    endDate: data.weekEnd ?? endDate,
++    timezone: data.timezone ?? timezone,
++    today,
++    sessions: data.sessions ?? [],
++  };
++}
+*** End Patch
+[2m2025-12-08T09:33:30.787087Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/metrics.ts
++import type { MetricSnapshot } from './types';
++
++const API_BASE = import.meta.env.VITE_API_BASE ?? '';
++
++export async function fetchCompletionMetrics(clientId: string, weeks = 4): Promise<MetricSnapshot> {
++  const url = `${API_BASE}/clients/${clientId}/metrics/completion?weeks=${weeks}`;
++  const res = await fetch(url);
++  if (!res.ok) {
++    throw new Error(`Failed to load metrics (${res.status})`);
++  }
++  const data = await res.json();
++  return data;
++}
+*** End Patch
+[2m2025-12-08T09:33:45.265961Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/main.tsx"}
+[2m2025-12-08T09:34:00.261748Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: app/src/App.tsx
+*** End Patch
+[2m2025-12-08T09:34:45.867694Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-12-08T09:34:45.977258Z[0m [33m WARN[0m task 63 didn't complete gracefully after 100ms
+[2m2025-12-08T09:35:09.572398Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:35:10.876544Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:35:10.876623Z[0m [32m INFO[0m ghost commit captured: 8bdc71eca0befa7ffa54980765189a8c3599a167
+[2m2025-12-08T09:35:10.876636Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:35:26.012630Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/App.tsx
+@@
+-import { useState } from 'react'
+-import reactLogo from './assets/react.svg'
+-import viteLogo from '/vite.svg'
+-import './App.css'
++import './App.css'
++import LandingPage from './pages/landing/LandingPage'
+ 
+-function App() {
+-  const [count, setCount] = useState(0)
+-
+-  return (
+-    <>
+-      <div>
+-        <a href="https://vite.dev" target="_blank">
+-          <img src={viteLogo} className="logo" alt="Vite logo" />
+-        </a>
+-        <a href="https://react.dev" target="_blank">
+-          <img src={reactLogo} className="logo react" alt="React logo" />
+-        </a>
+-      </div>
+-      <h1>Vite + React</h1>
+-      <div className="card">
+-        <button onClick={() => setCount((count) => count + 1)}>
+-          count is {count}
+-        </button>
+-        <p>
+-          Edit <code>src/App.tsx</code> and save to test HMR
+-        </p>
+-      </div>
+-      <p className="read-the-docs">
+-        Click on the Vite and React logos to learn more
+-      </p>
+-    </>
+-  )
+-}
++function App() {
++  return <LandingPage />
++}
+ 
+ export default App
+*** End Patch
+[2m2025-12-08T09:36:19.722165Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/pages/landing/LandingPage.tsx
++import { useEffect, useMemo, useState } from 'react';
++import './LandingPage.css';
++import { fetchWeekSchedule } from '../../services/schedule';
++import { fetchCompletionMetrics } from '../../services/metrics';
++import { getWeekBounds } from '../../services/date';
++import type { MetricSnapshot, SessionEntry, WeekView } from '../../services/types';
++import WeekCalendar from '../../components/calendar/WeekCalendar';
++import CompletionChart from '../../components/graphs/CompletionChart';
++import VolumeChart from '../../components/graphs/VolumeChart';
++import NavLinks from '../../components/navigation/NavLinks';
++
++const CLIENT_ID = 'demo-client'; // replace with real user context
++const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
++
++const today = new Date();
++
++const emptyWeek: WeekView = {
++  ...getWeekBounds(today, TIMEZONE),
++  sessions: [],
++};
++
++const emptyMetrics: MetricSnapshot = {
++  rangeLabel: 'Last 4 weeks',
++  completionRate: undefined,
++  volume: undefined,
++  unit: undefined,
++  samples: [],
++  hasData: false,
++};
++
++function LandingPage() {
++  const [weekView, setWeekView] = useState<WeekView>(emptyWeek);
++  const [metrics, setMetrics] = useState<MetricSnapshot>(emptyMetrics);
++  const [loadingWeek, setLoadingWeek] = useState(true);
++  const [loadingMetrics, setLoadingMetrics] = useState(true);
++  const [weekError, setWeekError] = useState<string | null>(null);
++  const [metricsError, setMetricsError] = useState<string | null>(null);
++  const [selectedSession, setSelectedSession] = useState<SessionEntry | null>(null);
++
++  const loadWeek = async (baseDate: Date) => {
++    setLoadingWeek(true);
++    setWeekError(null);
++    try {
++      const data = await fetchWeekSchedule(CLIENT_ID, baseDate, TIMEZONE);
++      setWeekView(data);
++    } catch (err) {
++      setWeekError(err instanceof Error ? err.message : 'Failed to load schedule');
++      setWeekView(emptyWeek);
++    } finally {
++      setLoadingWeek(false);
++    }
++  };
++
++  const loadMetrics = async () => {
++    setLoadingMetrics(true);
++    setMetricsError(null);
++    try {
++      const data = await fetchCompletionMetrics(CLIENT_ID, 4);
++      setMetrics(data);
++    } catch (err) {
++      setMetricsError(err instanceof Error ? err.message : 'Failed to load metrics');
++      setMetrics(emptyMetrics);
++    } finally {
++      setLoadingMetrics(false);
++    }
++  };
++
++  useEffect(() => {
++    loadWeek(today);
++    loadMetrics();
++  }, []);
++
++  const goToPrevWeek = () => {
++    const start = new Date(weekView.startDate + 'T00:00:00');
++    start.setDate(start.getDate() - 7);
++    loadWeek(start);
++  };
++
++  const goToNextWeek = () => {
++    const start = new Date(weekView.startDate + 'T00:00:00');
++    start.setDate(start.getDate() + 7);
++    loadWeek(start);
++  };
++
++  const goToThisWeek = () => {
++    loadWeek(today);
++  };
++
++  const completionRate = useMemo(() => {
++    if (!metrics.samples || metrics.samples.length === 0) return undefined;
++    const totalScheduled = metrics.samples.reduce((acc, s) => acc + s.sessionsScheduled, 0);
++    const totalCompleted = metrics.samples.reduce((acc, s) => acc + s.sessionsCompleted, 0);
++    return totalScheduled === 0 ? undefined : totalCompleted / totalScheduled;
++  }, [metrics.samples]);
++
++  return (
++    <main className="landing">
++      <header className="landing__header">
++        <div>
++          <p className="eyebrow">Client landing</p>
++          <h1>Week overview</h1>
++          <p className="subhead">See your schedule, trends, and jump to what matters.</p>
++        </div>
++        <NavLinks />
++      </header>
++
++      <section className="landing__grid">
++        <div className="panel panel--calendar">
++          <div className="panel__title">Weekly calendar</div>
++          <WeekCalendar
++            week={weekView}
++            loading={loadingWeek}
++            error={weekError}
++            onPrevWeek={goToPrevWeek}
++            onNextWeek={goToNextWeek}
++            onThisWeek={goToThisWeek}
++            onSelectSession={setSelectedSession}
++            selectedSessionId={selectedSession?.id ?? null}
++          />
++        </div>
++
++        <div className="panel panel--results">
++          <div className="panel__title">Results</div>
++          <CompletionChart
++            metrics={metrics}
++            completionRate={completionRate}
++            loading={loadingMetrics}
++            error={metricsError}
++          />
++          <VolumeChart metrics={metrics} loading={loadingMetrics} error={metricsError} />
++        </div>
++      </section>
++    </main>
++  );
++}
++
++export default LandingPage;
+*** End Patch
+[2m2025-12-08T09:37:14.015070Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/pages/landing/LandingPage.css
++.landing {
++  min-height: 100vh;
++  background: linear-gradient(135deg, #0f172a, #1e293b);
++  color: #e2e8f0;
++  padding: 32px;
++  font-family: 'Inter', system-ui, -apple-system, sans-serif;
++}
++
++.landing__header {
++  display: flex;
++  align-items: flex-start;
++  justify-content: space-between;
++  gap: 24px;
++  margin-bottom: 24px;
++}
++
++.eyebrow {
++  text-transform: uppercase;
++  letter-spacing: 0.08em;
++  font-size: 12px;
++  color: #94a3b8;
++  margin: 0 0 8px;
++}
++
++.subhead {
++  color: #cbd5e1;
++  margin: 4px 0 0;
++}
++
++.landing__grid {
++  display: grid;
++  grid-template-columns: 2fr 1.3fr;
++  gap: 16px;
++}
++
++.panel {
++  background: #0b1221;
++  border: 1px solid #1e293b;
++  border-radius: 12px;
++  padding: 16px;
++  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
++}
++
++.panel__title {
++  font-weight: 700;
++  margin-bottom: 12px;
++  color: #e5e7eb;
++}
++
++.panel--results {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++}
++
++@media (max-width: 960px) {
++  .landing__grid {
++    grid-template-columns: 1fr;
++  }
++}
+*** End Patch
+[2m2025-12-08T09:37:38.716331Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/calendar/WeekCalendar.tsx
++import './WeekCalendar.css';
++import { buildWeekDays, formatDisplayDate, formatDisplayTime } from '../../services/date';
++import type { SessionEntry, WeekView } from '../../services/types';
++
++interface Props {
++  week: WeekView;
++  loading: boolean;
++  error: string | null;
++  onPrevWeek: () => void;
++  onNextWeek: () => void;
++  onThisWeek: () => void;
++  onSelectSession: (session: SessionEntry | null) => void;
++  selectedSessionId: string | null;
++}
++
++function emptyState(message: string) {
++  return <div className="wc__empty">{message}</div>;
++}
++
++function WeekCalendar({
++  week,
++  loading,
++  error,
++  onPrevWeek,
++  onNextWeek,
++  onThisWeek,
++  onSelectSession,
++  selectedSessionId,
++}: Props) {
++  const days = buildWeekDays(week.startDate);
++
++  if (loading) {
++    return (
++      <div className="wc">
++        <div className="wc__header">
++          <div className="wc__controls skeleton" />
++        </div>
++        <div className="wc__grid skeleton" />
++      </div>
++    );
++  }
++
++  if (error) {
++    return (
++      <div className="wc">
++        <div className="wc__header">
++          <div>
++            <div className="wc__title">Week of {week.startDate}</div>
++            <div className="wc__subtitle">Timezone: {week.timezone}</div>
++          </div>
++        </div>
++        <div className="wc__error">
++          <p>{error}</p>
++          <button onClick={onThisWeek}>Retry</button>
++        </div>
++      </div>
++    );
++  }
++
++  const sessionsByDay = days.reduce<Record<string, SessionEntry[]>>((acc, day) => {
++    acc[day] = week.sessions.filter((s) => s.date === day);
++    return acc;
++  }, {});
++
++  return (
++    <div className="wc">
++      <div className="wc__header">
++        <div>
++          <div className="wc__title">Week of {week.startDate}</div>
++          <div className="wc__subtitle">Timezone: {week.timezone}</div>
++        </div>
++        <div className="wc__controls">
++          <button onClick={onPrevWeek}>Previous</button>
++          <button onClick={onThisWeek}>This week</button>
++          <button onClick={onNextWeek}>Next</button>
++        </div>
++      </div>
++
++      <div className="wc__grid">
++        {days.map((day) => {
++          const sessions = sessionsByDay[day] || [];
++          const isToday = day === week.today;
++          return (
++            <div key={day} className={`wc__day ${isToday ? 'wc__day--today' : ''}`}>
++              <div className="wc__day-label">{formatDisplayDate(day)}</div>
++              {sessions.length === 0
++                ? emptyState('No sessions')
++                : sessions.map((session) => {
++                    const selected = session.id === selectedSessionId;
++                    return (
++                      <div
++                        key={session.id}
++                        className={`wc__session wc__session--${session.status} ${
++                          selected ? 'wc__session--selected' : ''
++                        }`}
++                        onClick={() => onSelectSession(selected ? null : session)}
++                      >
++                        <div className="wc__session-time">{formatDisplayTime(session.date, session.startTime)}</div>
++                        <div className="wc__session-title">{session.title}</div>
++                        <div className="wc__session-status">{session.status}</div>
++                        {selected && (
++                          <div className="wc__session-detail">
++                            {session.modality && <div>Modality: {session.modality}</div>}
++                            {session.durationMinutes !== undefined && <div>Duration: {session.durationMinutes} min</div>}
++                            {session.location && <div>Location: {session.location}</div>}
++                            {session.coachNotes && <div className="wc__notes">Notes: {session.coachNotes}</div>}
++                          </div>
++                        )}
++                      </div>
++                    );
++                  })}
++            </div>
++          );
++        })}
++      </div>
++
++      {week.sessions.length === 0 && emptyState('No sessions scheduled this week. Ask your coach or add sessions.')}
++    </div>
++  );
++}
++
++export default WeekCalendar;
+*** End Patch
+[2m2025-12-08T09:38:03.651788Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/calendar/WeekCalendar.css
++.wc {
++  display: flex;
++  flex-direction: column;
++  gap: 12px;
++}
++
++.wc__header {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 12px;
++}
++
++.wc__title {
++  font-weight: 700;
++  color: #e5e7eb;
++}
++
++.wc__subtitle {
++  font-size: 12px;
++  color: #94a3b8;
++}
++
++.wc__controls {
++  display: flex;
++  gap: 8px;
++}
++
++.wc__controls button {
++  background: #1e293b;
++  color: #e2e8f0;
++  border: 1px solid #334155;
++  padding: 6px 10px;
++  border-radius: 8px;
++  cursor: pointer;
++}
++
++.wc__controls button:hover {
++  border-color: #64748b;
++}
++
++.wc__grid {
++  display: grid;
++  grid-template-columns: repeat(7, minmax(0, 1fr));
++  gap: 8px;
++}
++
++.wc__day {
++  background: #0f172a;
++  border: 1px solid #1e293b;
++  border-radius: 10px;
++  padding: 8px;
++  min-height: 150px;
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++}
++
++.wc__day--today {
++  border-color: #60a5fa;
++  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.4);
++}
++
++.wc__day-label {
++  font-weight: 600;
++  color: #cbd5e1;
++}
++
++.wc__session {
++  background: #111827;
++  border: 1px solid #1f2937;
++  border-radius: 8px;
++  padding: 6px;
++  cursor: pointer;
++  transition: border 0.15s ease, background 0.15s ease;
++}
++
++.wc__session--selected {
++  border-color: #60a5fa;
++  background: #0b1221;
++}
++
++.wc__session--planned {
++  border-left: 3px solid #38bdf8;
++}
++.wc__session--completed {
++  border-left: 3px solid #22c55e;
++}
++.wc__session--missed {
++  border-left: 3px solid #f97316;
++}
++.wc__session--changed {
++  border-left: 3px solid #c084fc;
++}
++
++.wc__session-time {
++  color: #cbd5e1;
++  font-size: 13px;
++}
++
++.wc__session-title {
++  font-weight: 600;
++  color: #e5e7eb;
++}
++
++.wc__session-status {
++  font-size: 12px;
++  color: #94a3b8;
++}
++
++.wc__session-detail {
++  margin-top: 6px;
++  color: #cbd5e1;
++  font-size: 12px;
++  border-top: 1px solid #1e293b;
++  padding-top: 6px;
++}
++
++.wc__notes {
++  color: #e0f2fe;
++}
++
++.wc__empty {
++  color: #94a3b8;
++  font-size: 12px;
++}
++
++.wc__error {
++  background: #1f2937;
++  border: 1px solid #b91c1c;
++  padding: 12px;
++  border-radius: 8px;
++  color: #fecdd3;
++}
++
++.skeleton {
++  background: linear-gradient(90deg, #0f172a, #111827, #0f172a);
++  background-size: 200% 100%;
++  animation: shimmer 1.2s infinite;
++  min-height: 120px;
++  border-radius: 10px;
++}
++
++@keyframes shimmer {
++  0% {
++    background-position: 200% 0;
++  }
++  100% {
++    background-position: -200% 0;
++  }
++}
++
++@media (max-width: 960px) {
++  .wc__grid {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
++}
++
++@media (max-width: 640px) {
++  .wc__grid {
++    grid-template-columns: 1fr;
++  }
++}
+*** End Patch
+[2m2025-12-08T09:38:39.378208Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/graphs/CompletionChart.tsx
++import './Graphs.css';
++import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, Legend, CartesianGrid } from 'recharts';
++import type { MetricSnapshot } from '../../services/types';
++
++interface Props {
++  metrics: MetricSnapshot;
++  completionRate?: number;
++  loading: boolean;
++  error: string | null;
++}
++
++const Empty = ({ message }: { message: string }) => <div className="graph__empty">{message}</div>;
++
++function CompletionChart({ metrics, completionRate, loading, error }: Props) {
++  if (loading) return <div className="graph__skeleton" />;
++  if (error) return <Empty message={error} />;
++  if (!metrics.hasData || metrics.samples.length === 0) {
++    return <Empty message="Not enough history yet. Complete sessions to see trends." />;
++  }
++
++  const data = metrics.samples.map((s) => ({
++    name: s.weekStart,
++    completed: s.sessionsCompleted,
++    scheduled: s.sessionsScheduled,
++  }));
++
++  return (
++    <div className="graph">
++      <div className="graph__title">
++        Completion rate
++        {completionRate !== undefined && (
++          <span className="graph__pill">{Math.round(completionRate * 100)}% last period</span>
++        )}
++      </div>
++      <ResponsiveContainer width="100%" height={220}>
++        <BarChart data={data}>
++          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
++          <XAxis dataKey="name" stroke="#94a3b8" />
++          <YAxis stroke="#94a3b8" />
++          <Tooltip />
++          <Legend />
++          <Bar dataKey="scheduled" fill="#475569" name="Scheduled" />
++          <Bar dataKey="completed" fill="#22c55e" name="Completed" />
++        </BarChart>
++      </ResponsiveContainer>
++    </div>
++  );
++}
++
++export default CompletionChart;
+*** End Patch
+[2m2025-12-08T09:38:56.873299Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/graphs/VolumeChart.tsx
++import './Graphs.css';
++import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
++import type { MetricSnapshot } from '../../services/types';
++
++interface Props {
++  metrics: MetricSnapshot;
++  loading: boolean;
++  error: string | null;
++}
++
++const Empty = ({ message }: { message: string }) => <div className="graph__empty">{message}</div>;
++
++function VolumeChart({ metrics, loading, error }: Props) {
++  if (loading) return <div className="graph__skeleton" />;
++  if (error) return <Empty message={error} />;
++
++  if (!metrics.hasData || metrics.samples.length === 0) {
++    return <Empty message="No volume yet. Once sessions are logged, volume trends appear here." />;
++  }
++
++  const data = metrics.samples.map((s) => ({
++    name: s.weekStart,
++    volume: s.volume ?? 0,
++  }));
++
++  return (
++    <div className="graph">
++      <div className="graph__title">Recent volume</div>
++      <ResponsiveContainer width="100%" height={200}>
++        <AreaChart data={data}>
++          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
++          <XAxis dataKey="name" stroke="#94a3b8" />
++          <YAxis stroke="#94a3b8" />
++          <Tooltip />
++          <Area type="monotone" dataKey="volume" stroke="#60a5fa" fill="#1d4ed8" name={metrics.unit ?? 'Volume'} />
++        </AreaChart>
++      </ResponsiveContainer>
++    </div>
++  );
++}
++
++export default VolumeChart;
+*** End Patch
+[2m2025-12-08T09:39:11.834647Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/graphs/Graphs.css
++.graph {
++  background: #0f172a;
++  border: 1px solid #1e293b;
++  border-radius: 10px;
++  padding: 12px;
++}
++
++.graph__title {
++  display: flex;
++  align-items: center;
++  gap: 8px;
++  font-weight: 700;
++  color: #e5e7eb;
++  margin-bottom: 8px;
++}
++
++.graph__pill {
++  background: rgba(96, 165, 250, 0.15);
++  color: #bfdbfe;
++  border: 1px solid rgba(96, 165, 250, 0.3);
++  padding: 2px 8px;
++  border-radius: 999px;
++  font-size: 12px;
++}
++
++.graph__empty {
++  padding: 16px;
++  color: #94a3b8;
++  font-size: 14px;
++}
++
++.graph__skeleton {
++  background: linear-gradient(90deg, #0f172a, #111827, #0f172a);
++  background-size: 200% 100%;
++  animation: shimmer 1.2s infinite;
++  height: 220px;
++  border-radius: 10px;
++}
++
++@keyframes shimmer {
++  0% {
++    background-position: 200% 0;
++  }
++  100% {
++    background-position: -200% 0;
++  }
++}
+*** End Patch
+[2m2025-12-08T09:39:40.721727Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/navigation/NavLinks.tsx
++import './NavLinks.css';
++
++const links = [
++  { id: 'program', label: 'Program', url: '/program' },
++  { id: 'sessions', label: 'Sessions', url: '/sessions' },
++  { id: 'messages', label: 'Messages', url: '/messages', badge: '1' },
++  { id: 'reports', label: 'Reports', url: '/reports' },
++];
++
++function NavLinks() {
++  return (
++    <nav className="nav">
++      {links.map((link) => (
++        <a key={link.id} className="nav__link" href={link.url}>
++          <span>{link.label}</span>
++          {link.badge && <span className="nav__badge">{link.badge}</span>}
++        </a>
++      ))}
++    </nav>
++  );
++}
++
++export default NavLinks;
+*** End Patch
+[2m2025-12-08T09:39:53.820517Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/components/navigation/NavLinks.css
++.nav {
++  display: flex;
++  gap: 10px;
++}
++
++.nav__link {
++  display: inline-flex;
++  align-items: center;
++  gap: 6px;
++  padding: 8px 12px;
++  background: #111827;
++  border: 1px solid #1e293b;
++  color: #e2e8f0;
++  border-radius: 10px;
++  text-decoration: none;
++  font-weight: 600;
++}
++
++.nav__link:hover {
++  border-color: #60a5fa;
++}
++
++.nav__badge {
++  background: #f97316;
++  color: #0f172a;
++  border-radius: 999px;
++  padding: 2px 6px;
++  font-size: 12px;
++  font-weight: 700;
++}
++
++@media (max-width: 600px) {
++  .nav {
++    flex-wrap: wrap;
++  }
++}
+*** End Patch
+[2m2025-12-08T09:40:13.189858Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/index.css
+@@
+-:root {
+-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+-  line-height: 1.5;
+-  font-weight: 400;
+-
+-  color-scheme: light dark;
+-  color: rgba(255, 255, 255, 0.87);
+-  background-color: #242424;
+-
+-  font-synthesis: none;
+-  text-rendering: optimizeLegibility;
+-  -webkit-font-smoothing: antialiased;
+-  -moz-osx-font-smoothing: grayscale;
+-}
+-
+-a {
+-  font-weight: 500;
+-  color: #646cff;
+-  text-decoration: inherit;
+-}
+-a:hover {
+-  color: #535bf2;
+-}
+-
+-body {
+-  margin: 0;
+-  display: flex;
+-  place-items: center;
+-  min-width: 320px;
+-  min-height: 100vh;
+-}
+-
+-h1 {
+-  font-size: 3.2em;
+-  line-height: 1.1;
+-}
+-
+-button {
+-  border-radius: 8px;
+-  border: 1px solid transparent;
+-  padding: 0.6em 1.2em;
+-  font-size: 1em;
+-  font-weight: 500;
+-  font-family: inherit;
+-  background-color: #1a1a1a;
+-  cursor: pointer;
+-  transition: border-color 0.25s;
+-}
+-button:hover {
+-  border-color: #646cff;
+-}
+-button:focus,
+-button:focus-visible {
+-  outline: 4px auto -webkit-focus-ring-color;
+-}
+-
+-@media (prefers-color-scheme: light) {
+-  :root {
+-    color: #213547;
+-    background-color: #ffffff;
+-  }
+-  a:hover {
+-    color: #747bff;
+-  }
+-  button {
+-    background-color: #f9f9f9;
+-  }
+-}
++:root {
++  font-family: 'Inter', system-ui, -apple-system, sans-serif;
++  line-height: 1.5;
++  font-weight: 400;
++  color: #e2e8f0;
++  background-color: #0f172a;
++  font-synthesis: none;
++  text-rendering: optimizeLegibility;
++  -webkit-font-smoothing: antialiased;
++  -moz-osx-font-smoothing: grayscale;
++}
++
++body {
++  margin: 0;
++  background: #0f172a;
++}
++
++* {
++  box-sizing: border-box;
++}
+*** End Patch
+[2m2025-12-08T09:40:18.187607Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/index.css"}
+[2m2025-12-08T09:40:32.848862Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/index.css
+@@
+-:root {
+-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+-  line-height: 1.5;
+-  font-weight: 400;
+-
+-  color-scheme: light dark;
+-  color: rgba(255, 255, 255, 0.87);
+-  background-color: #242424;
+-
+-  font-synthesis: none;
+-  text-rendering: optimizeLegibility;
+-  -webkit-font-smoothing: antialiased;
+-  -moz-osx-font-smoothing: grayscale;
+-}
+-
+-a {
+-  font-weight: 500;
+-  color: #646cff;
+-  text-decoration: inherit;
+-}
+-a:hover {
+-  color: #535bf2;
+-}
+-
+-body {
+-  margin: 0;
+-  display: flex;
+-  place-items: center;
+-  min-width: 320px;
+-  min-height: 100vh;
+-}
+-
+-h1 {
+-  font-size: 3.2em;
+-  line-height: 1.1;
+-}
+-
+-button {
+-  border-radius: 8px;
+-  border: 1px solid transparent;
+-  padding: 0.6em 1.2em;
+-  font-size: 1em;
+-  font-weight: 500;
+-  font-family: inherit;
+-  background-color: #1a1a1a;
+-  cursor: pointer;
+-  transition: border-color 0.25s;
+-}
+-button:hover {
+-  border-color: #646cff;
+-}
+-button:focus,
+-button:focus-visible {
+-  outline: 4px auto -webkit-focus-ring-color;
+-}
+-
+-@media (prefers-color-scheme: light) {
+-  :root {
+-    color: #213547;
+-    background-color: #ffffff;
+-  }
+-  a:hover {
+-    color: #747bff;
+-  }
+-  button {
+-    background-color: #f9f9f9;
+-  }
+-}
++:root {
++  font-family: 'Inter', system-ui, -apple-system, sans-serif;
++  line-height: 1.5;
++  font-weight: 400;
++  color: #e2e8f0;
++  background-color: #0f172a;
++  font-synthesis: none;
++  text-rendering: optimizeLegibility;
++  -webkit-font-smoothing: antialiased;
++  -moz-osx-font-smoothing: grayscale;
++}
++
++body {
++  margin: 0;
++  background: #0f172a;
++}
++
++* {
++  box-sizing: border-box;
++}
+*** End Patch
+[2m2025-12-08T09:40:44.630885Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/App.css"}
+[2m2025-12-08T09:40:53.726866Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/App.css
+@@
+-#root {
+-  max-width: 1280px;
+-  margin: 0 auto;
+-  padding: 2rem;
+-  text-align: center;
+-}
+-
+-.logo {
+-  height: 6em;
+-  padding: 1.5em;
+-  will-change: filter;
+-  transition: filter 300ms;
+-}
+-.logo:hover {
+-  filter: drop-shadow(0 0 2em #646cffaa);
+-}
+-.logo.react:hover {
+-  filter: drop-shadow(0 0 2em #61dafbaa);
+-}
+-
+-@keyframes logo-spin {
+-  from {
+-    transform: rotate(0deg);
+-  }
+-  to {
+-    transform: rotate(360deg);
+-  }
+-}
+-
+-@media (prefers-reduced-motion: no-preference) {
+-  a:nth-of-type(2) .logo {
+-    animation: logo-spin infinite 20s linear;
+-  }
+-}
+-
+-.card {
+-  padding: 2em;
+-}
+-
+-.read-the-docs {
+-  color: #888;
+-}
++/* Intentionally minimal; layout handled per-page */
+*** End Patch
+[2m2025-12-08T09:41:16.049028Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Verify project builds after adding landing page components"}
+[2m2025-12-08T09:41:35.359431Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/vite.config.ts
+-import { defineConfig } from 'vite'
+-import react from '@vitejs/plugin-react'
++import { defineConfig } from 'vitest/config';
++import react from '@vitejs/plugin-react';
+ 
+ // https://vite.dev/config/
+ export default defineConfig({
+   plugins: [react()],
+   test: {
+@@
+-    coverage: {
+-      provider: 'v8',
+-    },
++    coverage: {
++      provider: 'v8',
++    },
+   },
+-})
++});
+*** End Patch
+[2m2025-12-08T09:41:56.584463Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run build after fixing test config import"}
+[2m2025-12-08T09:47:43.666635Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:47:44.911777Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:47:44.911882Z[0m [32m INFO[0m ghost commit captured: cb2710cb564d2f324424f8b71327b3d94e901593
+[2m2025-12-08T09:47:44.911903Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:51:13.425600Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:51:14.750061Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:51:14.750179Z[0m [32m INFO[0m ghost commit captured: 234811db94cdcc2a73ebe0ca3df44f4a2b92ee31
+[2m2025-12-08T09:51:14.750195Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:52:06.361718Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:52:07.521447Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:52:07.521567Z[0m [32m INFO[0m ghost commit captured: 5b9f33ad436c47eaa11c60005d534463e301c2d0
+[2m2025-12-08T09:52:07.521584Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:52:22.986973Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/mockData.ts
++import type { MetricSnapshot, SessionEntry, WeekView } from './types';
++import { getWeekBounds } from './date';
++
++const now = new Date();
++const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
++const bounds = getWeekBounds(now, tz);
++
++const baseSessions: SessionEntry[] = [
++  {
++    id: 'sess-1',
++    date: bounds.startDate,
++    startTime: '07:30:00',
++    title: 'Intervals',
++    status: 'planned',
++    durationMinutes: 50,
++    modality: 'run',
++    coachNotes: '3x8min tempo, 2min jog',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-2',
++    date: bounds.startDate,
++    startTime: '17:30:00',
++    title: 'Mobility',
++    status: 'completed',
++    durationMinutes: 20,
++    modality: 'mobility',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-3',
++    date: bounds.today,
++    startTime: '06:45:00',
++    title: 'Endurance',
++    status: 'missed',
++    durationMinutes: 60,
++    modality: 'bike',
++    coachNotes: 'Keep easy. Hydrate.',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-4',
++    date: bounds.endDate,
++    startTime: '09:00:00',
++    title: 'Strength',
++    status: 'planned',
++    durationMinutes: 45,
++    modality: 'strength',
++    lastUpdated: new Date().toISOString(),
++  },
++];
++
++export const mockWeek: WeekView = {
++  ...bounds,
++  sessions: baseSessions,
++};
++
++export const mockMetrics: MetricSnapshot = {
++  rangeLabel: 'Last 4 weeks',
++  completionRate: 0.82,
++  volume: 430,
++  unit: 'minutes',
++  samples: [
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 3, volume: 410, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 5, sessionsCompleted: 4, volume: 460, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 4, volume: 420, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 3, sessionsCompleted: 2, volume: 330, unit: 'minutes' },
++  ],
++  hasData: true,
++};
+*** End Patch
+[2m2025-12-08T09:52:40.384022Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/schedule.ts
+@@
+-import { getWeekBounds } from './date';
+-import type { WeekView } from './types';
++import { getWeekBounds } from './date';
++import type { WeekView } from './types';
++import { mockWeek } from './mockData';
+ 
+ const API_BASE = import.meta.env.VITE_API_BASE ?? '';
++const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === 'true';
+ 
+ export async function fetchWeekSchedule(clientId: string, baseDate: Date, timeZone: string): Promise<WeekView> {
+   const { startDate, endDate, today, timezone } = getWeekBounds(baseDate, timeZone);
+   const url = `${API_BASE}/clients/${clientId}/schedule?weekStart=${startDate}&timezone=${encodeURIComponent(timezone)}`;
+ 
+-  const res = await fetch(url);
+-  if (!res.ok) {
+-    throw new Error(`Failed to load schedule (${res.status})`);
++  if (USE_MOCKS) {
++    return mockWeek;
+   }
+-  const data = await res.json();
+-  return {
+-    startDate: data.weekStart ?? startDate,
+-    endDate: data.weekEnd ?? endDate,
+-    timezone: data.timezone ?? timezone,
+-    today,
+-    sessions: data.sessions ?? [],
+-  };
++
++  try {
++    const res = await fetch(url);
++    if (!res.ok) {
++      throw new Error(`Failed to load schedule (${res.status})`);
++    }
++    const data = await res.json();
++    return {
++      startDate: data.weekStart ?? startDate,
++      endDate: data.weekEnd ?? endDate,
++      timezone: data.timezone ?? timezone,
++      today,
++      sessions: data.sessions ?? [],
++    };
++  } catch (err) {
++    console.warn('Schedule fetch failed, falling back to mock data', err);
++    return mockWeek;
++  }
+ }
+*** End Patch
+[2m2025-12-08T09:53:04.853201Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/metrics.ts
+@@
+-import type { MetricSnapshot } from './types';
+-
+-const API_BASE = import.meta.env.VITE_API_BASE ?? '';
+-
+-export async function fetchCompletionMetrics(clientId: string, weeks = 4): Promise<MetricSnapshot> {
+-  const url = `${API_BASE}/clients/${clientId}/metrics/completion?weeks=${weeks}`;
+-  const res = await fetch(url);
+-  if (!res.ok) {
+-    throw new Error(`Failed to load metrics (${res.status})`);
+-  }
+-  const data = await res.json();
+-  return data;
+-}
++import type { MetricSnapshot } from './types';
++import { mockMetrics } from './mockData';
++
++const API_BASE = import.meta.env.VITE_API_BASE ?? '';
++const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === 'true';
++
++export async function fetchCompletionMetrics(clientId: string, weeks = 4): Promise<MetricSnapshot> {
++  const url = `${API_BASE}/clients/${clientId}/metrics/completion?weeks=${weeks}`;
++
++  if (USE_MOCKS) {
++    return mockMetrics;
++  }
++
++  try {
++    const res = await fetch(url);
++    if (!res.ok) {
++      throw new Error(`Failed to load metrics (${res.status})`);
++    }
++    const data = await res.json();
++    return data;
++  } catch (err) {
++    console.warn('Metrics fetch failed, falling back to mock data', err);
++    return mockMetrics;
++  }
++}
+*** End Patch
+[2m2025-12-08T09:53:18.386059Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/mockData.ts
+@@
+ export const mockWeek: WeekView = {
+   ...bounds,
+-  sessions: baseSessions,
++  sessions: baseSessions,
+ };
+ 
+ export const mockMetrics: MetricSnapshot = {
+   rangeLabel: 'Last 4 weeks',
+-  completionRate: 0.82,
+-  volume: 430,
+-  unit: 'minutes',
++  completionRate: 0.82,
++  volume: 430,
++  unit: 'minutes',
+   samples: [
+-    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 3, volume: 410, unit: 'minutes' },
+-    { weekStart: bounds.startDate, sessionsScheduled: 5, sessionsCompleted: 4, volume: 460, unit: 'minutes' },
+-    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 4, volume: 420, unit: 'minutes' },
+-    { weekStart: bounds.startDate, sessionsScheduled: 3, sessionsCompleted: 2, volume: 330, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 3, volume: 410, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 5, sessionsCompleted: 4, volume: 460, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 4, volume: 420, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 3, sessionsCompleted: 2, volume: 330, unit: 'minutes' },
+   ],
+   hasData: true,
+ };
+*** End Patch
+[2m2025-12-08T09:53:28.780971Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/.env.example
++VITE_API_BASE=http://localhost:3000
++VITE_USE_MOCKS=true
+*** End Patch
+[2m2025-12-08T09:53:42.878496Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Ensure mocks didn't break build"}
+[2m2025-12-08T09:55:46.263888Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T09:55:47.693075Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T09:55:47.693160Z[0m [32m INFO[0m ghost commit captured: be027934e4642e94efeceea46e0d194ee4636b21
+[2m2025-12-08T09:55:47.693182Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T09:56:07.968240Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/tests/integration/landing.calendar.test.tsx
++import { render, screen, waitFor } from '@testing-library/react';
++import LandingPage from '../../src/pages/landing/LandingPage';
++import { mockMetrics, mockWeek } from '../../src/services/mockData';
++
++vi.mock('../../src/services/schedule', () => ({
++  fetchWeekSchedule: vi.fn(async () => mockWeek),
++}));
++
++vi.mock('../../src/services/metrics', () => ({
++  fetchCompletionMetrics: vi.fn(async () => mockMetrics),
++}));
++
++describe('LandingPage calendar flow', () => {
++  it('renders the weekly calendar with sessions and navigation', async () => {
++    render(<LandingPage />);
++
++    await waitFor(() => {
++      expect(screen.getByText(/Weekly calendar/i)).toBeInTheDocument();
++    });
++
++    expect(screen.getByText(/Week of/i)).toBeInTheDocument();
++    expect(screen.getByText(/Intervals/i)).toBeInTheDocument();
++    expect(screen.getByRole('button', { name: /Previous/i })).toBeInTheDocument();
++    expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument();
++    expect(screen.getByRole('button', { name: /This week/i })).toBeInTheDocument();
++  });
++
++  it('shows results charts and nav links', async () => {
++    render(<LandingPage />);
++
++    await waitFor(() => {
++      expect(screen.getByText(/Completion rate/i)).toBeInTheDocument();
++    });
++
++    expect(screen.getByText(/Recent volume/i)).toBeInTheDocument();
++    expect(screen.getByText(/Program/i)).toBeInTheDocument();
++    expect(screen.getByText(/Reports/i)).toBeInTheDocument();
++  });
++});
+*** End Patch
+[2m2025-12-08T09:56:20.134239Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/tests/unit/graphs.test.tsx
++import { render, screen } from '@testing-library/react';
++import CompletionChart from '../../src/components/graphs/CompletionChart';
++import VolumeChart from '../../src/components/graphs/VolumeChart';
++import { mockMetrics } from '../../src/services/mockData';
++
++describe('Graphs', () => {
++  it('renders completion chart with metrics', () => {
++    render(<CompletionChart metrics={mockMetrics} completionRate={0.82} loading={false} error={null} />);
++    expect(screen.getByText(/Completion rate/i)).toBeInTheDocument();
++    expect(screen.getByText(/82%/i)).toBeInTheDocument();
++  });
++
++  it('renders volume chart with data', () => {
++    render(<VolumeChart metrics={mockMetrics} loading={false} error={null} />);
++    expect(screen.getByText(/Recent volume/i)).toBeInTheDocument();
++  });
++
++  it('shows empty state when no data', () => {
++    render(
++      <CompletionChart
++        metrics={{ ...mockMetrics, hasData: false, samples: [] }}
++        completionRate={undefined}
++        loading={false}
++        error={null}
++      />,
++    );
++    expect(screen.getByText(/Not enough history/i)).toBeInTheDocument();
++  });
++});
+*** End Patch
+[2m2025-12-08T09:56:31.896558Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/tests/unit/navigation.test.tsx
++import { render, screen } from '@testing-library/react';
++import NavLinks from '../../src/components/navigation/NavLinks';
++
++describe('Navigation links', () => {
++  it('shows nav targets and badge', () => {
++    render(<NavLinks />);
++    expect(screen.getByText(/Program/i)).toBeInTheDocument();
++    expect(screen.getByText(/Sessions/i)).toBeInTheDocument();
++    expect(screen.getByText(/Messages/i)).toBeInTheDocument();
++    expect(screen.getByText(/Reports/i)).toBeInTheDocument();
++    expect(screen.getByText('1')).toHaveClass('nav__badge');
++  });
++});
+*** End Patch
+[2m2025-12-08T09:56:40.747574Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Run Vitest suite to validate newly added tests"}
+[2m2025-12-08T09:57:15.632130Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/vite.config.ts
+@@
+ export default defineConfig({
+   plugins: [react()],
+   test: {
++    globals: true,
+     environment: 'jsdom',
+     setupFiles: './vitest.setup.ts',
+     coverage: {
+       provider: 'v8',
+     },
+   },
+ });
+*** End Patch
+[2m2025-12-08T09:57:27.819514Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run Vitest after enabling globals"}
+[2m2025-12-08T10:07:38.709889Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:07:39.992324Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:07:39.992435Z[0m [32m INFO[0m ghost commit captured: cc7e864b423a611ea76f8ca307953a402435de62
+[2m2025-12-08T10:07:39.992454Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:09:35.182481Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:09:36.393858Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:09:36.393973Z[0m [32m INFO[0m ghost commit captured: ca352ec827a8c138ee8cd8cc5c0713e423e91cd8
+[2m2025-12-08T10:09:36.393989Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:09:56.830961Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:09:57.981148Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:09:57.981240Z[0m [32m INFO[0m ghost commit captured: e7516e870fa69546b891b9333673470dfd2d4a75
+[2m2025-12-08T10:09:57.981258Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:10:10.317983Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/navigation/NavLinks.tsx
+@@
+-import './NavLinks.css';
+-
+-const links = [
+-  { id: 'program', label: 'Program', url: '/program' },
+-  { id: 'sessions', label: 'Sessions', url: '/sessions' },
+-  { id: 'messages', label: 'Messages', url: '/messages', badge: '1' },
+-  { id: 'reports', label: 'Reports', url: '/reports' },
+-];
+-
+-function NavLinks() {
+-  return (
+-    <nav className="nav">
+-      {links.map((link) => (
+-        <a key={link.id} className="nav__link" href={link.url}>
+-          <span>{link.label}</span>
+-          {link.badge && <span className="nav__badge">{link.badge}</span>}
+-        </a>
+-      ))}
+-    </nav>
+-  );
+-}
+-
+-export default NavLinks;
++import './NavLinks.css';
++
++type BadgeCounts = Partial<Record<'program' | 'sessions' | 'messages' | 'reports', number>>;
++
++const baseLinks = [
++  { id: 'program', label: 'Program', url: '/program' },
++  { id: 'sessions', label: 'Sessions', url: '/sessions' },
++  { id: 'messages', label: 'Messages', url: '/messages' },
++  { id: 'reports', label: 'Reports', url: '/reports' },
++];
++
++function NavLinks({ badges = {} }: { badges?: BadgeCounts }) {
++  return (
++    <nav className="nav" aria-label="Primary navigation">
++      {baseLinks.map((link) => {
++        const count = badges[link.id as keyof BadgeCounts];
++        const showBadge = !!count && count > 0;
++        const badgeText = count && count > 9 ? '9+' : count?.toString();
++        return (
++          <a key={link.id} className="nav__link" href={link.url} aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}>
++            <span>{link.label}</span>
++            {showBadge && <span className="nav__badge">{badgeText}</span>}
++          </a>
++        );
++      })}
++    </nav>
++  );
++}
++
++export default NavLinks;
+*** End Patch
+[2m2025-12-08T10:10:24.413823Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+-import NavLinks from '../../components/navigation/NavLinks';
++import NavLinks from '../../components/navigation/NavLinks';
+@@
+ function LandingPage() {
+@@
+-  return (
++  const badges = useMemo(() => {
++    const missed = weekView.sessions.filter((s) => s.status === 'missed').length;
++    return {
++      sessions: missed > 0 ? missed : undefined,
++      messages: 2, // placeholder until real messages endpoint is wired
++    };
++  }, [weekView.sessions]);
++
++  return (
+     <main className="landing">
+       <header className="landing__header">
+         <div>
+           <p className="eyebrow">Client landing</p>
+           <h1>Week overview</h1>
+           <p className="subhead">See your schedule, trends, and jump to what matters.</p>
+         </div>
+-        <NavLinks />
++        <NavLinks badges={badges} />
+       </header>
+*** End Patch
+[2m2025-12-08T10:10:45.622907Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/mockData.ts
+@@
+-  {
+-    id: 'sess-3',
+-    date: bounds.today,
+-    startTime: '06:45:00',
+-    title: 'Endurance',
+-    status: 'missed',
+-    durationMinutes: 60,
+-    modality: 'bike',
+-    coachNotes: 'Keep easy. Hydrate.',
+-    lastUpdated: new Date().toISOString(),
+-  },
++  {
++    id: 'sess-3',
++    date: bounds.today,
++    startTime: '06:45:00',
++    title: 'Endurance',
++    status: 'missed',
++    durationMinutes: 60,
++    modality: 'bike',
++    coachNotes: 'Keep easy. Hydrate.',
++    lastUpdated: new Date().toISOString(),
++  },
+*** End Patch
+[2m2025-12-08T10:10:52.902222Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run tests after dynamic badge changes"}
+[2m2025-12-08T10:11:15.791382Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/unit/navigation.test.tsx
+@@
+-  it('shows nav targets and badge', () => {
+-    render(<NavLinks />);
++  it('shows nav targets and badge', () => {
++    render(<NavLinks badges={{ messages: 1 }} />);
+     expect(screen.getByText(/Program/i)).toBeInTheDocument();
+     expect(screen.getByText(/Sessions/i)).toBeInTheDocument();
+     expect(screen.getByText(/Messages/i)).toBeInTheDocument();
+     expect(screen.getByText(/Reports/i)).toBeInTheDocument();
+-    expect(screen.getByText('1')).toHaveClass('nav__badge');
++    expect(screen.getByText('1')).toHaveClass('nav__badge');
+   });
+ })
+*** End Patch
+[2m2025-12-08T10:11:20.350483Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content tests/unit/navigation.test.tsx"}
+[2m2025-12-08T10:11:27.538471Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/unit/navigation.test.tsx
+@@
+ describe('Navigation links', () => {
+   it('shows nav targets and badge', () => {
+-    render(<NavLinks />);
++    render(<NavLinks badges={{ messages: 1 }} />);
+     expect(screen.getByText(/Program/i)).toBeInTheDocument();
+     expect(screen.getByText(/Sessions/i)).toBeInTheDocument();
+     expect(screen.getByText(/Messages/i)).toBeInTheDocument();
+     expect(screen.getByText(/Reports/i)).toBeInTheDocument();
+     expect(screen.getByText('1')).toHaveClass('nav__badge');
+   });
+ });
+*** End Patch
+[2m2025-12-08T10:11:38.009114Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run Vitest after updating nav badge test"}
+[2m2025-12-08T10:13:43.915807Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:13:45.291269Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:13:45.291379Z[0m [32m INFO[0m ghost commit captured: 6963dc97c5bf7c85fb12a144b56fdd844bb68709
+[2m2025-12-08T10:13:45.291403Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:15:43.869479Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:15:45.107290Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:15:45.107413Z[0m [32m INFO[0m ghost commit captured: 47ce51fe610d702dddafafcc3a555d52af49ffdd
+[2m2025-12-08T10:15:45.107432Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:15:57.504697Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-landing-calendar-graphs/quickstart.md
+@@
+ ## Steps
+ 1) **Install & bootstrap**  
+    - Initialize frontend stack (TypeScript + React + Vite) and add dependencies: date-fns/dayjs, Recharts (or chosen chart lib), testing (Vitest + React Testing Library).  
+    - Establish base folders: `src/pages/landing`, `src/components/{calendar,graphs,navigation}`, `src/services`.
+ 
+ 2) **Data contracts**  
+    - Implement read-only fetchers for schedule and metrics using `contracts/schedule.yaml` and `contracts/metrics.yaml`.  
+-   - Normalize times to client timezone; derive `today`, `weekStart`, `weekEnd` in the client.  
+-   - Handle error + empty responses with clear copy.
++   - Normalize times to client timezone; derive `today`, `weekStart`, `weekEnd` in the client.  
++   - Handle error + empty responses with clear copy.
+ 
+ 3) **Landing layout**  
+    - Compose page with three regions: calendar (default to current week), results area (completion rate + secondary metric), nav links.  
+    - Ensure responsive stacking for narrow screens; keep labels/legends visible.  
+    - Lazy-load charts after calendar/nav paint to meet 2s target.
+ 
+ 4) **Interactions**  
+    - Week navigation: previous/next and “Back to this week.”  
+    - Session selection: show key details (type, duration, notes, modality/location).  
+    - Nav links: Program, Sessions, Messages, Reports; badges for attention states.
+ 
+ 5) **States**  
+    - Loading: skeletons for calendar and graphs.  
+    - Empty: no-week sessions -> prompt to add/request; no metrics -> descriptive empty state.  
+    - Error: inline message + retry affordance; do not redirect.
+ 
+ 6) **Testing**  
+    - Unit/component tests for calendar rendering, week navigation, session detail reveal, empty/error states, and nav link targets.  
+    - Integration test for landing page load: calendar + nav visible <2s threshold, charts load with labels, authentication preserved.
+ 
+ 7) **Accessibility & localization**  
+    - Use semantic `main`/`nav`, focus order on nav links, aria labels for chart summaries, local date/time formatting with Monday start.
++
++## Running locally (current implementation)
++- `cp .env.example .env` and leave `VITE_USE_MOCKS=true` to demo without a backend.
++- `npm run dev` to view the landing page; mocks drive calendar, graphs, and badges.
++- `npm test -- run` to run Vitest suite (unit + integration).
++- `npm run build && npm run preview` to check production build locally.
+*** End Patch
+[2m2025-12-08T10:17:19.855763Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:17:21.151716Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:17:21.151783Z[0m [32m INFO[0m ghost commit captured: a4929efacc036f14f6771ce37b27564760c22676
+[2m2025-12-08T10:17:21.151792Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:17:28.807515Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+-import CompletionChart from '../../components/graphs/CompletionChart';
+-import VolumeChart from '../../components/graphs/VolumeChart';
+ import NavLinks from '../../components/navigation/NavLinks';
++import { lazy, Suspense } from 'react';
++
++const CompletionChart = lazy(() => import('../../components/graphs/CompletionChart'));
++const VolumeChart = lazy(() => import('../../components/graphs/VolumeChart'));
+@@
+         <div className="panel panel--results">
+           <div className="panel__title">Results</div>
+-          <CompletionChart
+-            metrics={metrics}
+-            completionRate={completionRate}
+-            loading={loadingMetrics}
+-            error={metricsError}
+-          />
+-          <VolumeChart metrics={metrics} loading={loadingMetrics} error={metricsError} />
++          <Suspense fallback={<div className="graph__skeleton" />}>
++            <CompletionChart
++              metrics={metrics}
++              completionRate={completionRate}
++              loading={loadingMetrics}
++              error={metricsError}
++            />
++          </Suspense>
++          <Suspense fallback={<div className="graph__skeleton" />}>
++            <VolumeChart metrics={metrics} loading={loadingMetrics} error={metricsError} />
++          </Suspense>
+         </div>
+       </section>
+     </main>
+*** End Patch
+[2m2025-12-08T10:17:41.107026Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Rebuild after chart code-splitting to confirm success"}
+[2m2025-12-08T10:18:47.168171Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:18:48.552907Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:18:48.553012Z[0m [32m INFO[0m ghost commit captured: f1cbad52183a3a660d05e26e66cbe17d2d59500b
+[2m2025-12-08T10:18:48.553028Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:21:51.544705Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:21:52.774569Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:21:52.774686Z[0m [32m INFO[0m ghost commit captured: bf1cefe718a4d072caa589fecc5ebd8968f94660
+[2m2025-12-08T10:21:52.774706Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:22:02.898401Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+       <header className="landing__header">
+         <div>
+           <p className="eyebrow">Client landing</p>
+-          <h1>Week overview</h1>
+-          <p className="subhead">See your schedule, trends, and jump to what matters.</p>
++          <h1>Overview</h1>
++          <p className="subhead">See your schedule, trends, and jump to what matters.</p>
+         </div>
+         <NavLinks badges={badges} />
+       </header>
+ 
+       <section className="landing__grid">
+         <div className="panel panel--calendar">
+-          <div className="panel__title">Weekly calendar</div>
++          <div className="panel__title">Schedule</div>
+*** End Patch
+[2m2025-12-08T10:22:27.186092Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/navigation/NavLinks.tsx
+@@
+-type BadgeCounts = Partial<Record<'program' | 'sessions' | 'messages' | 'reports', number>>;
++type BadgeCounts = Partial<Record<'program' | 'sessions' | 'exercises' | 'messages' | 'reports', number>>;
+ 
+ const baseLinks = [
+   { id: 'program', label: 'Program', url: '/program' },
+   { id: 'sessions', label: 'Sessions', url: '/sessions' },
++  { id: 'exercises', label: 'Exercises', url: '/exercises' },
+   { id: 'messages', label: 'Messages', url: '/messages' },
+   { id: 'reports', label: 'Reports', url: '/reports' },
+ ];
+*** End Patch
+[2m2025-12-08T10:22:41.048624Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/unit/navigation.test.tsx
+@@
+   it('shows nav targets and badge', () => {
+     render(<NavLinks badges={{ messages: 1 }} />);
+     expect(screen.getByText(/Program/i)).toBeInTheDocument();
+     expect(screen.getByText(/Sessions/i)).toBeInTheDocument();
++    expect(screen.getByText(/Exercises/i)).toBeInTheDocument();
+     expect(screen.getByText(/Messages/i)).toBeInTheDocument();
+     expect(screen.getByText(/Reports/i)).toBeInTheDocument();
+     expect(screen.getByText('1')).toHaveClass('nav__badge');
+   });
+ });
+*** End Patch
+[2m2025-12-08T10:22:51.155833Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/integration/landing.calendar.test.tsx
+@@
+   it('shows results charts and nav links', async () => {
+     render(<LandingPage />);
+ 
+     await waitFor(() => {
+       expect(screen.getByText(/Completion rate/i)).toBeInTheDocument();
+     });
+ 
+     expect(screen.getByText(/Recent volume/i)).toBeInTheDocument();
++    expect(screen.getByText(/Exercises/i)).toBeInTheDocument();
+     expect(screen.getByText(/Program/i)).toBeInTheDocument();
+     expect(screen.getByText(/Reports/i)).toBeInTheDocument();
+   });
+ });
+*** End Patch
+[2m2025-12-08T10:22:59.124282Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run tests after nav addition and title changes"}
+[2m2025-12-08T10:23:18.816021Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/integration/landing.calendar.test.tsx
+@@
+   it('renders the weekly calendar with sessions and navigation', async () => {
+     render(<LandingPage />);
+ 
+     await waitFor(() => {
+-      expect(screen.getByText(/Weekly calendar/i)).toBeInTheDocument();
++      expect(screen.getByText(/Schedule/i)).toBeInTheDocument();
+     });
+ 
+     expect(screen.getByText(/Week of/i)).toBeInTheDocument();
+     expect(screen.getByText(/Intervals/i)).toBeInTheDocument();
+     expect(screen.getByRole('button', { name: /Previous/i })).toBeInTheDocument();
+*** End Patch
+[2m2025-12-08T10:23:25.777912Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Re-run tests after text change in integration test"}
+[2m2025-12-08T10:23:46.255700Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/tests/integration/landing.calendar.test.tsx
+@@
+   it('renders the weekly calendar with sessions and navigation', async () => {
+     render(<LandingPage />);
+ 
+     await waitFor(() => {
+-      expect(screen.getByText(/Schedule/i)).toBeInTheDocument();
++      expect(screen.getAllByText(/Schedule/i)[0]).toBeInTheDocument();
+     });
+*** End Patch
+[2m2025-12-08T10:23:53.575327Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Final test run after adjusting Schedule matcher"}
+[2m2025-12-08T10:26:33.773565Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:26:35.126115Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:26:35.126216Z[0m [32m INFO[0m ghost commit captured: 38183381883b63fa5430c3f4084aee6ee7ebd14a
+[2m2025-12-08T10:26:35.126278Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:27:04.874705Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/date.ts
+@@
+-import { addDays, eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
++import { addDays, eachDayOfInterval, endOfWeek, format, startOfMonth, endOfMonth, startOfWeek } from 'date-fns';
++import type { WeekView } from './types';
+ 
+ export const WEEK_START_DAY = 1; // Monday
+ 
+ export function getWeekBounds(base: Date, timeZone: string) {
+   const start = startOfWeek(base, { weekStartsOn: WEEK_START_DAY });
+@@
+ export function buildWeekDays(startDate: string) {
+   const start = new Date(startDate + 'T00:00:00');
+   return eachDayOfInterval({ start, end: addDays(start, 6) }).map((d) => format(d, 'yyyy-MM-dd'));
+ }
+ 
+ export function formatDisplayDate(date: string) {
+   return format(new Date(date + 'T00:00:00'), 'EEE MMM d');
+ }
+ 
+ export function formatDisplayTime(date: string, time: string) {
+   // Expects ISO date and time with offset; falls back to showing time string directly
+   const dt = new Date(`${date}T${time}`);
+   return isNaN(dt.getTime()) ? time : format(dt, 'p');
+ }
++
++export type CalendarView = 'day' | '3day' | 'week' | 'month';
++
++export function getDatesForView(view: CalendarView, week: WeekView) {
++  const today = new Date(week.today + 'T00:00:00');
++
++  if (view === 'day') {
++    return [week.today];
++  }
++
++  if (view === '3day') {
++    return [0, 1, 2].map((offset) => format(addDays(today, offset), 'yyyy-MM-dd'));
++  }
++
++  if (view === 'month') {
++    const start = startOfMonth(today);
++    const end = endOfMonth(today);
++    return eachDayOfInterval({ start, end }).map((d) => format(d, 'yyyy-MM-dd'));
++  }
++
++  // default week
++  return buildWeekDays(week.startDate);
++}
+*** End Patch
+[2m2025-12-08T10:27:42.047914Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/calendar/WeekCalendar.tsx
+@@
+-import './WeekCalendar.css';
+-import { buildWeekDays, formatDisplayDate, formatDisplayTime } from '../../services/date';
+-import type { SessionEntry, WeekView } from '../../services/types';
++import './WeekCalendar.css';
++import { formatDisplayDate, formatDisplayTime, getDatesForView, type CalendarView } from '../../services/date';
++import type { SessionEntry, WeekView } from '../../services/types';
+ 
+ interface Props {
+   week: WeekView;
+   loading: boolean;
+   error: string | null;
+   onPrevWeek: () => void;
+   onNextWeek: () => void;
+   onThisWeek: () => void;
+   onSelectSession: (session: SessionEntry | null) => void;
+   selectedSessionId: string | null;
++  view: CalendarView;
++  onViewChange: (view: CalendarView) => void;
+ }
+ 
+ function emptyState(message: string) {
+   return <div className="wc__empty">{message}</div>;
+ }
+@@
+   onNextWeek,
+   onThisWeek,
+   onSelectSession,
+   selectedSessionId,
++  view,
++  onViewChange,
+ }: Props) {
+-  const days = buildWeekDays(week.startDate);
++  const days = getDatesForView(view, week);
+ 
+   if (loading) {
+     return (
+       <div className="wc">
+         <div className="wc__header">
+@@
+           <div>
+             <div className="wc__title">Week of {week.startDate}</div>
+             <div className="wc__subtitle">Timezone: {week.timezone}</div>
+           </div>
+-        </div>
+-        <div className="wc__error">
+-          <p>{error}</p>
+-          <button onClick={onThisWeek}>Retry</button>
+-        </div>
++        </div>
++        <div className="wc__error">
++          <p>{error}</p>
++          <button onClick={onThisWeek}>Retry</button>
++        </div>
+       </div>
+     );
+   }
+ 
+   const sessionsByDay = days.reduce<Record<string, SessionEntry[]>>((acc, day) => {
+@@
+       <div className="wc__header">
+         <div>
+           <div className="wc__title">Week of {week.startDate}</div>
+           <div className="wc__subtitle">Timezone: {week.timezone}</div>
+         </div>
+         <div className="wc__controls">
+           <button onClick={onPrevWeek}>Previous</button>
+           <button onClick={onThisWeek}>This week</button>
+           <button onClick={onNextWeek}>Next</button>
++        </div>
++      </div>
++
++      <div className="wc__views">
++        <button className={view === 'day' ? 'active' : ''} onClick={() => onViewChange('day')}>
++          Day
++        </button>
++        <button className={view === '3day' ? 'active' : ''} onClick={() => onViewChange('3day')}>
++          3 Day
++        </button>
++        <button className={view === 'week' ? 'active' : ''} onClick={() => onViewChange('week')}>
++          Week
++        </button>
++        <button className={view === 'month' ? 'active' : ''} onClick={() => onViewChange('month')}>
++          Month
++        </button>
+         </div>
+       </div>
+*** End Patch
+[2m2025-12-08T10:27:55.586217Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/calendar/WeekCalendar.css
+@@
+ .wc__controls button:hover {
+   border-color: #64748b;
+ }
+ 
++.wc__views {
++  display: flex;
++  gap: 6px;
++  margin-top: 8px;
++}
++
++.wc__views button {
++  background: #111827;
++  color: #e2e8f0;
++  border: 1px solid #1e293b;
++  padding: 6px 10px;
++  border-radius: 8px;
++  cursor: pointer;
++}
++
++.wc__views button.active {
++  border-color: #60a5fa;
++  background: rgba(96, 165, 250, 0.1);
++}
++
+ .wc__grid {
+   display: grid;
+   grid-template-columns: repeat(7, minmax(0, 1fr));
+   gap: 8px;
+ }
+*** End Patch
+[2m2025-12-08T10:28:10.138423Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+-import { useEffect, useMemo, useState } from 'react';
++import { useEffect, useMemo, useState } from 'react';
+ import './LandingPage.css';
+ import { fetchWeekSchedule } from '../../services/schedule';
+ import { fetchCompletionMetrics } from '../../services/metrics';
+ import { getWeekBounds } from '../../services/date';
+ import type { MetricSnapshot, SessionEntry, WeekView } from '../../services/types';
++import type { CalendarView } from '../../services/date';
+@@
+ function LandingPage() {
+   const [weekView, setWeekView] = useState<WeekView>(emptyWeek);
+   const [metrics, setMetrics] = useState<MetricSnapshot>(emptyMetrics);
+   const [loadingWeek, setLoadingWeek] = useState(true);
+   const [loadingMetrics, setLoadingMetrics] = useState(true);
+   const [weekError, setWeekError] = useState<string | null>(null);
+   const [metricsError, setMetricsError] = useState<string | null>(null);
+   const [selectedSession, setSelectedSession] = useState<SessionEntry | null>(null);
++  const [view, setView] = useState<CalendarView>('week');
+@@
+         <div className="panel panel--calendar">
+           <div className="panel__title">Schedule</div>
+           <WeekCalendar
+             week={weekView}
+             loading={loadingWeek}
+             error={weekError}
+             onPrevWeek={goToPrevWeek}
+             onNextWeek={goToNextWeek}
+             onThisWeek={goToThisWeek}
+             onSelectSession={setSelectedSession}
+             selectedSessionId={selectedSession?.id ?? null}
++            view={view}
++            onViewChange={setView}
+           />
+         </div>
+*** End Patch
+[2m2025-12-08T10:28:17.528844Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: app/src/services/mockData.ts
+*** End Patch
+[2m2025-12-08T10:28:34.372702Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/mockData.ts
++import type { MetricSnapshot, SessionEntry, WeekView } from './types';
++import { getWeekBounds } from './date';
++
++const now = new Date();
++const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
++const bounds = getWeekBounds(now, tz);
++
++const baseSessions: SessionEntry[] = [
++  {
++    id: 'sess-1',
++    date: bounds.startDate,
++    startTime: '07:30:00',
++    title: 'Intervals',
++    status: 'planned',
++    durationMinutes: 50,
++    modality: 'run',
++    coachNotes: '3x8min tempo, 2min jog',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-2',
++    date: bounds.startDate,
++    startTime: '17:30:00',
++    title: 'Mobility',
++    status: 'completed',
++    durationMinutes: 20,
++    modality: 'mobility',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-3',
++    date: bounds.today,
++    startTime: '06:45:00',
++    title: 'Endurance',
++    status: 'missed',
++    durationMinutes: 60,
++    modality: 'bike',
++    coachNotes: 'Keep easy. Hydrate.',
++    lastUpdated: new Date().toISOString(),
++  },
++  {
++    id: 'sess-4',
++    date: bounds.endDate,
++    startTime: '09:00:00',
++    title: 'Strength',
++    status: 'planned',
++    durationMinutes: 45,
++    modality: 'strength',
++    lastUpdated: new Date().toISOString(),
++  },
++];
++
++export const mockWeek: WeekView = {
++  ...bounds,
++  sessions: baseSessions,
++};
++
++export const mockMetrics: MetricSnapshot = {
++  rangeLabel: 'Last 4 weeks',
++  completionRate: 0.82,
++  volume: 430,
++  unit: 'minutes',
++  samples: [
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 3, volume: 410, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 5, sessionsCompleted: 4, volume: 460, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 4, sessionsCompleted: 4, volume: 420, unit: 'minutes' },
++    { weekStart: bounds.startDate, sessionsScheduled: 3, sessionsCompleted: 2, volume: 330, unit: 'minutes' },
++  ],
++  hasData: true,
++};
+*** End Patch
+[2m2025-12-08T10:28:43.307543Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Ensure build still succeeds after calendar view changes"}
+[2m2025-12-08T10:28:58.220095Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; sed -n '60,160p' src/components/calendar/WeekCalendar.tsx"}
+[2m2025-12-08T10:29:04.161428Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content -TotalCount 200 src/components/calendar/WeekCalendar.tsx"}
+[2m2025-12-08T10:29:13.829867Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/calendar/WeekCalendar.tsx
+@@
+         <button className={view === 'week' ? 'active' : ''} onClick={() => onViewChange('week')}>
+           Week
+         </button>
+         <button className={view === 'month' ? 'active' : ''} onClick={() => onViewChange('month')}>
+           Month
+         </button>
+-        </div>
+-      </div>
++      </div>
+ 
+       <div className="wc__grid">
+         {days.map((day) => {
+*** End Patch
+[2m2025-12-08T10:29:22.780008Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Verify build after fixing JSX structure"}
+[2m2025-12-08T10:29:44.633294Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Ensure tests still pass after view controls"}
+[2m2025-12-08T10:32:44.929065Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:32:46.264177Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:32:46.264286Z[0m [32m INFO[0m ghost commit captured: 1a38614758f1088d588c366dc758238bbf046297
+[2m2025-12-08T10:32:46.264307Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:33:07.716266Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/calendar/WeekCalendar.tsx
+@@
+ }: Props) {
+   const days = getDatesForView(view, week);
++  const gridClass = `wc__grid wc__grid--${view}`;
++  const compact = view === 'month';
+ 
+   if (loading) {
+     return (
+       <div className="wc">
+         <div className="wc__header">
+@@
+       </div>
+ 
+-      <div className="wc__grid">
++      <div className={gridClass}>
+         {days.map((day) => {
+           const sessions = sessionsByDay[day] || [];
+           const isToday = day === week.today;
+           return (
+             <div key={day} className={`wc__day ${isToday ? 'wc__day--today' : ''}`}>
+               <div className="wc__day-label">{formatDisplayDate(day)}</div>
+               {sessions.length === 0
+                 ? emptyState('No sessions')
+                 : sessions.map((session) => {
+                     const selected = session.id === selectedSessionId;
++                    const showDetail = selected && !compact;
+                     return (
+                       <div
+                         key={session.id}
+                         className={`wc__session wc__session--${session.status} ${
+-                          selected ? 'wc__session--selected' : ''
++                          selected ? 'wc__session--selected' : ''
+                         }`}
+                         onClick={() => onSelectSession(selected ? null : session)}
++                        data-view={view}
+                       >
+-                        <div className="wc__session-time">{formatDisplayTime(session.date, session.startTime)}</div>
+-                        <div className="wc__session-title">{session.title}</div>
+-                        <div className="wc__session-status">{session.status}</div>
+-                        {selected && (
++                        <div className={`wc__session-time ${compact ? 'wc__session-time--compact' : ''}`}>
++                          {formatDisplayTime(session.date, session.startTime)}
++                        </div>
++                        <div className={`wc__session-title ${compact ? 'wc__session-title--compact' : ''}`}>
++                          {session.title}
++                        </div>
++                        {!compact && <div className="wc__session-status">{session.status}</div>}
++                        {showDetail && (
+                           <div className="wc__session-detail">
+                             {session.modality && <div>Modality: {session.modality}</div>}
+                             {session.durationMinutes !== undefined && <div>Duration: {session.durationMinutes} min</div>}
+*** End Patch
+[2m2025-12-08T10:34:15.878177Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/calendar/WeekCalendar.css
+@@
+ .wc__grid {
+   display: grid;
+   grid-template-columns: repeat(7, minmax(0, 1fr));
+   gap: 8px;
+ }
++
++.wc__grid--day {
++  grid-template-columns: 1fr;
++}
++
++.wc__grid--3day {
++  grid-template-columns: repeat(3, minmax(0, 1fr));
++}
++
++.wc__grid--week {
++  grid-template-columns: repeat(7, minmax(0, 1fr));
++}
++
++.wc__grid--month {
++  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
++}
+@@
+ .wc__session {
+   background: #111827;
+   border: 1px solid #1f2937;
+   border-radius: 8px;
+   padding: 6px;
+@@
+ .wc__session-title {
+   font-weight: 600;
+   color: #e5e7eb;
+ }
+ 
++.wc__session-time--compact,
++.wc__session-title--compact {
++  display: inline;
++  font-size: 12px;
++}
++
++.wc__session[data-view='month'] {
++  display: flex;
++  align-items: center;
++  gap: 6px;
++  padding: 4px 6px;
++}
++
+ .wc__session-status {
+   font-size: 12px;
+   color: #94a3b8;
+ }
+@@
+ @media (max-width: 960px) {
+-  .wc__grid {
+-    grid-template-columns: repeat(2, minmax(0, 1fr));
+-  }
++  .wc__grid,
++  .wc__grid--week {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
++  .wc__grid--3day {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
+ }
+ 
+ @media (max-width: 640px) {
+-  .wc__grid {
+-    grid-template-columns: 1fr;
+-  }
++  .wc__grid,
++  .wc__grid--week,
++  .wc__grid--3day {
++    grid-template-columns: 1fr;
++  }
++  .wc__grid--month {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
+ }
+*** End Patch
+[2m2025-12-08T10:34:54.960391Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Ensure build after layout changes"}
+[2m2025-12-08T10:35:13.455266Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm test -- run","timeout_ms":120000,"with_escalated_permissions":true,"justification":"Confirm tests still pass after view/grid changes"}
+[2m2025-12-08T10:37:46.320793Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:37:47.616565Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:37:47.616781Z[0m [32m INFO[0m ghost commit captured: 586d32489011e08b3fd4c9599f8b0330e90a2319
+[2m2025-12-08T10:37:47.616809Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:38:36.338069Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:38:37.693319Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:38:37.693445Z[0m [32m INFO[0m ghost commit captured: f2b5ad4feb6fa95be0905c4c47469ac3117c2fae
+[2m2025-12-08T10:38:37.693464Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:39:15.674808Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:39:16.861082Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:39:16.861191Z[0m [32m INFO[0m ghost commit captured: 04636396386bc284de2b0d7baa720d93d74330f0
+[2m2025-12-08T10:39:16.861205Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-08T10:40:47.229898Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-08T10:40:48.461848Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-08T10:40:48.461941Z[0m [32m INFO[0m ghost commit captured: 85c987b40096488bdd9cc639155da1b014ec9368
+[2m2025-12-08T10:40:48.461957Z[0m [32m INFO[0m ghost snapshot gate marked ready
