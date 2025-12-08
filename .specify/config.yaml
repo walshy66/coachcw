@@ -1,4 +1,19 @@
 # Specify configuration for CoachCW
 
 branches:
-  work: main   # Tells Specify: whenever templates reference "work", use "main"
+  work: main
+features:
+  root: specs
+  naming: "{id}-{slug}"
+  pad: 3
+templates:
+  plan: .specify/templates/plan-template.md
+  spec: .specify/templates/spec-template.md
+  tasks: .specify/templates/tasks-template.md
+  agent: .specify/templates/agent-file-template.md
+checks:
+  yaml_parse: |
+    python - <<'PY'
+    import sys, yaml
+    yaml.safe_load(sys.stdin.read())
+    PY
