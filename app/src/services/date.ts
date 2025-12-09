@@ -1,4 +1,4 @@
-import { addDays, eachDayOfInterval, endOfWeek, format, startOfMonth, endOfMonth, startOfWeek } from 'date-fns';
+import { addDays, eachDayOfInterval, endOfWeek, format, startOfMonth, endOfMonth, startOfWeek, differenceInYears } from 'date-fns';
 import type { WeekView } from './types';
 
 export const WEEK_START_DAY = 1; // Monday
@@ -50,4 +50,23 @@ export function getDatesForView(view: CalendarView, week: WeekView) {
 
   // default week
   return buildWeekDays(week.startDate);
+}
+
+export function calculateAgeFromDob(dateOfBirth?: string | null) {
+  if (!dateOfBirth) return null;
+
+  const dob = new Date(`${dateOfBirth}T00:00:00`);
+  if (isNaN(dob.getTime())) return null;
+
+  const now = new Date();
+  if (dob > now) return null;
+
+  const years = differenceInYears(now, dob);
+  return years >= 0 ? years : null;
+}
+
+export function formatFullDate(date?: string | null) {
+  if (!date) return '';
+  const parsed = new Date(`${date}T00:00:00`);
+  return isNaN(parsed.getTime()) ? '' : format(parsed, 'MMM d, yyyy');
 }

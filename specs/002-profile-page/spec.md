@@ -9,7 +9,7 @@
 
 ### Session 2025-12-09
 
-- Q: Should we show full date of birth or just age on the profile? Should editing be supported? → A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
+- Q: Should we show full date of birth or just age on the profile? Should editing be supported? A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -53,7 +53,7 @@ Clients can confirm their subscription plan, status, and key dates from the same
 **Acceptance Scenarios**:
 
 1. **Given** a user with an active subscription, **When** they view the subscription section, **Then** plan name, status, member-since date, next renewal date, session allowance, add-ons, and auto-renew flag are visible with plain-language labels.
-2. **Given** a user whose subscription data is unavailable, **When** they open the page, **Then** the section shows a clear “subscription info unavailable” message without exposing technical errors.
+2. **Given** a user whose subscription data is unavailable, **When** they open the page, **Then** the section shows a clear "subscription info unavailable" message without exposing technical errors.
 
 ---
 
@@ -88,21 +88,22 @@ Clients see clear messaging that payment details management will be added later 
 ### Functional Requirements
 
 - **FR-001**: The system must present a profile header with full name, username, email, role, location, and avatar/photo; if no photo is present, show an initials-based placeholder.
-- **FR-002**: The system must display only the user’s age in the profile view (hiding full date of birth) and allow editing date of birth via a date picker clearly labeled as date of birth; after saving, recompute and show the updated age.
+- **FR-002**: The system must display only the user's age in the profile view (hiding full date of birth) and allow editing date of birth via a date picker clearly labeled as date of birth; after saving, recompute and show the updated age.
 - **FR-003**: The system must render subscription details: plan name, status, member-since date, next renewal date, sessions included per period, add-ons (if any), and whether auto-renew is on/off.
 - **FR-004**: The page must include clear, non-interactive messaging that payment information management will be added later, without offering dead links or buttons.
 - **FR-005**: All personally identifiable information shown must only render for the authenticated user viewing their own profile and must avoid leaking data on load errors (use generic error copy).
+- **FR-006**: The profile page must reuse the shared page header/navigation seen on the landing overview, exposing Overview and Profile links so users can jump between pages.
 
 ### Key Entities *(include if feature involves data)*
 
 - **User Profile**: Represents a signed-in person; attributes include full name, username, email, date of birth, role, location, avatar/photo reference, and derived age.
-- **Subscription**: Represents the user’s membership; attributes include plan name, status, member-since date, next renewal date, session allowance per period, auto-renew flag, and add-ons.
+- **Subscription**: Represents the user's membership; attributes include plan name, status, member-since date, next renewal date, session allowance per period, auto-renew flag, and add-ons.
 
 ## Assumptions & Dependencies
 
 - Users are authenticated before reaching the profile page and can only view their own profile data; profile editing is out of scope for this iteration.
 - Profile and subscription data are available from existing user and billing sources; payment method capture/management is deferred to a later feature.
-- Age calculations use the provided date of birth with the client’s local timezone for display formatting.
+- Age calculations use the provided date of birth with the client's local timezone for display formatting.
 
 ## Success Criteria *(mandatory)*
 
@@ -116,4 +117,4 @@ Clients see clear messaging that payment details management will be added later 
 - **SC-001**: 95% of profile page loads show all available profile fields without missing/placeholder values (excluding intentionally absent items) within 2 seconds on a standard broadband connection.
 - **SC-002**: 100% of users with subscription data see a populated subscription section with correct status and dates; 0 occurrences of technical error text visible to end users during testing.
 - **SC-003**: At least 90% of usability test participants correctly identify their plan name and next renewal date within 5 seconds of opening the page.
-- **SC-004**: Support tickets related to “What plan am I on?/When do I renew?” decrease by 30% within one release after launch, using the prior month as baseline.
+- **SC-004**: Support tickets related to "What plan am I on?/When do I renew?" decrease by 30% within one release after launch, using the prior month as baseline.

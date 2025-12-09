@@ -44,3 +44,30 @@ export interface NavigationTarget {
   url: string;
   badge?: string;
 }
+
+export type SubscriptionStatus = 'active' | 'on_hold' | 'canceled';
+
+export interface UserProfile {
+  id: string;
+  fullName: string;
+  username: string;
+  email: string;
+  dateOfBirth?: string | null;
+  role: string;
+  location?: string;
+  avatarUrl?: string | null;
+  avatarInitials?: string;
+}
+
+export interface Subscription {
+  id: string;
+  userId: string;
+  planName: string;
+  status: SubscriptionStatus;
+  memberSince: string;
+  renewalDate?: string | null;
+  sessionsPerPeriod?: number;
+  period?: 'month' | 'year';
+  autoRenew: boolean;
+  addOns?: string[];
+}

@@ -5644,3 +5644,1080 @@
 [2m2025-12-09T00:34:03.644979Z[0m [32m INFO[0m ghost snapshot gate marked ready
 [2m2025-12-09T00:34:09.974572Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Set-Location \"C:\\Users\\camer\\Documents\\coachcw\\coachcw\"; git status -sb"}
 [2m2025-12-09T00:36:10.661024Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T00:36:11.212192Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T00:36:11.212236Z[0m [32m INFO[0m ghost commit captured: 3d34b5005baa070baab1580c29216dbe8dc724cb
+[2m2025-12-09T00:36:11.212245Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T00:36:16.761292Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Set-Location \"C:\\Users\\camer\\Documents\\coachcw\\coachcw\"; git push -u origin 002-profile-page","with_escalated_permissions":true,"justification":"Need to push new feature branch to origin so it is visible in GitHub and Codex web"}
+[2m2025-12-09T01:21:02.937639Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T01:21:03.505612Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T01:21:03.505646Z[0m [32m INFO[0m ghost commit captured: 8a51f44bf1d861686545586de012f0c1b8187f90
+[2m2025-12-09T01:21:03.505652Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T01:24:47.294635Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T01:24:47.837966Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T01:24:47.838002Z[0m [32m INFO[0m ghost commit captured: 46cc0c33e9094f5df046afb54419787563218df3
+[2m2025-12-09T01:24:47.838008Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T01:24:49.552366Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Location"}
+[2m2025-12-09T01:25:31.292500Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T01:25:31.829357Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T01:25:31.829394Z[0m [32m INFO[0m ghost commit captured: f8b2e0d9b29814775725e2940eb8cb1f2b5b572b
+[2m2025-12-09T01:25:31.829401Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T01:25:37.289667Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .codex"}
+[2m2025-12-09T01:25:41.204487Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/config.toml"}
+[2m2025-12-09T01:28:20.498416Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T01:28:21.064467Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T01:28:21.064512Z[0m [32m INFO[0m ghost commit captured: 6de23cc9d8f5afd934bd16f595a61cb4d226fb87
+[2m2025-12-09T01:28:21.064518Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T01:28:24.730642Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem","timeout_ms":120000}
+[2m2025-12-09T01:28:28.281637Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content AGENTS.md"}
+[2m2025-12-09T01:28:32.070249Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content README.md"}
+[2m2025-12-09T01:28:35.802213Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .codex"}
+[2m2025-12-09T01:28:41.021663Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/config.toml"}
+[2m2025-12-09T02:45:43.081525Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T02:45:43.729781Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T02:45:43.729830Z[0m [32m INFO[0m ghost commit captured: d627a26e0c3536223fd4ce75713be864d5c6e88d
+[2m2025-12-09T02:45:43.729836Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T02:45:51.197267Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Set-Location /workspace/coachcw; Get-Location"}
+[2m2025-12-09T04:18:54.205162Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:18:54.800241Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:18:54.800279Z[0m [32m INFO[0m ghost commit captured: 47dcc2f53e9d3e171e8d24d200e972987eb03faf
+[2m2025-12-09T04:18:54.800288Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:18:59.380782Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app"}
+[2m2025-12-09T04:19:07.940733Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app && npm run dev -- --host --port 4173","with_escalated_permissions":true,"justification":"Need to start the Vite dev server so you can preview the app; requires writing to node_modules/temp files beyond read-only sandbox","timeout_ms":120000}
+[2m2025-12-09T04:19:16.477221Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run dev -- --host --port 4173","with_escalated_permissions":true,"justification":"Need to start the Vite dev server so you can preview the app; requires writing outside read-only sandbox","timeout_ms":120000}
+[2m2025-12-09T04:25:23.230873Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:25:23.792563Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:25:23.792617Z[0m [32m INFO[0m ghost commit captured: 651b255056b971b9e6c2838d68495b3a2cae1ae4
+[2m2025-12-09T04:25:23.792628Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:25:28.878462Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-ChildItem src"}
+[2m2025-12-09T04:25:32.251370Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/main.tsx"}
+[2m2025-12-09T04:25:35.335134Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/App.tsx"}
+[2m2025-12-09T04:25:39.059836Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/pages/profile/ProfilePage.tsx"}
+[2m2025-12-09T04:25:45.564677Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content package.json"}
+[2m2025-12-09T04:25:51.108523Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content vite.config.ts"}
+[2m2025-12-09T04:28:08.953181Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:28:09.522399Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:28:09.522435Z[0m [32m INFO[0m ghost commit captured: ed404a5f142dce9eb75853006c542147ec71e668
+[2m2025-12-09T04:28:09.522442Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:28:15.904143Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/App.css"}
+[2m2025-12-09T04:28:19.374130Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/index.css"}
+[2m2025-12-09T04:28:22.776602Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-ChildItem src/pages"}
+[2m2025-12-09T04:28:25.838840Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-ChildItem src/pages/landing"}
+[2m2025-12-09T04:28:29.110098Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/pages/landing/LandingPage.tsx"}
+[2m2025-12-09T04:28:31.155176Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/components/navigation/NavLinks.tsx"}
+[2m2025-12-09T04:29:31.071889Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/App.tsx
+@@
+-import './App.css'
+-import ProfilePage from './pages/profile/ProfilePage'
++import { useState } from 'react'
++import './App.css'
++import LandingPage from './pages/landing/LandingPage'
++import ProfilePage from './pages/profile/ProfilePage'
++
++type Page = 'landing' | 'profile'
+ 
+ function App() {
+-  return <ProfilePage />
++  const [page, setPage] = useState<Page>('landing')
++
++  if (page === 'profile') {
++    return <ProfilePage />
++  }
++
++  return <LandingPage onNavigate={(target) => setPage(target)} />
+ }
+ 
+ export default App
+*** End Patch
+[2m2025-12-09T04:29:56.244972Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+-import { useEffect, useMemo, useState } from 'react';
+-import './LandingPage.css';
+-import { fetchWeekSchedule } from '../../services/schedule';
+-import { fetchCompletionMetrics } from '../../services/metrics';
+-import { getWeekBounds } from '../../services/date';
+-import type { MetricSnapshot, SessionEntry, WeekView } from '../../services/types';
+-import type { CalendarView } from '../../services/date';
+-import WeekCalendar from '../../components/calendar/WeekCalendar';
+-import NavLinks from '../../components/navigation/NavLinks';
+-import { lazy, Suspense } from 'react';
++import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
++import './LandingPage.css';
++import { fetchWeekSchedule } from '../../services/schedule';
++import { fetchCompletionMetrics } from '../../services/metrics';
++import { getWeekBounds } from '../../services/date';
++import type { MetricSnapshot, SessionEntry, WeekView } from '../../services/types';
++import type { CalendarView } from '../../services/date';
++import WeekCalendar from '../../components/calendar/WeekCalendar';
++import NavLinks from '../../components/navigation/NavLinks';
+@@
+ const emptyMetrics: MetricSnapshot = {
+   rangeLabel: 'Last 4 weeks',
+   completionRate: undefined,
+@@
+   samples: [],
+   hasData: false,
+ };
+ 
+-function LandingPage() {
++type LandingPageProps = {
++  onNavigate?: (page: 'landing' | 'profile') => void;
++};
++
++function LandingPage({ onNavigate }: LandingPageProps) {
+@@
+         <div>
+           <p className="eyebrow">Client landing</p>
+           <h1>Overview</h1>
+           <p className="subhead">See your schedule, trends, and jump to what matters.</p>
+         </div>
+-        <NavLinks badges={badges} />
++        <NavLinks badges={badges} onNavigate={(target) => target === 'profile' && onNavigate?.('profile')} />
+       </header>
+*** End Patch
+[2m2025-12-09T04:30:24.403207Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/navigation/NavLinks.tsx
+@@
+-import './NavLinks.css';
+-
+-type BadgeCounts = Partial<Record<'program' | 'sessions' | 'exercises' | 'messages' | 'reports', number>>;
+-
+-const baseLinks = [
+-  { id: 'program', label: 'Program', url: '/program' },
+-  { id: 'sessions', label: 'Sessions', url: '/sessions' },
+-  { id: 'exercises', label: 'Exercises', url: '/exercises' },
+-  { id: 'messages', label: 'Messages', url: '/messages' },
+-  { id: 'reports', label: 'Reports', url: '/reports' },
+-];
+-
+-function NavLinks({ badges = {} }: { badges?: BadgeCounts }) {
+-  return (
+-    <nav className="nav" aria-label="Primary navigation">
+-      {baseLinks.map((link) => {
+-        const count = badges[link.id as keyof BadgeCounts];
+-        const showBadge = !!count && count > 0;
+-        const badgeText = count && count > 9 ? '9+' : count?.toString();
+-        return (
+-          <a key={link.id} className="nav__link" href={link.url} aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}>
+-            <span>{link.label}</span>
+-            {showBadge && <span className="nav__badge">{badgeText}</span>}
+-          </a>
+-        );
+-      })}
+-    </nav>
+-  );
+-}
+-
+-export default NavLinks;
++import type { MouseEvent } from 'react';
++import './NavLinks.css';
++
++type BadgeKey = 'program' | 'sessions' | 'exercises' | 'messages' | 'reports';
++type BadgeCounts = Partial<Record<BadgeKey, number>>;
++type NavLinkId = BadgeKey | 'profile';
++
++type NavLink = {
++  id: NavLinkId;
++  label: string;
++  url: string;
++};
++
++const baseLinks: NavLink[] = [
++  { id: 'program', label: 'Program', url: '/program' },
++  { id: 'sessions', label: 'Sessions', url: '/sessions' },
++  { id: 'exercises', label: 'Exercises', url: '/exercises' },
++  { id: 'messages', label: 'Messages', url: '/messages' },
++  { id: 'reports', label: 'Reports', url: '/reports' },
++  { id: 'profile', label: 'Profile', url: '#profile' },
++];
++
++type NavLinksProps = {
++  badges?: BadgeCounts;
++  onNavigate?: (target: NavLinkId) => void;
++};
++
++function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
++  return (
++    <nav className="nav" aria-label="Primary navigation">
++      {baseLinks.map((link) => {
++        const count = (badges as Record<string, number | undefined>)[link.id];
++        const showBadge = !!count && count > 0;
++        const badgeText = count && count > 9 ? '9+' : count?.toString();
++        const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
++          if (link.id === 'profile' && onNavigate) {
++            event.preventDefault();
++            onNavigate('profile');
++          }
++        };
++
++        return (
++          <a
++            key={link.id}
++            className="nav__link"
++            href={link.url}
++            aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}
++            onClick={link.id === 'profile' && onNavigate ? handleClick : undefined}
++          >
++            <span>{link.label}</span>
++            {showBadge && <span className="nav__badge">{badgeText}</span>}
++          </a>
++        );
++      })}
++    </nav>
++  );
++}
++
++export default NavLinks;
+*** End Patch
+[2m2025-12-09T04:31:46.839149Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/App.tsx"}
+[2m2025-12-09T04:31:53.219694Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/pages/landing/LandingPage.tsx"}
+[2m2025-12-09T04:32:00.148943Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+         <div>
+           <p className="eyebrow">Client landing</p>
+           <h1>Overview</h1>
+           <p className="subhead">See your schedule, trends, and jump to what matters.</p>
+         </div>
+-        <NavLinks badges={badges} onNavigate={(target) => target === 'profile' && onNavigate?.('profile')} />
++        <NavLinks
++          badges={badges}
++          onNavigate={(target) => target === 'profile' && onNavigate?.('profile')}
++        />
+       </header>
+*** End Patch
+[2m2025-12-09T04:33:34.896370Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:33:35.473020Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:33:35.473059Z[0m [32m INFO[0m ghost commit captured: f5572de44e5cfb0162b9bb25aa106020ef08c6c8
+[2m2025-12-09T04:33:35.473066Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:45:34.149428Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:45:34.999361Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:45:34.999417Z[0m [32m INFO[0m ghost commit captured: 45934bf211f10023c1d6a84f57f16f8c1dd13d68
+[2m2025-12-09T04:45:34.999430Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:45:48.987898Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run dev -- --host --port 5173","with_escalated_permissions":true,"justification":"Need to start dev server to reproduce loading issue; requires writing cache/temp files beyond read-only sandbox","timeout_ms":30000}
+[2m2025-12-09T04:46:46.230312Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","with_escalated_permissions":true,"justification":"Check for build errors after recent changes to ensure app loads","timeout_ms":120000}
+[2m2025-12-09T04:49:53.050089Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:49:53.715889Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:49:53.715938Z[0m [32m INFO[0m ghost commit captured: cc96223d4fe9bbed3c9736338284111dc19bf435
+[2m2025-12-09T04:49:53.715948Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:54:31.198093Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T04:54:31.747777Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T04:54:31.747815Z[0m [32m INFO[0m ghost commit captured: f1bcd4fa0a5bc60c1923ffaa45eb6fab9fcbd67a
+[2m2025-12-09T04:54:31.747822Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T04:54:36.717709Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/pages/profile/ProfilePage.css"}
+[2m2025-12-09T04:54:41.288917Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content src/components/navigation/NavLinks.css"}
+[2m2025-12-09T04:55:15.780877Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/App.tsx
+@@
+ import './App.css'
+ import LandingPage from './pages/landing/LandingPage'
+ import ProfilePage from './pages/profile/ProfilePage'
+ 
+ type Page = 'landing' | 'profile'
+ 
+ function App() {
+   const [page, setPage] = useState<Page>('landing')
+ 
+   if (page === 'profile') {
+-    return <ProfilePage />
++    return <ProfilePage onNavigate={(target) => setPage(target)} />
+   }
+ 
+   return <LandingPage onNavigate={(target) => setPage(target)} />
+ }
+ 
+ export default App
+*** End Patch
+[2m2025-12-09T04:57:04.635012Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/components/navigation/NavLinks.tsx
+@@
+-import type { MouseEvent } from 'react';
+-import './NavLinks.css';
+-
+-type BadgeKey = 'program' | 'sessions' | 'exercises' | 'messages' | 'reports';
+-type BadgeCounts = Partial<Record<BadgeKey, number>>;
+-type NavLinkId = BadgeKey | 'profile';
+-
+-type NavLink = {
+-  id: NavLinkId;
+-  label: string;
+-  url: string;
+-};
+-
+-const baseLinks: NavLink[] = [
+-  { id: 'program', label: 'Program', url: '/program' },
+-  { id: 'sessions', label: 'Sessions', url: '/sessions' },
+-  { id: 'exercises', label: 'Exercises', url: '/exercises' },
+-  { id: 'messages', label: 'Messages', url: '/messages' },
+-  { id: 'reports', label: 'Reports', url: '/reports' },
+-  { id: 'profile', label: 'Profile', url: '#profile' },
+-];
+-
+-type NavLinksProps = {
+-  badges?: BadgeCounts;
+-  onNavigate?: (target: NavLinkId) => void;
+-};
+-
+-function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
+-  return (
+-    <nav className="nav" aria-label="Primary navigation">
+-      {baseLinks.map((link) => {
+-        const count = (badges as Record<string, number | undefined>)[link.id];
+-        const showBadge = !!count && count > 0;
+-        const badgeText = count && count > 9 ? '9+' : count?.toString();
+-        const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+-          if (link.id === 'profile' && onNavigate) {
+-            event.preventDefault();
+-            onNavigate('profile');
+-          }
+-        };
+-
+-        return (
+-          <a
+-            key={link.id}
+-            className="nav__link"
+-            href={link.url}
+-            aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}
+-            onClick={link.id === 'profile' && onNavigate ? handleClick : undefined}
+-          >
+-            <span>{link.label}</span>
+-            {showBadge && <span className="nav__badge">{badgeText}</span>}
+-          </a>
+-        );
+-      })}
+-    </nav>
+-  );
+-}
+-
+-export default NavLinks;
++import type { MouseEvent } from 'react';
++import './NavLinks.css';
++
++type BadgeKey = 'program' | 'sessions' | 'exercises' | 'messages' | 'reports';
++type BadgeCounts = Partial<Record<BadgeKey, number>>;
++type NavLinkId = BadgeKey | 'profile' | 'overview';
++
++type NavLink = {
++  id: NavLinkId;
++  label: string;
++  url: string;
++};
++
++const baseLinks: NavLink[] = [
++  { id: 'overview', label: 'Overview', url: '/' },
++  { id: 'program', label: 'Program', url: '/program' },
++  { id: 'sessions', label: 'Sessions', url: '/sessions' },
++  { id: 'exercises', label: 'Exercises', url: '/exercises' },
++  { id: 'messages', label: 'Messages', url: '/messages' },
++  { id: 'reports', label: 'Reports', url: '/reports' },
++  { id: 'profile', label: 'Profile', url: '#profile' },
++];
++
++type NavLinksProps = {
++  badges?: BadgeCounts;
++  onNavigate?: (target: NavLinkId) => void;
++};
++
++function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
++  return (
++    <nav className="nav" aria-label="Primary navigation">
++      {baseLinks.map((link) => {
++        const count = (badges as Record<string, number | undefined>)[link.id];
++        const showBadge = !!count && count > 0;
++        const badgeText = count && count > 9 ? '9+' : count?.toString();
++        const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
++          if ((link.id === 'profile' || link.id === 'overview') && onNavigate) {
++            event.preventDefault();
++            onNavigate(link.id);
++          }
++        };
++
++        return (
++          <a
++            key={link.id}
++            className="nav__link"
++            href={link.url}
++            aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}
++            onClick={(link.id === 'profile' || link.id === 'overview') && onNavigate ? handleClick : undefined}
++          >
++            <span>{link.label}</span>
++            {showBadge && <span className="nav__badge">{badgeText}</span>}
++          </a>
++        );
++      })}
++    </nav>
++  );
++}
++
++export default NavLinks;
+*** End Patch
+[2m2025-12-09T04:57:19.902893Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/landing/LandingPage.tsx
+@@
+-        <NavLinks
+-          badges={badges}
+-          onNavigate={(target) => target === 'profile' && onNavigate?.('profile')}
+-        />
++        <NavLinks
++          badges={badges}
++          onNavigate={(target) => {
++            if (target === 'profile') onNavigate?.('profile');
++            if (target === 'overview') onNavigate?.('landing');
++          }}
++        />
+       </header>
+*** End Patch
+[2m2025-12-09T04:57:43.447039Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/profile/ProfilePage.tsx
+@@
+-import { useEffect, useMemo, useState } from 'react';
+-import './ProfilePage.css';
+-import { fetchSubscription, fetchUserProfile } from '../../services/profile';
+-import { calculateAgeFromDob, formatFullDate } from '../../services/date';
+-import type { Subscription, UserProfile } from '../../services/types';
+-import { mockUserProfile } from '../../services/mockData';
++import { useEffect, useMemo, useState } from 'react';
++import './ProfilePage.css';
++import { fetchSubscription, fetchUserProfile } from '../../services/profile';
++import { calculateAgeFromDob, formatFullDate } from '../../services/date';
++import type { Subscription, UserProfile } from '../../services/types';
++import { mockUserProfile } from '../../services/mockData';
++import NavLinks from '../../components/navigation/NavLinks';
+@@
+-const statusClasses: Record<Subscription['status'], string> = {
++const statusClasses: Record<Subscription['status'], string> = {
+   active: 'status--active',
+   on_hold: 'status--hold',
+   canceled: 'status--canceled',
+ };
+ 
+-function ProfilePage() {
++type ProfilePageProps = {
++  onNavigate?: (page: 'landing' | 'profile') => void;
++};
++
++function ProfilePage({ onNavigate }: ProfilePageProps) {
+@@
+-    <main className="profile">
++    <main className="profile">
++      <div className="profile__nav">
++        <NavLinks
++          onNavigate={(target) => {
++            if (target === 'overview') onNavigate?.('landing');
++            if (target === 'profile') onNavigate?.('profile');
++          }}
++        />
++      </div>
+       <header className="profile__header">
+         <div className="profile__avatar">{renderAvatar()}</div>
+         <div>
+           <p className="eyebrow">Profile</p>
+*** End Patch
+[2m2025-12-09T04:57:56.558866Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/profile/ProfilePage.css
+@@
+ .profile__header {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+   margin-bottom: 16px;
+ }
+ 
++.profile__nav {
++  display: flex;
++  justify-content: flex-end;
++  margin-bottom: 12px;
++}
++
+ .profile__avatar {
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   background: linear-gradient(145deg, #1f2937, #0b1221);
+@@
+ @media (max-width: 960px) {
++  .profile__nav {
++    justify-content: flex-start;
++  }
++
+   .profile__grid {
+     grid-template-columns: 1fr;
+   }
+*** End Patch
+[2m2025-12-09T04:58:07.000111Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","with_escalated_permissions":true,"justification":"Verify updated nav wiring builds without type errors","timeout_ms":120000}
+[2m2025-12-09T05:03:02.091243Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:03:02.735168Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:03:02.735201Z[0m [32m INFO[0m ghost commit captured: 849de3724268d7155a6e82bb8513d9a79812c944
+[2m2025-12-09T05:03:02.735208Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:03:18.828430Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/profile/ProfilePage.tsx
+@@
+   on_hold: 'status--hold',
+   canceled: 'status--canceled',
+ };
+ 
+ type ProfilePageProps = {
+   onNavigate?: (page: 'landing' | 'profile') => void;
+ };
+ 
+ function ProfilePage({ onNavigate }: ProfilePageProps) {
+@@
+ 
+   return (
+-    <main className="profile">
+-      <div className="profile__nav">
+-        <NavLinks
+-          onNavigate={(target) => {
+-            if (target === 'overview') onNavigate?.('landing');
+-            if (target === 'profile') onNavigate?.('profile');
+-          }}
+-        />
+-      </div>
++    <main className="profile">
++      <header className="profile__page-header">
++        <div>
++          <p className="eyebrow">Client profile</p>
++          <h1>Profile</h1>
++          <p className="profile__subhead">Update your details and membership.</p>
++        </div>
++        <div className="profile__nav">
++          <NavLinks
++            onNavigate={(target) => {
++              if (target === 'overview') onNavigate?.('landing');
++              if (target === 'profile') onNavigate?.('profile');
++            }}
++          />
++        </div>
++      </header>
+       <header className="profile__header">
+         <div className="profile__avatar">{renderAvatar()}</div>
+         <div>
+           <p className="eyebrow">Profile</p>
+           <h1>{profile?.fullName ?? 'Your profile'}</h1>
+*** End Patch
+[2m2025-12-09T05:03:45.176791Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/pages/profile/ProfilePage.css
+@@
+ .profile {
+   min-height: 100vh;
+   background: linear-gradient(135deg, #0f172a, #1e293b);
+   color: #e2e8f0;
+   padding: 32px;
+   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+ }
+ 
++.profile__page-header {
++  display: flex;
++  align-items: flex-start;
++  justify-content: space-between;
++  gap: 16px;
++  margin-bottom: 12px;
++}
++
+ .profile__header {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+   margin-bottom: 16px;
+@@
+ .profile__nav {
+   display: flex;
+   justify-content: flex-end;
+   margin-bottom: 12px;
+ }
+ 
++.profile__subhead {
++  color: #cbd5e1;
++  margin: 0;
++}
++
+ .profile__avatar {
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   background: linear-gradient(145deg, #1f2937, #0b1221);
+@@
+ @media (max-width: 960px) {
++  .profile__page-header {
++    flex-direction: column;
++    align-items: flex-start;
++  }
++
+   .profile__nav {
+     justify-content: flex-start;
+   }
+ 
+   .profile__grid {
+*** End Patch
+[2m2025-12-09T05:03:52.418648Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; npm run build","with_escalated_permissions":true,"justification":"Ensure header layout changes compile cleanly","timeout_ms":120000}
+[2m2025-12-09T05:04:52.178385Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:04:52.754810Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:04:52.754856Z[0m [32m INFO[0m ghost commit captured: 71429cc7546672eebbcbc9193acbb4202df8aa62
+[2m2025-12-09T05:04:52.754864Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:04:57.633988Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content README.md"}
+[2m2025-12-09T05:05:01.622557Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs"}
+[2m2025-12-09T05:05:05.337479Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs/002-profile-page"}
+[2m2025-12-09T05:05:27.660788Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/README.md
+@@
+-# React + TypeScript + Vite
+-
+-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+-
+-Currently, two official plugins are available:
+-
+-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-
+-## React Compiler
+-
+-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-
+-## Expanding the ESLint configuration
+-
+-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-
+-```js
+-export default defineConfig([
+-  globalIgnores(['dist']),
+-  {
+-    files: ['**/*.{ts,tsx}'],
+-    extends: [
+-      // Other configs...
+-
+-      // Remove tseslint.configs.recommended and replace with this
+-      tseslint.configs.recommendedTypeChecked,
+-      // Alternatively, use this for stricter rules
+-      tseslint.configs.strictTypeChecked,
+-      // Optionally, add this for stylistic rules
+-      tseslint.configs.stylisticTypeChecked,
+-
+-      // Other configs...
+-    ],
+-    languageOptions: {
+-      parserOptions: {
+-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+-        tsconfigRootDir: import.meta.dirname,
+-      },
+-      // other options...
+-    },
+-  },
+-])
+-```
+-
+-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-
+-```js
+-// eslint.config.js
+-import reactX from 'eslint-plugin-react-x'
+-import reactDom from 'eslint-plugin-react-dom'
+-
+-export default defineConfig([
+-  globalIgnores(['dist']),
+-  {
+-    files: ['**/*.{ts,tsx}'],
+-    extends: [
+-      // Other configs...
+-      // Enable lint rules for React
+-      reactX.configs['recommended-typescript'],
+-      // Enable lint rules for React DOM
+-      reactDom.configs.recommended,
+-    ],
+-    languageOptions: {
+-      parserOptions: {
+-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+-        tsconfigRootDir: import.meta.dirname,
+-      },
+-      // other options...
+-    },
+-  },
+-])
+-```
++# CoachCW frontend (Vite + React + TypeScript)
++
++Client UI for CoachCW built on Vite. The app currently includes the landing overview and profile flows.
++
++## Pages and navigation
++
++- Landing overview: schedule calendar, completion/volume charts, and top-right nav. Overview link keeps you here; Profile link switches to the profile page.
++- Profile: client details, DOB editing, subscription status, and the same nav bar aligned to the page header so you can jump back to Overview.
++- Navigation is in-app (no router yet); the `NavLinks` component calls the handler passed from `App.tsx` to swap views.
++
++## Develop
++
++- Start dev server: `npm run dev -- --host --port 5173`
++- Lint: `npm run lint`
++- Tests: `npm test` (Vitest + Testing Library)
++- Build: `npm run build`
++
++## Notes
++
++- Mock data/services power the schedule, metrics, and profile when backend calls fail or aren’t present.
++- Styling is page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.***
+ End Patch"```?
+ OOPS output includes extra ***??? need correct patch formatting. Let's redo patch carefully. Use apply patch syntax. Let's re-run with proper text. Replace entire file content maybe easier. We'll patch remove content and add new. Use *** Update File etc. Let's retry.```
+*** End Patch
+[2m2025-12-09T05:05:32.865045Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: app/README.md
+*** End Patch
+[2m2025-12-09T05:06:06.665735Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-12-09T05:06:33.534631Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:06:34.115421Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:06:34.115458Z[0m [32m INFO[0m ghost commit captured: 97304e032387637fc6dc8f4c611f49ab149224df
+[2m2025-12-09T05:06:34.115465Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:06:50.799513Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/README.md
+@@
+-# React + TypeScript + Vite
+-
+-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+-
+-Currently, two official plugins are available:
+-
+-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-
+-## React Compiler
+-
+-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-
+-## Expanding the ESLint configuration
+-
+-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-
+-```js
+-export default defineConfig([
+-  globalIgnores(['dist']),
+-  {
+-    files: ['**/*.{ts,tsx}'],
+-    extends: [
+-      // Other configs...
+-
+-      // Remove tseslint.configs.recommended and replace with this
+-      tseslint.configs.recommendedTypeChecked,
+-      // Alternatively, use this for stricter rules
+-      tseslint.configs.strictTypeChecked,
+-      // Optionally, add this for stylistic rules
+-      tseslint.configs.stylisticTypeChecked,
+-
+-      // Other configs...
+-    ],
+-    languageOptions: {
+-      parserOptions: {
+-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+-        tsconfigRootDir: import.meta.dirname,
+-      },
+-      // other options...
+-    },
+-  },
+-])
+-```
+-
+-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-
+-```js
+-// eslint.config.js
+-import reactX from 'eslint-plugin-react-x'
+-import reactDom from 'eslint-plugin-react-dom'
+-
+-export default defineConfig([
+-  globalIgnores(['dist']),
+-  {
+-    files: ['**/*.{ts,tsx}'],
+-    extends: [
+-      // Other configs...
+-      // Enable lint rules for React
+-      reactX.configs['recommended-typescript'],
+-      // Enable lint rules for React DOM
+-      reactDom.configs.recommended,
+-    ],
+-    languageOptions: {
+-      parserOptions: {
+-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+-        tsconfigRootDir: import.meta.dirname,
+-      },
+-      // other options...
+-    },
+-  },
+-])
+-```
++# CoachCW frontend (Vite + React + TypeScript)
++
++Client UI for CoachCW built on Vite. Current app flows include the landing overview and the profile page.
++
++## Pages and navigation
++
++- Landing overview: schedule calendar, completion and volume charts, and a top-right nav. Overview keeps you on the landing page; Profile switches to the profile view.
++- Profile: client details with DOB editing, subscription status, and the same header/nav so you can jump back to Overview.
++- Navigation is in-app (no router yet); `NavLinks` calls the handler from `App.tsx` to swap views.
++
++## Develop
++
++- Start dev server: `npm run dev -- --host --port 5173`
++- Lint: `npm run lint`
++- Tests: `npm test` (Vitest + Testing Library)
++- Build: `npm run build`
++
++## Notes
++
++- Mock data/services backfill schedule, metrics, and profile when backend calls fail or aren’t present.
++- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.**
+*** End Patch
+[2m2025-12-09T05:08:12.928976Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content README.md"}
+[2m2025-12-09T05:08:19.054821Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/README.md
+@@
+-## Notes
+-
+-- Mock data/services backfill schedule, metrics, and profile when backend calls fail or arenƒ?Tt present.
+-- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.**
++## Notes
++
++- Mock data/services backfill schedule, metrics, and profile when backend calls fail or aren't present.
++- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.
+*** End Patch
+[2m2025-12-09T05:08:24.939168Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/README.md
+@@
+-## Notes
+-
+-- Mock data/services backfill schedule, metrics, and profile when backend calls fail or arenƒ?Tt present.
+-- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.**
++## Notes
++
++- Mock data/services backfill schedule, metrics, and profile when backend calls fail or aren't present.
++- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.
+*** End Patch
+[2m2025-12-09T05:08:32.065155Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: app/README.md
+*** End Patch
+[2m2025-12-09T05:08:53.676972Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/README.md
++# CoachCW frontend (Vite + React + TypeScript)
++
++Client UI for CoachCW built on Vite. Current app flows include the landing overview and the profile page.
++
++## Pages and navigation
++
++- Landing overview: schedule calendar, completion and volume charts, and a top-right nav. Overview keeps you on the landing page; Profile switches to the profile view.
++- Profile: client details with DOB editing, subscription status, and the same header/nav so you can jump back to Overview.
++- Navigation is in-app (no router yet); `NavLinks` calls the handler from `App.tsx` to swap views.
++
++## Develop
++
++- Start dev server: `npm run dev -- --host --port 5173`
++- Lint: `npm run lint`
++- Tests: `npm test` (Vitest + Testing Library)
++- Build: `npm run build`
++
++## Notes
++
++- Mock data/services backfill schedule, metrics, and profile when backend calls fail or aren't present.
++- Styles are page-scoped CSS with shared palette in `src/index.css`; page headers mirror the landing layout for consistency.
+*** End Patch
+[2m2025-12-09T05:09:10.564261Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd app; Get-Content README.md"}
+[2m2025-12-09T05:10:07.456678Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:10:08.073160Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:10:08.073220Z[0m [32m INFO[0m ghost commit captured: e98defca3bd29018c1529f948f82f8b20810f2d7
+[2m2025-12-09T05:10:08.073231Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:10:13.332651Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd specs/002-profile-page; Get-Content spec.md"}
+[2m2025-12-09T05:10:36.987874Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/002-profile-page/spec.md
+@@
+-### Session 2025-12-09
+-
+-- Q: Should we show full date of birth or just age on the profile? Should editing be supported? ƒÅ' A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
++### Session 2025-12-09
++
++- Q: Should we show full date of birth or just age on the profile? Should editing be supported? A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
+@@
+-1. **Given** a user with an active subscription, **When** they view the subscription section, **Then** plan name, status, member-since date, next renewal date, session allowance, add-ons, and auto-renew flag are visible with plain-language labels.
+-2. **Given** a user whose subscription data is unavailable, **When** they open the page, **Then** the section shows a clear ƒ?osubscription info unavailableƒ?? message without exposing technical errors.
++1. **Given** a user with an active subscription, **When** they view the subscription section, **Then** plan name, status, member-since date, next renewal date, session allowance, add-ons, and auto-renew flag are visible with plain-language labels.
++2. **Given** a user whose subscription data is unavailable, **When** they open the page, **Then** the section shows a clear "subscription info unavailable" message without exposing technical errors.
+@@
+-- **FR-001**: The system must present a profile header with full name, username, email, role, location, and avatar/photo; if no photo is present, show an initials-based placeholder.
+-- **FR-002**: The system must display only the userƒ?Ts age in the profile view (hiding full date of birth) and allow editing date of birth via a date picker clearly labeled as date of birth; after saving, recompute and show the updated age.
+-- **FR-003**: The system must render subscription details: plan name, status, member-since date, next renewal date, sessions included per period, add-ons (if any), and whether auto-renew is on/off.
+-- **FR-004**: The page must include clear, non-interactive messaging that payment information management will be added later, without offering dead links or buttons.
+-- **FR-005**: All personally identifiable information shown must only render for the authenticated user viewing their own profile and must avoid leaking data on load errors (use generic error copy).
++- **FR-001**: The system must present a profile header with full name, username, email, role, location, and avatar/photo; if no photo is present, show an initials-based placeholder.
++- **FR-002**: The system must display only the user's age in the profile view (hiding full date of birth) and allow editing date of birth via a date picker clearly labeled as date of birth; after saving, recompute and show the updated age.
++- **FR-003**: The system must render subscription details: plan name, status, member-since date, next renewal date, sessions included per period, add-ons (if any), and whether auto-renew is on/off.
++- **FR-004**: The page must include clear, non-interactive messaging that payment information management will be added later, without offering dead links or buttons.
++- **FR-005**: All personally identifiable information shown must only render for the authenticated user viewing their own profile and must avoid leaking data on load errors (use generic error copy).
++- **FR-006**: The profile page must include the shared page header/nav used on the landing overview, with links for Overview (landing) and Profile to allow easy navigation between the two views.
+@@
+-- **User Profile**: Represents a signed-in person; attributes include full name, username, email, date of birth, role, location, avatar/photo reference, and derived age.
+-- **Subscription**: Represents the userƒ?Ts membership; attributes include plan name, status, member-since date, next renewal date, session allowance per period, auto-renew flag, and add-ons.
++- **User Profile**: Represents a signed-in person; attributes include full name, username, email, date of birth, role, location, avatar/photo reference, and derived age.
++- **Subscription**: Represents the user's membership; attributes include plan name, status, member-since date, next renewal date, session allowance per period, auto-renew flag, and add-ons.
+@@
+-- Age calculations use the provided date of birth with the clientƒ?Ts local timezone for display formatting.
++- Age calculations use the provided date of birth with the client's local timezone for display formatting.
+@@
+-- **SC-004**: Support tickets related to ƒ?oWhat plan am I on?/When do I renew?ƒ?? decrease by 30% within one release after launch, using the prior month as baseline.
++- **SC-004**: Support tickets related to "What plan am I on?/When do I renew?" decrease by 30% within one release after launch, using the prior month as baseline.
+*** End Patch
+[2m2025-12-09T05:10:54.959654Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/002-profile-page/spec.md
+@@
+-### Session 2025-12-09
+-
+-- Q: Should we show full date of birth or just age on the profile? Should editing be supported? ƒÅ' A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
++### Session 2025-12-09
++
++- Q: Should we show full date of birth or just age on the profile? Should editing be supported? A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
+*** End Patch
+[2m2025-12-09T05:11:06.709971Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd specs/002-profile-page; Get-Content -Raw spec.md"}
+[2m2025-12-09T05:11:13.647341Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/002-profile-page/spec.md
+*** End Patch
+[2m2025-12-09T05:12:35.073379Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/002-profile-page/spec.md
++# Feature Specification: Profile Page
++
++**Feature Branch**: `002-profile-page`  
++**Created**: 2025-12-09  
++**Status**: Draft  
++**Input**: User description: "create a profile page for our users. Have basic user data, username, email, date of birth, avatar/photo, subscription details (build payment information later)."
++
++## Clarifications
++
++### Session 2025-12-09
++
++- Q: Should we show full date of birth or just age on the profile? Should editing be supported? A: Show only age in the profile view; when editing, open a date picker labeled as date of birth so users can update DOB.
++
++## User Scenarios & Testing *(mandatory)*
++
++<!--
++  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
++  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
++  you should still have a viable MVP (Minimum Viable Product) that delivers value.
++  
++  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
++  Think of each story as a standalone slice of functionality that can be:
++  - Developed independently
++  - Tested independently
++  - Deployed independently
++  - Demonstrated to users independently
++-->
++
++### User Story 1 - View profile summary (Priority: P1)
++
++Clients can open their profile page to see their key account details (name, username, email, role, location, age) with an avatar/photo.
++
++**Why this priority**: The profile page is the primary reference for user identity and contact details; it must be trustworthy and readable at a glance.
++
++**Independent Test**: Load the profile page for a user with complete data; verify all fields render with friendly formatting and avatar fallback.
++
++**Acceptance Scenarios**:
++
++1. **Given** a signed-in user with profile data stored, **When** they open the profile page, **Then** full name, username, email, location, role, and age (derived from date of birth) are displayed with a visible avatar or initials fallback.
++2. **Given** a user missing a photo, **When** they open the profile page, **Then** a styled placeholder/initials appears without broken images or layout shifts.
++3. **Given** a user wants to update their date of birth, **When** they choose to edit, **Then** a date picker labeled as date of birth appears for entry, and after saving only the age is shown in the profile view.
++
++---
++
++### User Story 2 - Review subscription details (Priority: P2)
++
++Clients can confirm their subscription plan, status, and key dates from the same page.
++
++**Why this priority**: Users need clarity on membership status and renewal timing to manage expectations and support interactions.
++
++**Independent Test**: Load the profile page for users across different statuses (active/on hold/canceled) and verify fields render correctly with correct labels and formatting.
++
++**Acceptance Scenarios**:
++
++1. **Given** a user with an active subscription, **When** they view the subscription section, **Then** plan name, status, member-since date, next renewal date, session allowance, add-ons, and auto-renew flag are visible with plain-language labels.
++2. **Given** a user whose subscription data is unavailable, **When** they open the page, **Then** the section shows a clear "subscription info unavailable" message without exposing technical errors.
++
++---
++
++### User Story 3 - Understand next steps for payments (Priority: P3)
++
++Clients see clear messaging that payment details management will be added later and know where it will appear.
++
++**Why this priority**: Sets expectations and reduces support friction while payment handling is out of scope for this iteration.
++
++**Independent Test**: Load the profile page and confirm a consistent placeholder explaining that payment information management will be introduced later.
++
++**Acceptance Scenarios**:
++
++1. **Given** the profile page loads, **When** the user scans the subscription/payment area, **Then** they see a non-interactive note that payment details will be added in a future update.
++2. **Given** the placeholder note is present, **When** a screen reader user navigates the section, **Then** the note is announced as informative text without implying current functionality.
++
++### Edge Cases
++
++- User has no uploaded avatar/photo: show initials placeholder with neutral background and no broken image icon.
++- Date of birth missing or malformed: omit age calculation and show "Not provided" while keeping layout intact.
++- Subscription status canceled or on hold: render status with distinct label; renewal date may be absent without errors.
++- Add-ons list empty: hide list label or show "No add-ons" without blank bullets.
++- Transient load error from profile/subscription source: show friendly inline message and retry action without exposing raw error text.
++
++## Requirements *(mandatory)*
++
++<!--
++  ACTION REQUIRED: The content in this section represents placeholders.
++  Fill them out with the right functional requirements.
++-->
++
++### Functional Requirements
++
++- **FR-001**: The system must present a profile header with full name, username, email, role, location, and avatar/photo; if no photo is present, show an initials-based placeholder.
++- **FR-002**: The system must display only the user's age in the profile view (hiding full date of birth) and allow editing date of birth via a date picker clearly labeled as date of birth; after saving, recompute and show the updated age.
++- **FR-003**: The system must render subscription details: plan name, status, member-since date, next renewal date, sessions included per period, add-ons (if any), and whether auto-renew is on/off.
++- **FR-004**: The page must include clear, non-interactive messaging that payment information management will be added later, without offering dead links or buttons.
++- **FR-005**: All personally identifiable information shown must only render for the authenticated user viewing their own profile and must avoid leaking data on load errors (use generic error copy).
++- **FR-006**: The profile page must reuse the shared page header/navigation seen on the landing overview, exposing Overview and Profile links so users can jump between pages.
++
++### Key Entities *(include if feature involves data)*
++
++- **User Profile**: Represents a signed-in person; attributes include full name, username, email, date of birth, role, location, avatar/photo reference, and derived age.
++- **Subscription**: Represents the user's membership; attributes include plan name, status, member-since date, next renewal date, session allowance per period, auto-renew flag, and add-ons.
++
++## Assumptions & Dependencies
++
++- Users are authenticated before reaching the profile page and can only view their own profile data; profile editing is out of scope for this iteration.
++- Profile and subscription data are available from existing user and billing sources; payment method capture/management is deferred to a later feature.
++- Age calculations use the provided date of birth with the client's local timezone for display formatting.
++
++## Success Criteria *(mandatory)*
++
++<!--
++  ACTION REQUIRED: Define measurable success criteria.
++  These must be technology-agnostic and measurable.
++-->
++
++### Measurable Outcomes
++
++- **SC-001**: 95% of profile page loads show all available profile fields without missing/placeholder values (excluding intentionally absent items) within 2 seconds on a standard broadband connection.
++- **SC-002**: 100% of users with subscription data see a populated subscription section with correct status and dates; 0 occurrences of technical error text visible to end users during testing.
++- **SC-003**: At least 90% of usability test participants correctly identify their plan name and next renewal date within 5 seconds of opening the page.
++- **SC-004**: Support tickets related to "What plan am I on?/When do I renew?" decrease by 30% within one release after launch, using the prior month as baseline.
+*** End Patch
+[2m2025-12-09T05:13:24.841222Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd specs/002-profile-page; Get-Content spec.md"}
+[2m2025-12-09T05:16:50.947389Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:16:51.552772Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:16:51.552830Z[0m [32m INFO[0m ghost commit captured: 7c147b344534c19137c22e3faeed50bf7cfdf3bd
+[2m2025-12-09T05:16:51.552838Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:16:57.552022Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify"}
+[2m2025-12-09T05:17:01.526269Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify/memory"}
+[2m2025-12-09T05:17:05.914106Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify/memory/constitution.md"}
+[2m2025-12-09T05:17:10.766053Z[0m [32m INFO[0m ToolCall: shell_command {"command":"rg --files -g '*constitution*.md'"}
+[2m2025-12-09T05:17:16.361706Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem -Recurse -Filter *constitution*.md"}
+[2m2025-12-09T05:17:22.719230Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex/prompts/speckit.constitution.md"}
+[2m2025-12-09T05:17:30.283696Z[0m [32m INFO[0m ToolCall: shell_command {"command":"rg \"Constitution\""}
+[2m2025-12-09T05:17:36.532769Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd specs/001-test-config; Get-Content research.md"}
+[2m2025-12-09T05:23:28.259603Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:23:28.829082Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:23:28.829118Z[0m [32m INFO[0m ghost commit captured: 0cee7c24f00bcbbf24d7f2614ddcb5e95b6a5af9
+[2m2025-12-09T05:23:28.829125Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T05:23:38.866205Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git status --short","timeout_ms":120000}
+[2m2025-12-09T05:23:44.765543Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git add -A","with_escalated_permissions":true,"justification":"Stage all current working tree changes for commit as requested","timeout_ms":120000}
+[2m2025-12-09T05:24:10.946052Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-12-09T05:24:23.625477Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T05:24:24.201873Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T05:24:24.201910Z[0m [32m INFO[0m ghost commit captured: 06f7940e2b5dc1e984354bbf13e294127b7eadf7
+[2m2025-12-09T05:24:24.201917Z[0m [32m INFO[0m ghost snapshot gate marked ready
