@@ -33,11 +33,11 @@ function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
         const count = (badges as Record<string, number | undefined>)[link.id];
         const showBadge = !!count && count > 0;
         const badgeText = count && count > 9 ? '9+' : count?.toString();
+        const interceptNavigation = onNavigate && (link.id === 'profile' || link.id === 'overview' || link.id === 'sessions');
         const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-          if ((link.id === 'profile' || link.id === 'overview') && onNavigate) {
-            event.preventDefault();
-            onNavigate(link.id);
-          }
+          if (!interceptNavigation || !onNavigate) return;
+          event.preventDefault();
+          onNavigate(link.id);
         };
 
         return (
@@ -46,7 +46,7 @@ function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
             className="nav__link"
             href={link.url}
             aria-label={`${link.label}${showBadge ? ` (${badgeText} alerts)` : ''}`}
-            onClick={(link.id === 'profile' || link.id === 'overview') && onNavigate ? handleClick : undefined}
+            onClick={interceptNavigation ? handleClick : undefined}
           >
             <span>{link.label}</span>
             {showBadge && <span className="nav__badge">{badgeText}</span>}
