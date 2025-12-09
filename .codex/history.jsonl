@@ -45,3 +45,14 @@
 {"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190447,"text":"if I'm implementing and we've completed those 3 stories for that feature, do I then loop back to specify for the next feature?"}
 {"session_id":"019afd18-668c-78c2-91cd-3dd9a1c727b5","ts":1765190612,"text":"ok I've committed that branch to github, how do I make sure that is in the main branch now?"}
 {"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765226252,"text":"can you please turn my local host on so I can check something on the landing page"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765230371,"text":"?"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765230714,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.specify.md create a profile page for our users. Have basic user data, username, email, date of birth, avatar/photo, subscription details (build payment information later)."}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765231017,"text":"I was running the specify command, I'm expecting that to run before I change any code in my app, I want specify/plan/tasks to run before I implement, looks like you're trying to implement already, please confirm."}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765231047,"text":"yes"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765232010,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.clarify.md"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765232036,"text":"proceed"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765232171,"text":"go with A, but make it editable, and when the edit comes up, a date picker shows up explaining it is the DOB"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765232284,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.plan.md"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765239515,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.tasks.md"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765240443,"text":"I want my branch to show up in my web codex, can you please run the commands to have the branch 'checked out' so it is usable in codex in the web"}
+{"session_id":"019affae-858a-7ce1-9848-645c47a9b2e9","ts":1765240570,"text":"it's not showing up in the web, the 001-landing-calendar-graphs is there though, the new 002 branch isn't showing up in github at the moment, I'm assuming thats why it's not showing up codex web?"}
