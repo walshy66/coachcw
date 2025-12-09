@@ -1,4 +1,4 @@
-import type { MetricSnapshot, SessionEntry, WeekView } from './types';
+import type { MetricSnapshot, SessionEntry, Subscription, UserProfile, WeekView } from './types';
 import { getWeekBounds } from './date';
 
 const now = new Date();
@@ -67,4 +67,46 @@ export const mockMetrics: MetricSnapshot = {
     { weekStart: bounds.startDate, sessionsScheduled: 3, sessionsCompleted: 2, volume: 330, unit: 'minutes' },
   ],
   hasData: true,
+};
+
+export const mockUserProfile: UserProfile = {
+  id: 'user-1',
+  fullName: 'Jordan Rivers',
+  username: 'jrivers',
+  email: 'jordan.rivers@example.com',
+  dateOfBirth: '1990-04-12',
+  role: 'Client',
+  location: 'Seattle, WA',
+  avatarUrl: '',
+  avatarInitials: 'JR',
+};
+
+export const mockSubscription: Subscription = {
+  id: 'sub-1',
+  userId: mockUserProfile.id,
+  planName: 'Performance Plus',
+  status: 'active',
+  memberSince: '2023-01-05',
+  renewalDate: '2025-02-15',
+  sessionsPerPeriod: 8,
+  period: 'month',
+  autoRenew: true,
+  addOns: ['1:1 Coaching', 'Nutrition check-ins'],
+};
+
+export const mockOnHoldSubscription: Subscription = {
+  ...mockSubscription,
+  id: 'sub-2',
+  status: 'on_hold',
+  renewalDate: null,
+  autoRenew: false,
+};
+
+export const mockCanceledSubscription: Subscription = {
+  ...mockSubscription,
+  id: 'sub-3',
+  status: 'canceled',
+  renewalDate: null,
+  sessionsPerPeriod: 0,
+  addOns: [],
 };

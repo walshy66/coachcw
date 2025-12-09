@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import './LandingPage.css';
 import { fetchWeekSchedule } from '../../services/schedule';
 import { fetchCompletionMetrics } from '../../services/metrics';
@@ -7,7 +7,6 @@ import type { MetricSnapshot, SessionEntry, WeekView } from '../../services/type
 import type { CalendarView } from '../../services/date';
 import WeekCalendar from '../../components/calendar/WeekCalendar';
 import NavLinks from '../../components/navigation/NavLinks';
-import { lazy, Suspense } from 'react';
 
 const CompletionChart = lazy(() => import('../../components/graphs/CompletionChart'));
 const VolumeChart = lazy(() => import('../../components/graphs/VolumeChart'));
@@ -31,7 +30,11 @@ const emptyMetrics: MetricSnapshot = {
   hasData: false,
 };
 
-function LandingPage() {
+type LandingPageProps = {
+  onNavigate?: (page: 'landing' | 'profile') => void;
+};
+
+function LandingPage({ onNavigate }: LandingPageProps) {
   const [weekView, setWeekView] = useState<WeekView>(emptyWeek);
   const [metrics, setMetrics] = useState<MetricSnapshot>(emptyMetrics);
   const [loadingWeek, setLoadingWeek] = useState(true);
@@ -113,7 +116,13 @@ function LandingPage() {
           <h1>Overview</h1>
           <p className="subhead">See your schedule, trends, and jump to what matters.</p>
         </div>
-        <NavLinks badges={badges} />
+        <NavLinks
+          badges={badges}
+          onNavigate={(target) => {
+            if (target === 'profile') onNavigate?.('profile');
+            if (target === 'overview') onNavigate?.('landing');
+          }}
+        />
       </header>
 
       <section className="landing__grid">
