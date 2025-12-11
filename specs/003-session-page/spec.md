@@ -70,14 +70,15 @@ As a signed-in user, I can add free-form notes (observations, modifications, fol
 - User navigates away with unsaved changes; a confirmation prompt prevents accidental loss.
 - Very long notes or many exercise entries; page still saves and displays all content without truncation.
 - Duplicate exercise names within a session; entries remain distinct and editable individually.
+- Validation for exercises is surfaced via a save-time modal (not inline per-row), to keep rows clean while still blocking incomplete saves.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-001**: System MUST allow a signed-in user to start a new session record with date and time context.
-- **FR-002**: System MUST allow adding, editing, reordering, and removing multiple exercise entries within a session, including exercise name and applicable metrics (sets/reps/load and/or duration).
-- **FR-003**: System MUST enforce required fields: session date/time and at least one complete exercise entry before final save, with inline error messaging.
+- **FR-002**: System MUST allow adding, editing, reordering, and removing multiple exercise entries within a session, including exercise name, pace, and applicable metrics (sets/reps/load and/or duration).
+- **FR-003**: System MUST enforce required fields (athlete and at least one complete exercise) before final save, using a save-time modal prompt instead of inline exercise error banners.
 - **FR-004**: System MUST persist session details, all exercise entries, and notes together so they can be reopened for review or editing.
 - **FR-005**: System MUST provide a notes field supporting multi-line text saved with the session.
 - **FR-006**: System MUST display a saved session summary showing session details, exercise list with metrics, and notes in a readable layout.
@@ -87,7 +88,7 @@ As a signed-in user, I can add free-form notes (observations, modifications, fol
 ### Key Entities *(include if feature involves data)*
 
 - **Session**: Represents a single training instance with attributes such as date, start/end or duration, location/venue, intensity rating, participant/coach identifiers, notes, and the collection of exercises.
-- **Exercise Entry**: Represents an exercise performed in a session with attributes including exercise name, metrics (sets/reps/load and/or duration), optional rest intervals, ordering within the session, and link to its parent Session.
+- **Exercise Entry**: Represents an exercise performed in a session with attributes including exercise name, pace, metrics (sets/reps/load and/or duration), optional rest intervals, ordering within the session, and link to its parent Session.
 
 ### Assumptions & Dependencies
 
@@ -103,3 +104,10 @@ As a signed-in user, I can add free-form notes (observations, modifications, fol
 - **SC-002**: 95% of saved sessions reopen with all exercises, details, and notes matching the last saved state with zero data loss in testing.
 - **SC-003**: Inline validation prevents incomplete saves, with error resolution achieved within one additional attempt for 90% of users.
 - **SC-004**: At least 80% of users who log sessions add notes or context when prompted, indicating the notes experience is discoverable and usable.
+
+## UI / Interaction Decisions
+
+- Exercise rows are single-line: exercise name, pace chip, inline set chips (Set N above rep/load), with actions (+ Exercise, Add set, Duplicate, Remove) aligned on the right. Chips wrap naturally and do not scroll horizontally.
+- Pace is captured per exercise beside the name; double-click to edit in place with a chip-style input.
+- Add-set control lives with the row actions and increments labels automatically (Set 1, Set 2, ...).
+- Validation messaging for exercises is deferred to a save-time modal; inline exercise error banners are hidden for a cleaner row layout.
