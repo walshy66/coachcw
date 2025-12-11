@@ -36,7 +36,7 @@ Given that feature description, do this:
      - "Create a dashboard for analytics" → "analytics-dashboard"
      - "Fix payment processing timeout bug" → "fix-payment-timeout"
 
-2. **Check for existing branches before creating new one**:
+2. **Determine the next global feature number before creating the spec**:
 
    a. First, fetch all remote branches to ensure we have the latest information:
 
@@ -44,25 +44,24 @@ Given that feature description, do this:
       git fetch --all --prune
       ```
 
-   b. Find the highest feature number across all sources for the short-name:
-      - Remote branches: `git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-<short-name>$'`
-      - Local branches: `git branch | grep -E '^[* ]*[0-9]+-<short-name>$'`
-      - Specs directories: Check for directories matching `specs/[0-9]+-<short-name>`
+   b. Collect feature numbers across the entire repository (do **not** reset numbers for new short names):
+      - Remote branches: `git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-'`
+      - Local branches: `git branch | grep -E '^[* ]*[0-9]+-'`
+      - Specs directories: Check for directories matching `specs/[0-9]+-*`
 
-   c. Determine the next available number:
-      - Extract all numbers from all three sources
-      - Find the highest number N
-      - Use N+1 for the new branch number
+   c. Determine the next available number globally:
+      - Extract the numeric prefix from every branch/directory discovered above
+      - Find the highest number N across all features
+      - Use N+1 for the new branch number (e.g., existing highest `005` → next is `006`)
 
-   d. Run the script `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS"` with the calculated number and short-name:
-      - Pass `--number N+1` and `--short-name "your-short-name"` along with the feature description
-      - Bash example: `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS" --json --number 5 --short-name "user-auth" "Add user authentication"`
-      - PowerShell example: `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS" -Json -Number 5 -ShortName "user-auth" "Add user authentication"`
+   d. Run the script `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS"` with the short-name (the script will pick the next number automatically in git-enabled repos). Only provide `-Number` if git metadata is unavailable and you cannot derive N from the previous step.
+      - Example: `.specify/scripts/powershell/create-new-feature.ps1 -Json -ShortName "user-auth" "Add user authentication"`
 
    **IMPORTANT**:
-   - Check all three sources (remote branches, local branches, specs directories) to find the highest number
-   - Only match branches/directories with the exact short-name pattern
-   - If no existing branches/directories found with this short-name, start with number 1
+   - Check all three sources (remote branches, local branches, specs directories) to find the highest global number
+   - Do **not** restart numbering for each short name; numbers are sequential across the entire project
+   - The next feature **must** be one higher than the current highest (e.g., after `005-*` comes `006-*`)
+   - Only override the number when the script cannot infer it (e.g., non-git environments)
    - You must only ever run this script once per feature
    - The JSON is provided in the terminal as output - always refer to it to get the actual content you're looking for
    - The JSON output will contain BRANCH_NAME and SPEC_FILE paths
