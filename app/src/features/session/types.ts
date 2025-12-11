@@ -1,7 +1,9 @@
 export type ExerciseEntry = {
   id: string;
+  sectionId?: string | null;
   sessionId?: string | null;
   name: string;
+  pace?: string | null;
   sets?: number | null;
   reps?: number | number[] | null;
   load?: number | number[] | null;
@@ -13,16 +15,28 @@ export type ExerciseEntry = {
   notes?: string | null;
 };
 
+export type ExerciseSection = {
+  id: string;
+  name: 'warmup' | 'cardio' | 'weights' | 'cooldown' | 'other';
+  order: number;
+};
+
 export type SessionDraft = {
   id?: string;
+  name?: string | null;
+  sessionCode?: string | null;
   date: string;
   startTime?: string | null;
   endTime?: string | null;
   durationMinutes?: number | null;
   location?: string | null;
   intensity?: string | null;
+  trainer?: string | null;
+  athlete?: string | null;
   participants?: string[] | null;
+  microCycleId?: string | null;
   notes?: string | null;
+  sections?: ExerciseSection[] | null;
   exercises: ExerciseEntry[];
 };
 

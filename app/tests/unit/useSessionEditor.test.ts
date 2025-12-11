@@ -9,9 +9,10 @@ describe('useSessionEditor', () => {
     act(() => result.current.addExercise());
     act(() => result.current.addExercise());
 
-    expect(result.current.session.exercises).toHaveLength(2);
+    expect(result.current.session.exercises).toHaveLength(3);
     expect(result.current.session.exercises[0].order).toBe(1);
     expect(result.current.session.exercises[1].order).toBe(2);
+    expect(result.current.session.exercises[2].order).toBe(3);
 
     const firstId = result.current.session.exercises[0].id;
     act(() => result.current.moveExercise(firstId, 'down'));
@@ -20,20 +21,20 @@ describe('useSessionEditor', () => {
     expect(result.current.session.exercises[1].id).toBe(firstId);
 
     act(() => result.current.removeExercise(firstId));
-    expect(result.current.session.exercises).toHaveLength(1);
+    expect(result.current.session.exercises).toHaveLength(2);
     expect(result.current.session.exercises[0].order).toBe(1);
   });
 
   it('duplicates exercises with new ids and marks dirty state', () => {
     const { result } = renderHook(() => useSessionEditor());
-    act(() => result.current.addExercise());
     const exerciseId = result.current.session.exercises[0].id;
 
-    expect(result.current.isDirty).toBe(true);
+    expect(result.current.isDirty).toBe(false);
 
     act(() => result.current.duplicateExercise(exerciseId));
     expect(result.current.session.exercises).toHaveLength(2);
     expect(result.current.session.exercises[1].id).not.toBe(exerciseId);
+    expect(result.current.isDirty).toBe(true);
   });
 
   it('resets and clears dirty flag after saving', () => {
@@ -52,4 +53,3 @@ describe('useSessionEditor', () => {
     expect(result.current.isDirty).toBe(false);
   });
 });
-

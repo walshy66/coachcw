@@ -67,18 +67,6 @@ export function validateExercise(exercise: ExerciseEntry): ExerciseValidationErr
 export function validateSession(session: SessionDraft): SessionValidationErrors {
   const errors: SessionValidationErrors = {};
 
-  if (!session.date) {
-    errors.date = 'Session date is required';
-  }
-
-  if (session.startTime && session.endTime) {
-    const start = new Date(`${session.date || '1970-01-01'}T${session.startTime}`);
-    const end = new Date(`${session.date || '1970-01-01'}T${session.endTime}`);
-    if (!isAfter(end, start)) {
-      errors.time = 'End time must be after start time';
-    }
-  }
-
   const exerciseErrors: Record<string, ExerciseValidationErrors> = {};
   const exercises = session.exercises ?? [];
 
@@ -106,5 +94,5 @@ export function validateSession(session: SessionDraft): SessionValidationErrors 
 }
 
 export function isSessionValid(errors: SessionValidationErrors) {
-  return !errors.date && !errors.time && !errors.exercises && !errors.exerciseErrors;
+  return !errors.exercises && !errors.exerciseErrors;
 }

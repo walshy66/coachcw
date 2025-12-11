@@ -6,6 +6,7 @@ import type { Session, SessionDraft } from '../../features/session/types';
 import { useSessionEditor } from '../../features/session/useSessionEditor';
 import { useUnsavedChangesPrompt } from '../../features/session/useUnsavedChangesPrompt';
 import { createSession, getSession, updateSession } from '../../services/sessionService';
+import { createTempId } from '../../features/session/idUtils';
 
 type SessionPageProps = {
   onNavigate?: (page: 'landing' | 'profile' | 'session') => void;
@@ -19,9 +20,13 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
     isValid,
     isDirty,
     addExercise,
+    addSection,
+    updateSection,
+    removeSection,
     updateExercise,
     removeExercise,
     moveExercise,
+    reorderExercise,
     duplicateExercise,
     updateField,
     markSaved,
@@ -34,24 +39,31 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [savedSession, setSavedSession] = useState<Session | null>(null);
-  const [participantsInput, setParticipantsInput] = useState('');
+  const [showAthletePrompt, setShowAthletePrompt] = useState(false);
+  const [showValidationPrompt, setShowValidationPrompt] = useState(false);
+  const [localSessionId] = useState(() => createTempId());
 
   const { confirmNavigation } = useUnsavedChangesPrompt(isDirty);
 
   const pendingSaveBlocked = useMemo(() => !isValid, [isValid]);
 
-  const sessionToSave: SessionDraft = useMemo(
-    () => ({
-      ...session,
-      participants: participantsInput
-        ? participantsInput
-            .split(',')
-            .map((p) => p.trim())
-            .filter(Boolean)
-        : [],
-    }),
-    [session, participantsInput],
-  );
+  const sessionToSave: SessionDraft = useMemo(() => ({ ...session }), [session]);
+
+  const setLengthMinutes = useMemo(() => {
+    const duration = session.durationMinutes;
+    if (!duration || duration <= 0) return '';
+    const weightsSectionIds = (session.sections ?? []).filter((s) => s.name === 'weights').map((s) => s.id);
+    const totalSets =
+      session.exercises?.reduce((acc, ex) => {
+        if (ex.sectionId && weightsSectionIds.includes(ex.sectionId)) {
+          return acc + (ex.sets ?? 0);
+        }
+        return acc;
+      }, 0) ?? 0;
+    if (!totalSets) return '';
+    const perSet = duration / totalSets;
+    return perSet > 0 ? Number(perSet.toFixed(1)).toString() : '';
+  }, [session]);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -61,7 +73,6 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
       .then((loaded) => {
         reset(loaded);
         setSavedSession(loaded);
-        setParticipantsInput(loaded.participants?.join(', ') ?? '');
       })
       .catch((err) => {
         setLoadError(err instanceof Error ? err.message : 'Could not load session');
@@ -69,12 +80,28 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
       .finally(() => setLoading(false));
   }, [reset, sessionId]);
 
+  const sessionIdentifier = useMemo(
+    () => session.sessionCode ?? session.id ?? localSessionId,
+    [session.id, session.sessionCode, localSessionId],
+  );
+
+  useEffect(() => {
+    if (!session.sessionCode) {
+      updateField('sessionCode', sessionIdentifier);
+    }
+  }, [session.sessionCode, sessionIdentifier, updateField]);
+
   const handleSave = async () => {
     setSaveError(null);
     setSaveSuccess(null);
 
+    if (!session.athlete || !session.athlete.trim()) {
+      setShowAthletePrompt(true);
+      return;
+    }
+
     if (pendingSaveBlocked) {
-      setSaveError('Fix validation issues before saving.');
+      setShowValidationPrompt(true);
       return;
     }
 
@@ -85,7 +112,6 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
         : await createSession(sessionToSave);
       markSaved(result);
       setSavedSession(result);
-      setParticipantsInput(result.participants?.join(', ') ?? '');
       setSaveSuccess('Session saved');
     } catch (err) {
       setSaveError(err instanceof Error ? err.message : 'Could not save session');
@@ -125,22 +151,19 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
         <div className="panel__title">Saved session summary</div>
         <div className="session__summary-grid">
           <div>
-            <p className="eyebrow">Date & time</p>
+            <p className="eyebrow">Scheduled</p>
             <p className="value">
-              {target.date || 'Not set'}{' '}
-              {(target.startTime && target.endTime && `${target.startTime} - ${target.endTime}`) ||
-                target.startTime ||
-                target.durationMinutes?.toString() ||
-                ''}
+              {target.date || 'Not set'} {target.startTime || target.durationMinutes?.toString() || ''}
             </p>
-            <p className="session__muted">
-              {target.location ? `Location: ${target.location}` : 'Location not provided'}
-            </p>
-            <p className="session__muted">
-              {target.intensity ? `Intensity: ${target.intensity}` : 'Intensity not provided'}
-            </p>
-            {target.participants && target.participants.length > 0 && (
-              <p className="session__muted">Participants: {target.participants.join(', ')}</p>
+            {target.trainer && <p className="session__muted">Trainer: {target.trainer}</p>}
+            {target.athlete && <p className="session__muted">Athlete: {target.athlete}</p>}
+            {target.microCycleId && (
+              <p className="session__muted">
+                Micro-cycle:{' '}
+                <a className="session__link" href={`/micro-cycles/${target.microCycleId}`}>
+                  {target.microCycleId}
+                </a>
+              </p>
             )}
           </div>
           <div>
@@ -195,6 +218,32 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
           <h1>Session</h1>
           <p className="subhead">Capture session details, exercises, and notes.</p>
         </div>
+        {showAthletePrompt && (
+          <div className="session__modal" role="alertdialog" aria-modal="true">
+            <div className="session__modal-content">
+              <h3>Athlete required</h3>
+              <p>Please add an athlete before saving.</p>
+              <div className="session__modal-actions">
+                <button type="button" className="button button--primary" onClick={() => setShowAthletePrompt(false)}>
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {showValidationPrompt && (
+          <div className="session__modal" role="alertdialog" aria-modal="true">
+            <div className="session__modal-content">
+              <h3>Check your exercises</h3>
+              <p>Please add a name and at least one set with reps/load for each exercise before saving.</p>
+              <div className="session__modal-actions">
+                <button type="button" className="button button--primary" onClick={() => setShowValidationPrompt(false)}>
+                  Got it
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <NavLinks
           onNavigate={(target) => {
             if (target === 'overview') handleNavigate('landing');
@@ -218,101 +267,99 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
 
       <section className="panel session__panel">
         <div className="session__section">
-          <div>
-            <p className="eyebrow">Session details</p>
-            <h2>When and where</h2>
-            <p className="session__muted">Date is required. Provide time or duration for more context.</p>
+        <div>
+          <p className="eyebrow">Session details</p>
           </div>
-          <div className="session__fields-grid">
-            <div className="session__field">
-              <label htmlFor="session-date">Date</label>
-              <input
-                id="session-date"
-                type="date"
-                value={session.date}
-                onChange={(e) => updateField('date', e.target.value)}
-                required
-              />
-              {errors.date && (
-                <p className="session__field-error" role="alert">
-                  {errors.date}
-                </p>
-              )}
+          <div className="session__columns">
+            <div className="session__column">
+              <div className="session__field-row">
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-code-left">Session</label>
+                  <input id="session-code-left" type="text" value={sessionIdentifier} readOnly />
+                </div>
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-name">Session name</label>
+                  <input
+                    id="session-name"
+                    type="text"
+                    value={session.name ?? ''}
+                    onChange={(e) => updateField('name', e.target.value)}
+                    placeholder="E.g. Lower body strength"
+                  />
+                </div>
+              </div>
+              <div className="session__field-row">
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-athlete">Athlete *</label>
+                  <input
+                    id="session-athlete"
+                    type="search"
+                    value={session.athlete ?? ''}
+                    onChange={(e) => {
+                      updateField('athlete', e.target.value || null);
+                      updateField('participants', e.target.value ? [e.target.value] : []);
+                    }}
+                    placeholder="Search athletes"
+                  />
+                </div>
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-trainer">Trainer</label>
+                  <input
+                    id="session-trainer"
+                    type="search"
+                    value={session.trainer ?? ''}
+                    onChange={(e) => updateField('trainer', e.target.value || null)}
+                    placeholder="Search trainers"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="session__field">
-              <label htmlFor="session-start">Start time</label>
-              <input
-                id="session-start"
-                type="time"
-                value={session.startTime ?? ''}
-                onChange={(e) => updateField('startTime', e.target.value || null)}
-              />
-            </div>
-            <div className="session__field">
-              <label htmlFor="session-end">End time</label>
-              <input
-                id="session-end"
-                type="time"
-                value={session.endTime ?? ''}
-                onChange={(e) => updateField('endTime', e.target.value || null)}
-              />
-              {errors.time && (
-                <p className="session__field-error" role="alert">
-                  {errors.time}
-                </p>
-              )}
-            </div>
-            <div className="session__field">
-              <label htmlFor="session-duration">Duration (minutes)</label>
-              <input
-                id="session-duration"
-                type="number"
-                min={0}
-                value={session.durationMinutes ?? ''}
-                onChange={(e) => updateField('durationMinutes', e.target.value ? Number(e.target.value) : null)}
-              />
-            </div>
-            <div className="session__field">
-              <label htmlFor="session-location">Location</label>
-              <input
-                id="session-location"
-                type="text"
-                value={session.location ?? ''}
-                onChange={(e) => updateField('location', e.target.value || null)}
-                placeholder="Gym, track, outdoors"
-              />
-            </div>
-            <div className="session__field">
-              <label htmlFor="session-intensity">Intensity</label>
-              <select
-                id="session-intensity"
-                value={session.intensity ?? ''}
-                onChange={(e) => updateField('intensity', e.target.value || null)}
-              >
-                <option value="">Select...</option>
-                <option value="easy">Easy</option>
-                <option value="moderate">Moderate</option>
-                <option value="hard">Hard</option>
-              </select>
-            </div>
-            <div className="session__field session__field--full">
-              <label htmlFor="session-participants">Participants</label>
-              <input
-                id="session-participants"
-                type="text"
-                value={participantsInput}
-                onChange={(e) => {
-                  setParticipantsInput(e.target.value);
-                  updateField(
-                    'participants',
-                    e.target.value
-                      .split(',')
-                      .map((p) => p.trim())
-                      .filter(Boolean),
-                  );
-                }}
-                placeholder="Comma separated names"
-              />
+            <div className="session__column session__column--right">
+              <div className="session__field-row">
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-code-right">Session</label>
+                  <input id="session-code-right" type="text" value={sessionIdentifier} readOnly />
+                </div>
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-date">Scheduled</label>
+                  <input
+                    id="session-date"
+                    type="datetime-local"
+                    value={
+                      session.date
+                        ? `${session.date}${session.startTime ? `T${session.startTime}` : 'T00:00'}`
+                        : ''
+                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (!value) {
+                        updateField('date', '');
+                        updateField('startTime', null);
+                        return;
+                      }
+                      const [datePart, timePart] = value.split('T');
+                      updateField('date', datePart);
+                      updateField('startTime', timePart || null);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="session__field-row">
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-duration">Duration (minutes)</label>
+                  <input
+                    id="session-duration"
+                    type="number"
+                    min={0}
+                    value={session.durationMinutes ?? ''}
+                    onChange={(e) => updateField('durationMinutes', e.target.value ? Number(e.target.value) : null)}
+                  />
+                </div>
+                <div className="session__field session__field--half">
+                  <label htmlFor="session-set-length">Set duration (min)</label>
+                  <input id="session-set-length" type="number" value={setLengthMinutes} readOnly placeholder="Auto" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -320,18 +367,17 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
         <div className="session__section">
           <ExerciseList
             exercises={session.exercises}
-            errors={errors.exerciseErrors}
-            onAdd={addExercise}
+            sections={session.sections ?? []}
             onChange={updateExercise}
             onRemove={removeExercise}
             onDuplicate={duplicateExercise}
             onMove={moveExercise}
+            onReorder={reorderExercise}
+            onAddSection={addSection}
+            onChangeSection={updateSection}
+            onRemoveSection={removeSection}
+            onAddExercise={addExercise}
           />
-          {errors.exercises && (
-            <p className="session__field-error" role="alert">
-              {errors.exercises}
-            </p>
-          )}
         </div>
 
         <div className="session__section">

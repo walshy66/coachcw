@@ -5,7 +5,10 @@ import type { SessionDraft } from '../../src/features/session/types';
 const baseSession: SessionDraft = {
   date: '2025-01-15',
   location: 'Contract Gym',
-  intensity: 'moderate',
+  trainer: 'Coach Carter',
+  athlete: 'Jordan',
+  participants: ['Jordan'],
+  microCycleId: 'mc-1',
   exercises: [
     { id: 'temp-1', name: 'Bench Press', sets: 3, reps: 8, load: 60, order: 1 },
     { id: 'temp-2', name: 'Run', durationSeconds: 900, order: 2 },
@@ -29,8 +32,10 @@ describe('Session API contract', () => {
       endTime: null,
       durationMinutes: null,
       location: baseSession.location,
-      intensity: baseSession.intensity,
-      participants: [],
+      trainer: baseSession.trainer,
+      athlete: baseSession.athlete,
+      participants: baseSession.participants,
+      microCycleId: baseSession.microCycleId,
       notes: '',
       exercises: [
         { ...baseSession.exercises[0], id: 'ex-10' },
@@ -79,4 +84,3 @@ describe('Session API contract', () => {
     expect(result.date).toBeTruthy();
   });
 });
-

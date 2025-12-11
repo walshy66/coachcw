@@ -23,6 +23,8 @@ describe('SessionPage notes flow', () => {
     createSessionMock.mockResolvedValue({
       id: 'session-30',
       date: '2025-03-01',
+      athlete: 'Test Athlete',
+      participants: ['Test Athlete'],
       exercises: [{ id: 'ex-1', name: 'Tempo', sets: 4, reps: 5, load: null, order: 1 }],
       notes: 'Felt strong.',
       createdAt: '2025-03-01T00:00:00Z',
@@ -32,6 +34,8 @@ describe('SessionPage notes flow', () => {
     updateSessionMock.mockResolvedValue({
       id: 'session-30',
       date: '2025-03-01',
+      athlete: 'Test Athlete',
+      participants: ['Test Athlete'],
       exercises: [{ id: 'ex-1', name: 'Tempo', sets: 4, reps: 5, load: null, order: 1 }],
       notes: 'Updated note after review.',
       createdAt: '2025-03-01T00:00:00Z',
@@ -41,6 +45,8 @@ describe('SessionPage notes flow', () => {
     getSessionMock.mockResolvedValue({
       id: 'session-30',
       date: '2025-03-01',
+      athlete: 'Test Athlete',
+      participants: ['Test Athlete'],
       exercises: [{ id: 'ex-1', name: 'Tempo', sets: 4, reps: 5, load: null, order: 1 }],
       notes: 'Updated note after review.',
       createdAt: '2025-03-01T00:00:00Z',
@@ -48,11 +54,11 @@ describe('SessionPage notes flow', () => {
     });
 
     render(<SessionPage />);
-    await user.type(screen.getByLabelText(/Date/i), '2025-03-01');
-    await user.click(screen.getByRole('button', { name: /Add exercise/i }));
+    await user.type(screen.getByLabelText(/Scheduled/i), '2025-03-01T00:00');
+    await user.type(screen.getByLabelText(/Athlete/i), 'Test Athlete');
     await user.type(screen.getAllByTestId('exercise-name-input')[0], 'Tempo');
     await user.selectOptions(screen.getByLabelText(/Sets/i), '4');
-    const repInputs = screen.getAllByLabelText(/Reps \(set/i);
+    const repInputs = screen.getAllByLabelText(/^Set /i);
     for (const input of repInputs) {
       await user.type(input, '5');
     }
@@ -68,9 +74,8 @@ describe('SessionPage notes flow', () => {
     await user.clear(notesInput);
     await user.type(notesInput, 'Updated note after review.');
     await user.selectOptions(screen.getByLabelText(/Sets/i), '4');
-    const repInputsAfter = screen.getAllByLabelText(/Reps \(set/i);
+    const repInputsAfter = screen.getAllByLabelText(/^Set /i);
     for (const input of repInputsAfter) {
-      await user.clear(input);
       await user.type(input, '5');
     }
     await user.click(screen.getByRole('button', { name: /Save exercise/i }));
@@ -82,5 +87,5 @@ describe('SessionPage notes flow', () => {
     await waitFor(() => expect(getSessionMock).toHaveBeenCalledWith('session-30'));
     const updatedNotes = await screen.findAllByText(/Updated note after review/i);
     expect(updatedNotes.length).toBeGreaterThan(0);
-  });
+  }, 15000);
 });

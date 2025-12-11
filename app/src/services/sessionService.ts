@@ -38,7 +38,11 @@ function buildPayload(session: SessionDraft) {
     durationMinutes: session.durationMinutes ?? null,
     location: session.location ?? null,
     intensity: session.intensity ?? null,
-    participants: session.participants ?? null,
+    trainer: session.trainer ?? null,
+    athlete: session.athlete ?? null,
+    sections: session.sections ?? null,
+    microCycleId: session.microCycleId ?? null,
+    participants: session.participants ?? (session.athlete ? [session.athlete] : null),
     notes: session.notes ?? null,
     exercises: (session.exercises ?? []).map(mapExercisePayload),
   };
@@ -75,6 +79,7 @@ function withServerIds(session: SessionDraft, id: string): Session {
     id,
     createdAt: timestamp,
     updatedAt: timestamp,
+    sections: session.sections ?? null,
     exercises: (session.exercises ?? []).map((exercise, index) => ({
       ...normalizeMetrics(exercise),
       id: exercise.id.startsWith('temp') || exercise.id.startsWith('dup') ? `ex-${Date.now()}-${index + 1}` : exercise.id,
@@ -98,6 +103,10 @@ async function handleResponse(res: Response): Promise<Session> {
     durationMinutes: data.durationMinutes ?? null,
     location: data.location ?? null,
     intensity: data.intensity ?? null,
+    trainer: data.trainer ?? null,
+    athlete: data.athlete ?? data.participants?.[0] ?? null,
+    sections: data.sections ?? null,
+    microCycleId: data.microCycleId ?? null,
     participants: data.participants ?? null,
     notes: data.notes ?? null,
     exercises: (data.exercises ?? []).map((exercise: ExerciseEntry, index: number) => ({
@@ -118,8 +127,9 @@ export async function getSession(id: string): Promise<Session> {
         id,
         date: new Date().toISOString().slice(0, 10),
         location: 'Mock Gym',
-        intensity: 'moderate',
-        participants: ['You'],
+        trainer: 'Mock Trainer',
+        athlete: 'Mock Athlete',
+        participants: ['Mock Athlete'],
         notes: 'Mock session loaded because mocks are enabled.',
         exercises: [
           { id: 'ex-1', name: 'Mock Squat', sets: 3, reps: 8, load: 100, order: 1 },
@@ -139,6 +149,8 @@ export async function getSession(id: string): Promise<Session> {
       {
         id,
         date: new Date().toISOString().slice(0, 10),
+        trainer: null,
+        athlete: null,
         notes: 'Fallback session (offline)',
         exercises: [{ id: 'ex-fallback', name: 'Placeholder Exercise', sets: 1, reps: 10, order: 1 }],
       },

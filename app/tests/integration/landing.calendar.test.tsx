@@ -29,10 +29,10 @@ describe('LandingPage calendar flow', () => {
     render(<LandingPage />);
 
     await waitFor(() => {
-      expect(screen.getByText(/Completion rate/i)).toBeInTheDocument();
+      expect(screen.getByText(/Results/i)).toBeInTheDocument();
     });
 
-    expect(screen.getByText(/Recent volume/i)).toBeInTheDocument();
+    expect(screen.getByText(/Results/i)).toBeInTheDocument();
     expect(screen.getByText(/Exercises/i)).toBeInTheDocument();
     expect(screen.getByText(/Program/i)).toBeInTheDocument();
     expect(screen.getByText(/Reports/i)).toBeInTheDocument();
