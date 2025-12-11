@@ -6721,6 +6721,7 @@
 [2m2025-12-09T05:24:24.201873Z[0m [32m INFO[0m ghost snapshot blocking task finished
 [2m2025-12-09T05:24:24.201910Z[0m [32m INFO[0m ghost commit captured: 06f7940e2b5dc1e984354bbf13e294127b7eadf7
 [2m2025-12-09T05:24:24.201917Z[0m [32m INFO[0m ghost snapshot gate marked ready
+<<<<<<< HEAD
 [2m2025-12-11T06:17:41.557735Z[0m [32m INFO[0m spawning ghost snapshot task
 [2m2025-12-11T06:17:42.326616Z[0m [32m INFO[0m ghost snapshot blocking task finished
 [2m2025-12-11T06:17:42.326666Z[0m [32m INFO[0m ghost commit captured: 5a182f345a82fbbc33fb3e9dbbd97506da5bef8a
@@ -6984,4 +6985,1098 @@
 +    return mockProgram;
 +  }
 +}
+=======
+[2m2025-12-09T08:16:50.782334Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T08:16:51.485461Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T08:16:51.485504Z[0m [32m INFO[0m ghost commit captured: a01d133bc429e137aa021674c52e3e203a7cba4b
+[2m2025-12-09T08:16:51.485512Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T08:16:56.709450Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; ls"}
+[2m2025-12-09T08:17:01.381095Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .codex\\prompts\\speckit.specify.md"}
+[2m2025-12-09T08:17:10.354353Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Gather templates and determine next feature number/branch short name"},{"status":"pending","step":"Generate spec content per template with assumptions/clarifications"},{"status":"pending","step":"Validate against checklist and finalize outputs"}]}
+[2m2025-12-09T08:17:16.329623Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git fetch --all --prune","with_escalated_permissions":true,"justification":"Need to fetch branches to compute next feature number per speckit instructions; requires writing to git metadata beyond read-only sandbox"}
+[2m2025-12-09T08:17:31.834178Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git ls-remote --heads origin | Select-String -Pattern 'refs/heads/[0-9]+-session-page$'"}
+[2m2025-12-09T08:17:37.259204Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git branch | Select-String -Pattern '^[\\* ]*[0-9]+-session-page$'"}
+[2m2025-12-09T08:17:42.441047Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; ls specs"}
+[2m2025-12-09T08:17:53.661358Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\create-new-feature.ps1 -Json \"$ARGUMENTS\" -Json -Number 1 -ShortName \"session-page\" \"build a session page, to record exercises completed in the session and session details with a notes section\"","with_escalated_permissions":true,"justification":"Need to create new feature branch/spec files; script writes to repo which requires permissions beyond read-only sandbox"}
+[2m2025-12-09T08:18:08.175100Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .specify\\scripts\\powershell\\create-new-feature.ps1"}
+[2m2025-12-09T08:18:13.377378Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\create-new-feature.ps1 -Json -Number 1 -ShortName \"session-page\" \"build a session page, to record exercises completed in the session and session details with a notes section\"","with_escalated_permissions":true,"justification":"Need to create new feature branch/spec files by running project script, which writes to repo in read-only sandbox"}
+[2m2025-12-09T08:18:23.947456Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\001-session-page\\spec.md"}
+[2m2025-12-09T08:18:37.354935Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Gather templates and determine next feature number/branch short name"},{"status":"in_progress","step":"Generate spec content per template with assumptions/clarifications"},{"status":"pending","step":"Validate against checklist and finalize outputs"}]}
+[2m2025-12-09T08:18:45.900449Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Date -Format yyyy-MM-dd"}
+[2m2025-12-09T08:19:32.033060Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-session-page/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
+-**Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
+-
+-## User Scenarios & Testing *(mandatory)*
+-
+-<!--
+-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+-  
+-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+-  Think of each story as a standalone slice of functionality that can be:
+-  - Developed independently
+-  - Tested independently
+-  - Deployed independently
+-  - Demonstrated to users independently
+--->
+-
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-[Add more user stories as needed, each with an assigned priority]
+-
+-### Edge Cases
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
+-
+-## Requirements *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right functional requirements.
+--->
+-
+-### Functional Requirements
+-
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+-
+-### Key Entities *(include if feature involves data)*
+-
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
+-
+-## Success Criteria *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: Define measurable success criteria.
+-  These must be technology-agnostic and measurable.
+--->
+-
+-### Measurable Outcomes
+-
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++# Feature Specification: Session Page Logging
++
++**Feature Branch**: `001-session-page`  
++**Created**: 2025-12-09  
++**Status**: Draft  
++**Input**: User description: "build a session page, to record exercises completed in the session and session details with a notes section"
++
++## User Scenarios & Testing *(mandatory)*
++
++### User Story 1 - Record session exercises (Priority: P1)
++
++As a signed-in athlete or coach, I can log a training session and add each exercise performed with sets, reps, load, or duration so the session is captured accurately.
++
++**Why this priority**: Capturing exercises is the core value of the session page and enables progress tracking.
++
++**Independent Test**: Start a new session, add multiple exercises with details, save, and reopen to verify all entries persist exactly as entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** I am on the session page, **When** I create a new session and add one or more exercises with required details, **Then** the session saves with every exercise entry retained.
++2. **Given** I edit or remove an exercise entry before saving, **When** I save the session, **Then** only the updated set of exercises appears in the saved record.
++
++---
++
++### User Story 2 - Capture session details (Priority: P2)
++
++As a signed-in user, I can enter session-level information (date, start/end or duration, location, intensity, participants) to contextualize the exercises.
++
++**Why this priority**: Session context is needed for meaningful tracking and reporting.
++
++**Independent Test**: Create a session with session-level details only, save, and confirm the summary displays those details without requiring exercises to be re-entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** the session page is open, **When** I enter session date/time and contextual fields and save, **Then** the saved session shows those details in the summary.
++
++---
++
++### User Story 3 - Add notes and reflections (Priority: P3)
++
++As a signed-in user, I can add free-form notes (observations, modifications, follow-ups) to a session so future reviews include qualitative context.
++
++**Why this priority**: Notes capture context that metrics cannot, improving coaching feedback and self-review.
++
++**Independent Test**: Add or edit a note on an existing session and confirm it saves and reopens exactly as entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** an existing session record, **When** I add or update notes and save, **Then** the notes appear unchanged when I return to the session page.
++
++---
++
++### Edge Cases
++
++- User tries to save a session without a required field (e.g., date) or without at least one exercise; inline validation blocks save and explains what to fix.
++- An exercise entry is incomplete (missing reps/load/duration for the chosen type); user is prompted to fill required metrics before save.
++- User navigates away with unsaved changes; a confirmation prompt prevents accidental loss.
++- Very long notes or many exercise entries; page still saves and displays all content without truncation.
++- Duplicate exercise names within a session; entries remain distinct and editable individually.
++
++## Requirements *(mandatory)*
++
++### Functional Requirements
++
++- **FR-001**: System MUST allow a signed-in user to start a new session record with date and time context.
++- **FR-002**: System MUST allow adding, editing, reordering, and removing multiple exercise entries within a session, including exercise name and applicable metrics (sets/reps/load and/or duration).
++- **FR-003**: System MUST enforce required fields: session date/time and at least one complete exercise entry before final save, with inline error messaging.
++- **FR-004**: System MUST persist session details, all exercise entries, and notes together so they can be reopened for review or editing.
++- **FR-005**: System MUST provide a notes field supporting multi-line text saved with the session.
++- **FR-006**: System MUST display a saved session summary showing session details, exercise list with metrics, and notes in a readable layout.
++- **FR-007**: System SHOULD warn users before discarding unsaved changes when navigating away or closing the session page.
++- **FR-008**: System SHOULD support quick duplication of an exercise entry within the session to reduce repeated typing for similar sets.
++
++### Key Entities *(include if feature involves data)*
++
++- **Session**: Represents a single training instance with attributes such as date, start/end or duration, location/venue, intensity rating, participant/coach identifiers, notes, and the collection of exercises.
++- **Exercise Entry**: Represents an exercise performed in a session with attributes including exercise name, metrics (sets/reps/load and/or duration), optional rest intervals, ordering within the session, and link to its parent Session.
++
++### Assumptions & Dependencies
++
++- Users are already authenticated and have permission to create and edit their own sessions.
++- Exercises can be logged with either load-based metrics (sets/reps/load) or time-based metrics (duration); at least one metric set must be complete per exercise.
++- Notes are stored as plain text without formatting or media attachments.
++- Validation and persistence behavior match existing app patterns for error display and saving.
++
++## Success Criteria *(mandatory)*
++
++### Measurable Outcomes
++
++- **SC-001**: 90% of users can create and save a session with at least three exercises in under 3 minutes on first attempt.
++- **SC-002**: 95% of saved sessions reopen with all exercises, details, and notes matching the last saved state with zero data loss in testing.
++- **SC-003**: Inline validation prevents incomplete saves, with error resolution achieved within one additional attempt for 90% of users.
++- **SC-004**: At least 80% of users who log sessions add notes or context when prompted, indicating the notes experience is discoverable and usable.
+*** End Patch
+[2m2025-12-09T08:19:44.626702Z[0m [32m INFO[0m interrupt received: abort current task, if any
+[2m2025-12-09T08:20:56.723439Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T08:20:57.329631Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T08:20:57.329670Z[0m [32m INFO[0m ghost commit captured: 2bffc8e9187f6bd0c5128c1e82ac2555cbf6c58e
+[2m2025-12-09T08:20:57.329676Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T08:21:13.511703Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\create-new-feature.ps1 -Json -Number 3 -ShortName \"session-page\" \"build a session page, to record exercises completed in the session and session details with a notes section\"","with_escalated_permissions":true,"justification":"Need to create new feature branch 003-session-page and spec directory as requested; script writes to repo so requires permissions"}
+[2m2025-12-09T08:21:34.735375Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\spec.md"}
+[2m2025-12-09T08:22:08.093191Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/003-session-page/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
+-**Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
++# Feature Specification: Session Page Logging
++
++**Feature Branch**: `003-session-page`  
++**Created**: 2025-12-09  
++**Status**: Draft  
++**Input**: User description: "build a session page, to record exercises completed in the session and session details with a notes section"
+@@
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 1 - Record session exercises (Priority: P1)
++
++As a signed-in athlete or coach, I can log a training session and add each exercise performed with sets, reps, load, or duration so the session is captured accurately.
++
++**Why this priority**: Capturing exercises is the core value of the session page and enables progress tracking.
++
++**Independent Test**: Start a new session, add multiple exercises with details, save, and reopen to verify all entries persist exactly as entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** I am on the session page, **When** I create a new session and add one or more exercises with required details, **Then** the session saves with every exercise entry retained.
++2. **Given** I edit or remove an exercise entry before saving, **When** I save the session, **Then** only the updated set of exercises appears in the saved record.
+@@
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 2 - Capture session details (Priority: P2)
++
++As a signed-in user, I can enter session-level information (date, start/end or duration, location, intensity, participants) to contextualize the exercises.
++
++**Why this priority**: Session context is needed for meaningful tracking and reporting.
++
++**Independent Test**: Create a session with session-level details only, save, and confirm the summary displays those details without requiring exercises to be re-entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** the session page is open, **When** I enter session date/time and contextual fields and save, **Then** the saved session shows those details in the summary.
+@@
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
++### User Story 3 - Add notes and reflections (Priority: P3)
++
++As a signed-in user, I can add free-form notes (observations, modifications, follow-ups) to a session so future reviews include qualitative context.
++
++**Why this priority**: Notes capture context that metrics cannot, improving coaching feedback and self-review.
++
++**Independent Test**: Add or edit a note on an existing session and confirm it saves and reopens exactly as entered.
++
++**Acceptance Scenarios**:
++
++1. **Given** an existing session record, **When** I add or update notes and save, **Then** the notes appear unchanged when I return to the session page.
+@@
+-[Add more user stories as needed, each with an assigned priority]
+-
+ ### Edge Cases
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
++
++- User tries to save a session without a required field (e.g., date) or without at least one exercise; inline validation blocks save and explains what to fix.
++- An exercise entry is incomplete (missing reps/load/duration for the chosen type); user is prompted to fill required metrics before save.
++- User navigates away with unsaved changes; a confirmation prompt prevents accidental loss.
++- Very long notes or many exercise entries; page still saves and displays all content without truncation.
++- Duplicate exercise names within a session; entries remain distinct and editable individually.
+@@
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right functional requirements.
+--->
+-
+ ### Functional Requirements
+-
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
++
++- **FR-001**: System MUST allow a signed-in user to start a new session record with date and time context.
++- **FR-002**: System MUST allow adding, editing, reordering, and removing multiple exercise entries within a session, including exercise name and applicable metrics (sets/reps/load and/or duration).
++- **FR-003**: System MUST enforce required fields: session date/time and at least one complete exercise entry before final save, with inline error messaging.
++- **FR-004**: System MUST persist session details, all exercise entries, and notes together so they can be reopened for review or editing.
++- **FR-005**: System MUST provide a notes field supporting multi-line text saved with the session.
++- **FR-006**: System MUST display a saved session summary showing session details, exercise list with metrics, and notes in a readable layout.
++- **FR-007**: System SHOULD warn users before discarding unsaved changes when navigating away or closing the session page.
++- **FR-008**: System SHOULD support quick duplication of an exercise entry within the session to reduce repeated typing for similar sets.
+@@
+-### Key Entities *(include if feature involves data)*
+-
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
++### Key Entities *(include if feature involves data)*
++
++- **Session**: Represents a single training instance with attributes such as date, start/end or duration, location/venue, intensity rating, participant/coach identifiers, notes, and the collection of exercises.
++- **Exercise Entry**: Represents an exercise performed in a session with attributes including exercise name, metrics (sets/reps/load and/or duration), optional rest intervals, ordering within the session, and link to its parent Session.
++
++### Assumptions & Dependencies
++
++- Users are already authenticated and have permission to create and edit their own sessions.
++- Exercises can be logged with either load-based metrics (sets/reps/load) or time-based metrics (duration); at least one metric set must be complete per exercise.
++- Notes are stored as plain text without formatting or media attachments.
++- Validation and persistence behavior match existing app patterns for error display and saving.
+@@
+-<!--
+-  ACTION REQUIRED: Define measurable success criteria.
+-  These must be technology-agnostic and measurable.
+--->
+-
+ ### Measurable Outcomes
+-
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++- **SC-001**: 90% of users can create and save a session with at least three exercises in under 3 minutes on first attempt.
++- **SC-002**: 95% of saved sessions reopen with all exercises, details, and notes matching the last saved state with zero data loss in testing.
++- **SC-003**: Inline validation prevents incomplete saves, with error resolution achieved within one additional attempt for 90% of users.
++- **SC-004**: At least 80% of users who log sessions add notes or context when prompted, indicating the notes experience is discoverable and usable.
+*** End Patch
+[2m2025-12-09T08:22:25.196917Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/checklists/requirements.md
++# Specification Quality Checklist: Session Page Logging
++ 
++**Purpose**: Validate specification completeness and quality before proceeding to planning  
++**Created**: 2025-12-09  
++**Feature**: specs/003-session-page/spec.md
++ 
++## Content Quality
++ 
++- [x] No implementation details (languages, frameworks, APIs)
++- [x] Focused on user value and business needs
++- [x] Written for non-technical stakeholders
++- [x] All mandatory sections completed
++ 
++## Requirement Completeness
++ 
++- [x] No [NEEDS CLARIFICATION] markers remain
++- [x] Requirements are testable and unambiguous
++- [x] Success criteria are measurable
++- [x] Success criteria are technology-agnostic (no implementation details)
++- [x] All acceptance scenarios are defined
++- [x] Edge cases are identified
++- [x] Scope is clearly bounded
++- [x] Dependencies and assumptions identified
++ 
++## Feature Readiness
++ 
++- [x] All functional requirements have clear acceptance criteria
++- [x] User scenarios cover primary flows
++- [x] Feature meets measurable outcomes defined in Success Criteria
++- [x] No implementation details leak into specification
++ 
++## Notes
++ 
++- Checklist completed after reviewing the spec; no outstanding issues.
+*** End Patch
+[2m2025-12-09T08:22:37.584390Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Gather templates and determine next feature number/branch short name"},{"status":"completed","step":"Generate spec content per template with assumptions/clarifications"},{"status":"completed","step":"Validate against checklist and finalize outputs"}],"explanation":"Created feature 003-session-page, filled spec, and completed checklist validation."}
+[2m2025-12-09T08:23:33.850019Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T08:23:34.428560Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T08:23:34.428615Z[0m [32m INFO[0m ghost commit captured: 072167a5353e4fa35c6432c2a2f70030fe5a52b9
+[2m2025-12-09T08:23:34.428626Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T08:23:44.147396Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git branch"}
+[2m2025-12-09T08:23:48.548667Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; git branch -D 001-session-page","with_escalated_permissions":true,"justification":"User requested retiring the 001-session-page branch; deleting branch requires write access in read-only sandbox"}
+[2m2025-12-09T08:23:59.444547Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Remove-Item specs\\001-session-page -Recurse -Force","with_escalated_permissions":true,"justification":"User requested retiring the 001-session-page spec; removing directory requires write access beyond read-only sandbox"}
+[2m2025-12-09T08:24:16.333716Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T08:24:16.897631Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T08:24:16.897671Z[0m [32m INFO[0m ghost commit captured: af0fb9f6f649134d5239d0319dc661b906ab9ebe
+[2m2025-12-09T08:24:16.897679Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T08:24:22.034119Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .codex\\prompts\\speckit.plan.md"}
+[2m2025-12-09T08:24:28.406652Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Run setup-plan to locate feature spec and plan template"},{"status":"pending","step":"Draft Technical Context and Constitution Check, derive unknowns"},{"status":"pending","step":"Produce Phase 0 research.md resolving unknowns"},{"status":"pending","step":"Produce Phase 1 design artifacts: data-model, contracts, quickstart; update agent context"},{"status":"pending","step":"Finalize implementation plan file and report outputs"}]}
+[2m2025-12-09T08:24:31.251796Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\setup-plan.ps1 -Json","with_escalated_permissions":true,"justification":"setup-plan writes/updates plan files; needs permissions beyond read-only sandbox"}
+[2m2025-12-09T08:24:42.054644Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\plan.md"}
+[2m2025-12-09T08:24:47.430538Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .specify\\memory\\constitution.md"}
+[2m2025-12-09T08:24:52.157429Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md -Raw"}
+[2m2025-12-09T08:24:56.957044Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md -TotalCount 400"}
+[2m2025-12-09T08:25:04.551195Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; (Get-Content .specify\\memory\\constitution.md | Measure-Object).Count"}
+[2m2025-12-09T08:25:08.221220Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md | Select-Object -Skip 40"}
+[2m2025-12-09T08:25:11.606730Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md | Select-Object -Skip 70"}
+[2m2025-12-09T08:25:17.023664Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md | Select-Object -Skip 80"}
+[2m2025-12-09T08:25:23.289010Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; Get-Content .specify\\memory\\constitution.md -Tail 30"}
+[2m2025-12-09T08:25:32.416818Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; ls"}
+[2m2025-12-09T08:25:42.444523Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; ls app"}
+[2m2025-12-09T08:26:22.275797Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/003-session-page/plan.md
+@@
+-# Implementation Plan: [FEATURE]
+-
+-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+-
+-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
+-
+-## Summary
+-
+-[Extract from feature spec: primary requirement + technical approach from research]
+-
+-## Technical Context
+-
+-<!--
+-  ACTION REQUIRED: Replace the content in this section with the technical details
+-  for the project. The structure here is presented in advisory capacity to guide
+-  the iteration process.
+--->
+-
+-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+-**Project Type**: [single/web/mobile - determines source structure]  
+-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+-
+-## Constitution Check
+-
+-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+-
+-[Gates determined based on constitution file]
+-
+-## Project Structure
++# Implementation Plan: Session Page Logging
++
++**Branch**: `003-session-page` | **Date**: 2025-12-09 | **Spec**: specs/003-session-page/spec.md  
++**Input**: Feature specification from `/specs/003-session-page/spec.md`
++
++## Summary
++
++Build a session page that lets authenticated users log training sessions: capture session details (date/time, context), add/edit/remove exercises with metrics, and attach notes. The plan delivers a React (Vite) page within the existing AppShell, with client-side validation, persistence via session APIs, and a readable summary view backed by clear data models and contracts.
++
++## Technical Context
++
++**Language/Version**: TypeScript, React 19  
++**Primary Dependencies**: React, React DOM, Vite, date-fns (formatting), testing-library/Vitest; reuse existing AppShell/layout components  
++**Storage**: API-backed session persistence (RESTful contract defined here); no client-side offline store in scope  
++**Testing**: Vitest + @testing-library/react for unit/interaction; contract tests can stub API responses  
++**Target Platform**: Web (desktop-first, responsive to mobile web)  
++**Project Type**: Web frontend (app/), Vite-based SPA  
++**Performance Goals**: Form interactions feel instantaneous; save/reload round-trips under ~1s in test env; renders avoid jank with large exercise lists  
++**Constraints**: Must render within shared AppShell; single source of truth for navigation; no new global layout variants; follow incremental slices and test-first principles  
++**Scale/Scope**: Single new page + supporting components/state; supports sessions with many exercise rows and long notes without truncation
++
++## Constitution Check
++
++*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
++
++- AppShell & single navigation source honored: page will mount inside existing layout; no duplicate nav. **PASS**
++- User outcomes defined via spec P1/P2/P3 with measurable criteria. **PASS**
++- Incremental slices: plan delivers page + validation + persistence in releasable steps. **PASS**
++- Test-first reliability: tests for acceptance paths and validation blockers planned. **PASS**
++- Scope remains within training session logging/tracking per constitution. **PASS**
++
++## Project Structure
+ 
+ ### Documentation (this feature)
+ 
+ ```text
+-specs/[###-feature]/
+-ƒ"oƒ"?ƒ"? plan.md              # This file (/speckit.plan command output)
+-ƒ"oƒ"?ƒ"? research.md          # Phase 0 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? data-model.md        # Phase 1 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? quickstart.md        # Phase 1 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? contracts/           # Phase 1 output (/speckit.plan command)
+-ƒ""ƒ"?ƒ"? tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
++specs/003-session-page/
++├─ plan.md              # This file
++├─ research.md          # Phase 0 output
++├─ data-model.md        # Phase 1 output
++├─ quickstart.md        # Phase 1 output
++├─ contracts/           # Phase 1 output
++└─ tasks.md             # Phase 2 output (from /speckit.tasks)
+ ```
+ 
+ ### Source Code (repository root)
+-<!--
+-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+-  for this feature. Delete unused options and expand the chosen structure with
+-  real paths (e.g., apps/admin, packages/something). The delivered plan must
+-  not include Option labels.
+--->
+ 
+ ```text
+-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+-src/
+-ƒ"oƒ"?ƒ"? models/
+-ƒ"oƒ"?ƒ"? services/
+-ƒ"oƒ"?ƒ"? cli/
+-ƒ""ƒ"?ƒ"? lib/
+-
+-tests/
+-ƒ"oƒ"?ƒ"? contract/
+-ƒ"oƒ"?ƒ"? integration/
+-ƒ""ƒ"?ƒ"? unit/
+-
+-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+-backend/
+-ƒ"oƒ"?ƒ"? src/
+-ƒ"'   ƒ"oƒ"?ƒ"? models/
+-ƒ"'   ƒ"oƒ"?ƒ"? services/
+-ƒ"'   ƒ""ƒ"?ƒ"? api/
+-ƒ""ƒ"?ƒ"? tests/
+-
+-frontend/
+-ƒ"oƒ"?ƒ"? src/
+-ƒ"'   ƒ"oƒ"?ƒ"? components/
+-ƒ"'   ƒ"oƒ"?ƒ"? pages/
+-ƒ"'   ƒ""ƒ"?ƒ"? services/
+-ƒ""ƒ"?ƒ"? tests/
+-
+-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+-api/
+-ƒ""ƒ"?ƒ"? [same as backend above]
+-
+-ios/ or android/
+-ƒ""ƒ"?ƒ"? [platform-specific structure: feature modules, UI flows, platform tests]
++app/
++├─ src/
++│  ├─ components/        # shared UI primitives/layout (reuse AppShell, form controls)
++│  ├─ pages/             # routed pages (add SessionPage view)
++│  ├─ features/          # feature modules (add session logging feature state/hooks)
++│  └─ services/          # API client utilities (add session API client)
++└─ tests/
++   ├─ unit/              # component/unit tests
++   └─ integration/       # page-level flows and contract verifications
+ ```
+ 
+-**Structure Decision**: [Document the selected structure and reference the real
+-directories captured above]
++**Structure Decision**: Web frontend under `app/` using existing React/Vite layout; add session page routed view, feature-specific components/state under `app/src/features`, and API client under `app/src/services`.
+ 
+ ## Complexity Tracking
+ 
+ > **Fill ONLY if Constitution Check has violations that must be justified**
+*** End Patch
+[2m2025-12-09T08:26:29.836592Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/003-session-page/plan.md
+*** End Patch
+[2m2025-12-09T08:27:04.392462Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/plan.md
++# Implementation Plan: Session Page Logging
++
++**Branch**: `003-session-page` | **Date**: 2025-12-09 | **Spec**: specs/003-session-page/spec.md  
++**Input**: Feature specification from `/specs/003-session-page/spec.md`
++
++## Summary
++
++Build a session page that lets authenticated users log training sessions: capture session details (date/time, context), add/edit/remove exercises with metrics, and attach notes. Deliver a React (Vite) page within the existing AppShell, with client-side validation, persistence via session APIs, and a readable summary view backed by clear data models and contracts.
++
++## Technical Context
++
++**Language/Version**: TypeScript, React 19  
++**Primary Dependencies**: React, React DOM, Vite, date-fns (formatting), testing-library/Vitest; reuse existing AppShell/layout components  
++**Storage**: API-backed session persistence (RESTful contract defined here); no client-side offline store in scope  
++**Testing**: Vitest + @testing-library/react for unit/interaction; contract tests can stub API responses  
++**Target Platform**: Web (desktop-first, responsive to mobile web)  
++**Project Type**: Web frontend (app/), Vite-based SPA  
++**Performance Goals**: Form interactions feel instantaneous; save/reload round-trips under ~1s in test env; renders avoid jank with large exercise lists  
++**Constraints**: Must render within shared AppShell; single source of truth for navigation; no new global layout variants; follow incremental slices and test-first principles  
++**Scale/Scope**: Single new page + supporting components/state; supports sessions with many exercise rows and long notes without truncation
++
++## Constitution Check
++
++*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
++
++- AppShell & single navigation source honored: page mounts inside existing layout; no duplicate nav. **PASS**
++- User outcomes defined via spec P1/P2/P3 with measurable criteria. **PASS**
++- Incremental slices: deliver page + validation + persistence in releasable steps. **PASS**
++- Test-first reliability: plan includes tests for acceptance paths and validation blockers. **PASS**
++- Scope stays within training session logging/tracking per constitution. **PASS**
++
++## Project Structure
++
++### Documentation (this feature)
++
++```text
++specs/003-session-page/
++├─ plan.md              # This file
++├─ research.md          # Phase 0 output
++├─ data-model.md        # Phase 1 output
++├─ quickstart.md        # Phase 1 output
++├─ contracts/           # Phase 1 output
++└─ tasks.md             # Phase 2 output (from /speckit.tasks)
++```
++
++### Source Code (repository root)
++
++```text
++app/
++├─ src/
++│  ├─ components/        # shared UI primitives/layout (reuse AppShell, form controls)
++│  ├─ pages/             # routed pages (add SessionPage view)
++│  ├─ features/          # feature modules (session logging state/hooks)
++│  └─ services/          # API client utilities (session API client)
++└─ tests/
++   ├─ unit/              # component/unit tests
++   └─ integration/       # page-level flows and contract verifications
++```
++
++**Structure Decision**: Web frontend under `app/` using existing React/Vite layout; add session page routed view, feature-specific components/state under `app/src/features`, and API client under `app/src/services`.
++
++## Complexity Tracking
++
++> **Fill ONLY if Constitution Check has violations that must be justified**
++
++| Violation | Why Needed | Simpler Alternative Rejected Because |
++|-----------|------------|--------------------------------------|
+*** End Patch
+[2m2025-12-09T08:27:49.192614Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Run setup-plan to locate feature spec and plan template"},{"status":"completed","step":"Draft Technical Context and Constitution Check, derive unknowns"},{"status":"in_progress","step":"Produce Phase 0 research.md resolving unknowns"},{"status":"pending","step":"Produce Phase 1 design artifacts: data-model, contracts, quickstart; update agent context"},{"status":"pending","step":"Finalize implementation plan file and report outputs"}]}
+[2m2025-12-09T08:28:00.152481Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/research.md
++# Phase 0 Research: Session Page Logging
++
++## Decisions and Rationale
++
++### Decision: Use RESTful session endpoints for persistence
++- **Rationale**: Aligns with existing web app patterns; simple CRUD for sessions with exercises and notes matches REST well.
++- **Alternatives considered**: GraphQL (adds complexity without clear benefit for this slice); local-only storage (fails persistence requirement).
++
++### Decision: Client-side validation for required fields and exercise completeness
++- **Rationale**: Immediate feedback satisfies spec acceptance and SC-003; avoids round-trips for obvious errors.
++- **Alternatives considered**: Server-only validation (slower feedback, poorer UX); schema-driven form libs (heavier than needed for one page).
++
++### Decision: Local page state + scoped hooks for session editing
++- **Rationale**: Keeps the feature slice isolated and testable; supports unsaved-change prompts and optimistic UI without global state.
++- **Alternatives considered**: Global store (overkill for single page; higher coupling); uncontrolled form with DOM reads (harder to validate dynamic rows).
++
++## Open Questions
++
++None. All critical clarifications resolved with the assumptions above.
+*** End Patch
+[2m2025-12-09T08:28:35.991340Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Run setup-plan to locate feature spec and plan template"},{"status":"completed","step":"Draft Technical Context and Constitution Check, derive unknowns"},{"status":"completed","step":"Produce Phase 0 research.md resolving unknowns"},{"status":"in_progress","step":"Produce Phase 1 design artifacts: data-model, contracts, quickstart; update agent context"},{"status":"pending","step":"Finalize implementation plan file and report outputs"}]}
+[2m2025-12-09T08:28:45.423644Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .specify\\templates\\commands\\plan.md"}
+[2m2025-12-09T08:29:01.796726Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/data-model.md
++# Data Model: Session Page Logging
++
++## Entities
++
++### Session
++- `id`: string (server-generated)
++- `date`: ISO date (required)
++- `startTime`: ISO time (optional)
++- `endTime`: ISO time (optional; must be after startTime if both provided)
++- `durationMinutes`: number (optional; alternative to start/end)
++- `location`: string (optional)
++- `intensity`: string/enum (optional; e.g., easy/moderate/hard)
++- `participants`: string[] (optional; names or IDs of athletes/coaches)
++- `notes`: string (optional, multiline allowed)
++- `exercises`: ExerciseEntry[] (required; at least one)
++- `createdAt`: ISO timestamp (server-generated)
++- `updatedAt`: ISO timestamp (server-generated)
++
++### ExerciseEntry
++- `id`: string (client temp ID; server may replace)
++- `sessionId`: string (server links to parent Session)
++- `name`: string (required)
++- `sets`: number (optional; required if using reps/load pattern)
++- `reps`: number (optional; required if using reps/load pattern)
++- `load`: number (optional; weight/resistance; paired with sets/reps when applicable)
++- `durationSeconds`: number (optional; alternative metric)
++- `restSeconds`: number (optional)
++- `order`: number (required; used for display ordering)
++- `notes`: string (optional; brief per-exercise note)
++
++## Relationships
++
++- Session **has many** ExerciseEntry items, ordered by `order`.
++- ExerciseEntry **belongs to** Session via `sessionId`.
++
++## Validation Rules
++
++- Session `date` required.
++- Session must contain **at least one** `ExerciseEntry`.
++- Each `ExerciseEntry` requires `name` and `order`.
++- Each `ExerciseEntry` must include **either**:
++  - load-based metrics: `sets` AND `reps` (with optional `load`), **or**
++  - time-based metrics: `durationSeconds`.
++- If both `startTime` and `endTime` provided, `endTime > startTime`.
++- Notes accept long text; do not truncate.
++- Duplicate exercise names allowed; uniqueness enforced by `id` + `order`.
++
++## State & Transitions
++
++- `editing` (unsaved changes in client state) → `saved` (after successful POST/PUT).
++- Discard navigation shows confirmation when leaving `editing` with unsaved changes.
++- Server responses update `id` fields and timestamps, transitioning to `saved`.
+*** End Patch
+[2m2025-12-09T08:29:41.018951Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/contracts/session.yaml
++openapi: 3.0.0
++info:
++  title: Session API
++  version: "0.1"
++paths:
++  /sessions:
++    post:
++      summary: Create a training session with exercises and notes
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/SessionWrite'
++      responses:
++        '201':
++          description: Session created
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Session'
++  /sessions/{id}:
++    parameters:
++      - in: path
++        name: id
++        required: true
++        schema:
++          type: string
++    get:
++      summary: Fetch a session by id
++      responses:
++        '200':
++          description: Session found
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Session'
++        '404':
++          description: Session not found
++    put:
++      summary: Update a session, replacing exercises and notes
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/SessionWrite'
++      responses:
++        '200':
++          description: Session updated
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Session'
++        '400':
++          description: Validation failed (e.g., missing date or exercise metrics)
++        '404':
++          description: Session not found
++
++components:
++  schemas:
++    Session:
++      type: object
++      required: [id, date, exercises, createdAt, updatedAt]
++      properties:
++        id:
++          type: string
++        date:
++          type: string
++          format: date
++        startTime:
++          type: string
++          format: time
++          nullable: true
++        endTime:
++          type: string
++          format: time
++          nullable: true
++        durationMinutes:
++          type: number
++          nullable: true
++        location:
++          type: string
++          nullable: true
++        intensity:
++          type: string
++          nullable: true
++        participants:
++          type: array
++          items:
++            type: string
++          nullable: true
++        notes:
++          type: string
++          nullable: true
++        exercises:
++          type: array
++          items:
++            $ref: '#/components/schemas/ExerciseEntry'
++        createdAt:
++          type: string
++          format: date-time
++        updatedAt:
++          type: string
++          format: date-time
++    SessionWrite:
++      allOf:
++        - $ref: '#/components/schemas/Session'
++      required: [date, exercises]
++      properties:
++        id:
++          readOnly: true
++        createdAt:
++          readOnly: true
++        updatedAt:
++          readOnly: true
++    ExerciseEntry:
++      type: object
++      required: [id, name, order]
++      properties:
++        id:
++          type: string
++        sessionId:
++          type: string
++          nullable: true
++        name:
++          type: string
++        sets:
++          type: integer
++          nullable: true
++        reps:
++          type: integer
++          nullable: true
++        load:
++          type: number
++          nullable: true
++        durationSeconds:
++          type: integer
++          nullable: true
++        restSeconds:
++          type: integer
++          nullable: true
++        order:
++          type: integer
++        notes:
++          type: string
++          nullable: true
++      oneOf:
++        - required: [sets, reps]
++        - required: [durationSeconds]
+*** End Patch
+[2m2025-12-09T08:29:54.064714Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/quickstart.md
++# Quickstart: Session Page Logging
++
++## Goals
++- Add a session page that captures session details, exercises with metrics, and notes.
++- Keep UX within the existing AppShell and navigation.
++- Provide validation and persistence via the session API contract.
++
++## Steps
++1) **Routing & layout**
++   - Add a `SessionPage` route under `app/src/pages/`.
++   - Render within the shared AppShell/navigation.
++2) **State & models**
++   - Create a `useSessionEditor` hook under `app/src/features/session/` to manage session state (details, exercise list, notes, dirty flag).
++   - Generate temp IDs for exercises; maintain `order`.
++3) **Form UI**
++   - Session details section: date (required), start/end or duration, location, intensity, participants.
++   - Exercises section: name (required), sets/reps/load or duration, rest, notes; support add, edit, remove, duplicate, reorder.
++   - Notes textarea (multiline).
++4) **Validation**
++   - Block save unless date present and at least one exercise with required metrics.
++   - Inline errors per field; page-level summary for missing required groups.
++   - Warn on navigation with unsaved changes.
++5) **API integration**
++   - Add `sessionService` in `app/src/services/` implementing POST/PUT/GET per `contracts/session.yaml`.
++   - Map client temp IDs to server IDs on save; reconcile returned payload.
++6) **Display**
++   - After save, show a summary of session details, exercises (with metrics), and notes in the page.
++7) **Testing**
++   - Unit tests for hooks and validation logic (Vitest + testing-library).
++   - Integration test for creating and editing a session with mocked API responses.
++   - Contract test stubs aligned to `contracts/session.yaml`.
+*** End Patch
+[2m2025-12-09T08:31:08.466656Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/003-session-page/plan.md
+@@
+ ## Complexity Tracking
+ 
+ > **Fill ONLY if Constitution Check has violations that must be justified**
+ 
+ | Violation | Why Needed | Simpler Alternative Rejected Because |
+ |-----------|------------|--------------------------------------|
++
++## Post-Design Constitution Check
++
++- AppShell + single navigation: unchanged; page will use existing layout. **PASS**
++- Incremental slices: UI + validation + persistence planned as separate commits/tests. **PASS**
++- Test-first reliability: unit/integration coverage planned for acceptance paths and validation. **PASS**
+*** End Patch
+[2m2025-12-09T08:31:18.819678Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\update-agent-context.ps1 -AgentType codex","with_escalated_permissions":true,"justification":"Update agent-specific context per planning workflow after design artifacts created; script writes to repo"}
+[2m2025-12-09T08:31:55.980679Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Run setup-plan to locate feature spec and plan template"},{"status":"completed","step":"Draft Technical Context and Constitution Check, derive unknowns"},{"status":"completed","step":"Produce Phase 0 research.md resolving unknowns"},{"status":"completed","step":"Produce Phase 1 design artifacts: data-model, contracts, quickstart; update agent context"},{"status":"completed","step":"Finalize implementation plan file and report outputs"}],"explanation":"Plan file filled, research/design artifacts created, and agent context updated."}
+[2m2025-12-09T08:34:23.874230Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-09T08:34:24.461167Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-09T08:34:24.461208Z[0m [32m INFO[0m ghost commit captured: bcd731333336b060615445dc22c93a639bf8bf92
+[2m2025-12-09T08:34:24.461216Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-09T08:34:28.046943Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .codex\\prompts\\speckit.tasks.md"}
+[2m2025-12-09T08:34:33.417707Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; .specify\\scripts\\powershell\\check-prerequisites.ps1 -Json","with_escalated_permissions":true,"justification":"Script may write setup metadata; need to ensure full execution under read-only sandbox"}
+[2m2025-12-09T08:35:49.302278Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\spec.md"}
+[2m2025-12-09T08:35:55.498444Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\plan.md"}
+[2m2025-12-09T08:35:59.693655Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\data-model.md"}
+[2m2025-12-09T08:36:05.329904Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\contracts\\session.yaml"}
+[2m2025-12-09T08:36:09.335578Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type specs\\003-session-page\\quickstart.md"}
+[2m2025-12-09T08:36:14.541506Z[0m [32m INFO[0m ToolCall: shell_command {"command":"cd C:\\Users\\camer\\Documents\\coachcw\\coachcw; type .specify\\templates\\tasks-template.md"}
+[2m2025-12-09T08:36:57.858521Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/003-session-page/tasks.md
++# Tasks: Session Page Logging
++
++**Input**: Design documents from `/specs/003-session-page/`  
++**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
++
++## Phase 1: Setup (Shared Infrastructure)
++
++- [ ] T001 Review scope and acceptance criteria in specs/003-session-page/plan.md and spec.md
++- [ ] T002 Ensure app dependencies are installed and toolchain works (`npm ci`, `npm test`) in app/
++
++---
++
++## Phase 2: Foundational (Blocking Prerequisites)
++
++- [ ] T003 Create session domain types for Session and ExerciseEntry in app/src/features/session/types.ts
++- [ ] T004 Implement validation helpers for sessions and exercise rows (date required, exercise metrics rules) in app/src/features/session/validation.ts
++- [ ] T005 Scaffold session API client with create/update/get methods aligned to contracts/session.yaml in app/src/services/sessionService.ts
++- [ ] T006 [P] Add contract test skeleton for session API responses and required fields in app/tests/contract/session.contract.test.ts
++- [ ] T007 [P] Add utility for generating temp IDs and ordering helpers in app/src/features/session/idUtils.ts
++
++---
++
++## Phase 3: User Story 1 - Record session exercises (Priority: P1) — MVP
++
++**Goal**: User can add/edit/remove/reorder exercises with metrics and save them.  
++**Independent Test**: Create a session with multiple exercises, save, reload, and verify exercises persist exactly as entered.
++
++### Tests
++
++- [ ] T008 [P] [US1] Add integration test for creating session with multiple exercises and verifying persistence in app/tests/integration/session.exercises.test.ts
++- [ ] T009 [P] [US1] Add unit tests for exercise validation and hook behaviors in app/tests/unit/useSessionEditor.test.ts
++
++### Implementation
++
++- [ ] T010 [US1] Implement `useSessionEditor` hook to manage exercise list (add/edit/remove/reorder/duplicate) and dirty state in app/src/features/session/useSessionEditor.ts
++- [ ] T011 [P] [US1] Build ExerciseList/ExerciseRow components with inputs for name, sets/reps/load or duration, rest, and row-level validation in app/src/features/session/ExerciseList.tsx
++- [ ] T012 [US1] Wire save flow to call sessionService with exercise payload and reconcile returned IDs in app/src/pages/SessionPage.tsx
++- [ ] T013 [P] [US1] Render inline validation messages for incomplete exercise entries in app/src/features/session/ExerciseList.tsx
++
++**Checkpoint**: Session creation with exercises works end-to-end and is independently testable.
++
++---
++
++## Phase 4: User Story 2 - Capture session details (Priority: P2)
++
++**Goal**: User can enter and save session-level details (date/time/context).  
++**Independent Test**: Save a session with only session details, reload, and verify details display in summary.
++
++### Tests
++
++- [ ] T014 [P] [US2] Add integration test for saving session date/time/context and verifying summary render in app/tests/integration/session.details.test.ts
++
++### Implementation
++
++- [ ] T015 [US2] Add session details form section (date required, start/end or duration, location, intensity, participants) in app/src/pages/SessionPage.tsx
++- [ ] T016 [P] [US2] Extend validation to enforce date required and start/end ordering in app/src/features/session/validation.ts
++- [ ] T017 [US2] Render session summary section showing saved details in app/src/pages/SessionPage.tsx
++
++**Checkpoint**: Session details save and display independently of exercises.
++
++---
++
++## Phase 5: User Story 3 - Add notes and reflections (Priority: P3)
++
++**Goal**: User can add/edit free-form notes saved with the session.  
++**Independent Test**: Add/update notes on an existing session, save, and reload to see unchanged notes.
++
++### Tests
++
++- [ ] T018 [P] [US3] Add integration test for saving and reloading session notes in app/tests/integration/session.notes.test.ts
++
++### Implementation
++
++- [ ] T019 [US3] Add notes textarea bound to session state on SessionPage and include in payloads in app/src/pages/SessionPage.tsx
++- [ ] T020 [P] [US3] Ensure sessionService maps notes through create/update/get responses in app/src/services/sessionService.ts
++
++**Checkpoint**: Notes persist with sessions and display correctly.
++
++---
++
++## Phase 6: Polish & Cross-Cutting Concerns
++
++- [ ] T021 [P] Implement unsaved-changes prompt hook and integrate with routing/navigation in app/src/features/session/useUnsavedChangesPrompt.ts
++- [ ] T022 [P] Polish exercise UX (duplicate button, focus/keyboard handling, reorder controls) in app/src/features/session/ExerciseList.tsx
++- [ ] T023 Improve loading/error/empty states for the session page and save actions in app/src/pages/SessionPage.tsx
++- [ ] T024 [P] Align API contract and client by adding response/fixture mocks for tests in app/tests/contract/session.contract.test.ts
++- [ ] T025 Update quickstart with any deviations and ensure instructions cover new commands in specs/003-session-page/quickstart.md
++
++---
++
++## Dependencies & Execution Order
++
++- Phase 1 → Phase 2 → User Stories (3, 4, 5) → Phase 6.
++- User story order by priority: US1 (P1) → US2 (P2) → US3 (P3); they can proceed in parallel after foundational work if staffing allows, but US1 forms the MVP.
++
++## Parallel Execution Examples
++
++- After Phase 2: T008, T009, T011, T013 can run in parallel (different files) while T010/T012 proceed sequentially for US1.
++- US2 and US3 tests (T014, T018) can run in parallel with their implementation tasks once US1 data structures are stable.
++- Polish tasks T021, T022, T024 can run in parallel once core flows are in place.
++
++## Implementation Strategy
++
++- MVP = Complete Phases 1–2 and US1; validate creation/edit/save of exercises with persistence.
++- Incrementally layer US2 (session details) and US3 (notes) with independent tests before polish.
+>>>>>>> 961e6f10938a445543540e9127517cb493b38544
 *** End Patch
