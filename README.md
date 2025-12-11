@@ -20,26 +20,16 @@ Current artifacts for this repo orientation live in `specs/000-repo-readme/`.
 
 ## Repository layout
 
-This repository currently contains governance and documentation only:
-
 ```text
-.specify/memory/constitution.md  # Governing principles and guardrails
-specs/000-repo-readme/           # Plan, spec, tasks for this README
+app/        # React 19 + Vite frontend
+api/        # Fastify 5 + Prisma API (Node 20)
+docker/     # Local infra (Postgres, pgAdmin)
+docs/       # Ops + troubleshooting references
+specs/      # Plans/specs/tasks per feature
 ```
 
-Future work should use a single-project layout when source code is added:
-
-```text
-src/
-|-- models/
-|-- services/
-|-- cli/
-`-- lib/
-
-tests/
-|-- contract/
-|-- integration/
-`-- unit/
-```
+- **Frontend (`app/`)**: Uses Vite + Vitest. Configure `.env` with `VITE_API_BASE` and `VITE_USE_MOCKS` to toggle between API and mock data.
+- **API (`api/`)**: Node 20 Fastify service with Prisma migrations + seeds. See `api/README.md` for scripts, env vars, and health endpoints.
+- **Specs**: Keep plan/spec/tasks synchronized (see `specs/005-connect-db-apis/` for the current backend feature).
 
 Use synthetic or anonymized data in non-production environments and keep dependencies pinned once added.

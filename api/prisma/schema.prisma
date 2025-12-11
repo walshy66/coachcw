@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AthleteProfile {
+  id          String            @id @default(uuid())
+  athleteId   String            @unique
+  firstName   String
+  lastName    String
+  email       String?
+  timezone    String?
+  avatarUrl   String?
+  status      String            @default("active")
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  programs    TrainingProgram[]
+  sessions    TrainingSession[]
+
+  @@index([athleteId])
+}
+
+model TrainingProgram {
+  id             String          @id @default(uuid())
+  athleteId      String
+  title          String
+  status         ProgramStatus   @default(PLANNED)
+  description    String?
+  startDate      DateTime?
+  endDate        DateTime?
+  validationFlag Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  athlete        AthleteProfile  @relation(fields: [athleteId], references: [athleteId])
+  phases         ProgramPhase[]
+  sessions       TrainingSession[]
+
+  @@index([athleteId])
+}
+
+model ProgramPhase {
+  id          String          @id @default(uuid())
+  programId   String
+  name        String
+  order       Int
+  focus       String?
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  program     TrainingProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+  microCycles MicroCycle[]
+
+  @@index([programId])
+}
+
+model MicroCycle {
+  id        String       @id @default(uuid())
+  phaseId   String
+  week      Int
+  theme     String?
+  load      String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  phase     ProgramPhase @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+  sessions  TrainingSession[]
+
+  @@index([phaseId])
+}
+
+model TrainingSession {
+  id             String           @id @default(uuid())
+  programId      String
+  microCycleId   String?
+  athleteId      String
+  scheduledAt    DateTime
+  durationMin    Int
+  focus          String?
+  status         SessionStatus    @default(PLANNED)
+  notes          String?
+  metrics        Json?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  athlete        AthleteProfile   @relation(fields: [athleteId], references: [athleteId])
+  program        TrainingProgram  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  microCycle     MicroCycle?      @relation(fields: [microCycleId], references: [id], onDelete: SetNull)
+
+  @@index([athleteId])
+  @@index([programId])
+  @@index([microCycleId])
+}
+
+model ConnectionHealthEvent {
+  id              String                    @id @default(uuid())
+  environment     String
+  status          HealthStatus
+  latencyMs       Int?
+  errorCode       String?
+  lastFailureAt   DateTime?
+  createdAt       DateTime                  @default(now())
+  connectionProfileId String
+  connection      DatabaseConnectionProfile @relation(fields: [connectionProfileId], references: [id])
+
+  @@index([environment])
+  @@index([createdAt])
+}
+
+model DatabaseConnectionProfile {
+  id              String                  @id @default(uuid())
+  environment     String                  @unique
+  host            String
+  port            Int
+  schema          String
+  credentialRef   String
+  rotationIntervalHours Int               @default(720)
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  connections     ConnectionHealthEvent[]
+}
+
+enum ProgramStatus {
+  PLANNED
+  ACTIVE
+  HOLD
+  COMPLETE
+}
+
+enum SessionStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETE
+  MISSED
+  CANCELED
+}
+
+enum HealthStatus {
+  PASS
+  FAIL
+  DEGRADED
+}

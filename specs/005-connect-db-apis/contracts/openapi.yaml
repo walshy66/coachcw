@@ -1,0 +1,424 @@
+openapi: 3.0.3
+info:
+  title: CoachCW Data API
+  version: 0.1.0
+  description: >
+    REST contracts that replace mock services by reading/writing the primary PostgreSQL database.
+    All responses include `lastUpdatedAt` timestamps to prove data freshness.
+servers:
+  - url: https://api.coachcw.com
+    description: Production
+  - url: https://staging-api.coachcw.com
+    description: Staging
+  - url: http://localhost:4000
+    description: Local development
+tags:
+  - name: Profiles
+  - name: Programs
+  - name: Sessions
+  - name: Health
+paths:
+  /api/v1/profiles/{athleteId}:
+    get:
+      summary: Fetch profile with current program pointer
+      tags: [Profiles]
+      parameters:
+        - $ref: '#/components/parameters/AthleteId'
+      responses:
+        '200':
+          description: Profile found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      summary: Update fields on an athlete profile
+      tags: [Profiles]
+      parameters:
+        - $ref: '#/components/parameters/AthleteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfilePatch'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /api/v1/programs/{athleteId}/current:
+    get:
+      summary: Load the active program for an athlete
+      tags: [Programs]
+      parameters:
+        - $ref: '#/components/parameters/AthleteId'
+      responses:
+        '200':
+          description: Active program payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '204':
+          description: Athlete has no active program
+  /api/v1/sessions:
+    get:
+      summary: List sessions by athlete/program filters
+      tags: [Sessions]
+      parameters:
+        - in: query
+          name: athleteId
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: programId
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [planned, completed, skipped]
+      responses:
+        '200':
+          description: Matching sessions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Session'
+    post:
+      summary: Create training sessions (single or batch)
+      tags: [Sessions]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionCreateRequest'
+      responses:
+        '201':
+          description: Sessions persisted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionIds:
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
+  /api/v1/sessions/{sessionId}:
+    patch:
+      summary: Update status/metrics for an existing session
+      tags: [Sessions]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionPatch'
+      responses:
+        '200':
+          description: Session updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '412':
+          description: Update rejected due to stale version
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /health/db:
+    get:
+      summary: Database connectivity and latency
+      tags: [Health]
+      responses:
+        '200':
+          description: Health payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DbHealth'
+  /health/ready:
+    get:
+      summary: Readiness for serving traffic
+      tags: [Health]
+      responses:
+        '200':
+          description: Ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadyHealth'
+
+components:
+  parameters:
+    AthleteId:
+      name: athleteId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: Update conflict or invalid state
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: SESSION_NOT_FOUND
+        message:
+          type: string
+        correlationId:
+          type: string
+          format: uuid
+    Profile:
+      type: object
+      required: [id, displayName, timezone, updatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        timezone:
+          type: string
+        primaryGoal:
+          type: string
+        coachNotes:
+          type: string
+        currentProgram:
+          $ref: '#/components/schemas/ProgramSummary'
+        updatedAt:
+          type: string
+          format: date-time
+    ProfilePatch:
+      type: object
+      properties:
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 80
+        timezone:
+          type: string
+        primaryGoal:
+          type: string
+        coachNotes:
+          type: string
+    ProgramSummary:
+      type: object
+      required: [id, title, status, lastUpdatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        status:
+          type: string
+          enum: [planned, current, completed]
+        macroCycle:
+          type: string
+        currentPhase:
+          $ref: '#/components/schemas/Phase'
+        nextSessionId:
+          type: string
+          format: uuid
+        lastUpdatedAt:
+          type: string
+          format: date-time
+    Program:
+      allOf:
+        - $ref: '#/components/schemas/ProgramSummary'
+        - type: object
+          properties:
+            phases:
+              type: array
+              items:
+                $ref: '#/components/schemas/Phase'
+            microCycles:
+              type: array
+              items:
+                $ref: '#/components/schemas/MicroCycle'
+            metrics:
+              type: object
+              properties:
+                adherenceRate:
+                  type: number
+                completedWeeks:
+                  type: integer
+                totalWeeks:
+                  type: integer
+    Phase:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        focus:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [planned, current, completed]
+    MicroCycle:
+      type: object
+      properties:
+        id:
+          type: string
+        phaseId:
+          type: string
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        sessionsPlanned:
+          type: integer
+        sessionsCompleted:
+          type: integer
+        readinessScore:
+          type: number
+    Session:
+      type: object
+      required: [id, scheduledAt, status, lastUpdatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        athleteId:
+          type: string
+          format: uuid
+        programId:
+          type: string
+          format: uuid
+        phaseId:
+          type: string
+          format: uuid
+        microCycleId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        scheduledAt:
+          type: string
+          format: date-time
+        durationMinutes:
+          type: integer
+        modality:
+          type: string
+        status:
+          type: string
+          enum: [planned, completed, skipped]
+        load:
+          type: number
+        lastUpdatedAt:
+          type: string
+          format: date-time
+    SessionCreateRequest:
+      type: object
+      required: [athleteId, programId, sessions]
+      properties:
+        athleteId:
+          type: string
+          format: uuid
+        programId:
+          type: string
+          format: uuid
+        sessions:
+          type: array
+          items:
+            type: object
+            required: [title, scheduledAt, modality]
+            properties:
+              title:
+                type: string
+              scheduledAt:
+                type: string
+                format: date-time
+              durationMinutes:
+                type: integer
+              modality:
+                type: string
+              load:
+                type: number
+    SessionPatch:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [planned, completed, skipped]
+        completedAt:
+          type: string
+          format: date-time
+        load:
+          type: number
+        coachNotes:
+          type: string
+    DbHealth:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pass, fail]
+        latencyMs:
+          type: number
+        lastFailure:
+          type: string
+          format: date-time
+    ReadyHealth:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ready, draining, initializing]
+        version:
+          type: string
+        db:
+          $ref: '#/components/schemas/DbHealth'

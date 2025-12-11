@@ -1,52 +1,11 @@
 import type { ExerciseEntry, Session, SessionDraft } from '../features/session/types';
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? '';
+const RAW_API_BASE = import.meta.env.VITE_API_BASE ?? '';
+const API_BASE = RAW_API_BASE.endsWith('/') ? RAW_API_BASE.slice(0, -1) : RAW_API_BASE;
+const API_ROOT = API_BASE ? `${API_BASE}/api/v1` : '';
 const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === 'true';
-
-function mapExercisePayload(exercise: ExerciseEntry, index: number): ExerciseEntry {
-  const repsValue = Array.isArray(exercise.repsPerSet)
-    ? exercise.repsPerSet[0] ?? null
-    : Array.isArray(exercise.reps)
-      ? exercise.reps[0] ?? null
-      : exercise.reps ?? null;
-  const loadValue = Array.isArray(exercise.loadPerSet)
-    ? exercise.loadPerSet[0] ?? null
-    : Array.isArray(exercise.load)
-      ? exercise.load[0] ?? null
-      : exercise.load ?? null;
-
-  return {
-    ...exercise,
-    order: exercise.order ?? index + 1,
-    sets: exercise.sets ?? null,
-    reps: repsValue,
-    load: loadValue,
-    durationSeconds: exercise.durationSeconds ?? null,
-    restSeconds: exercise.restSeconds ?? null,
-    notes: exercise.notes ?? null,
-    sessionId: exercise.sessionId ?? null,
-    repsPerSet: exercise.repsPerSet ?? (Array.isArray(exercise.reps) ? exercise.reps : null),
-    loadPerSet: exercise.loadPerSet ?? (Array.isArray(exercise.load) ? exercise.load : null),
-  };
-}
-
-function buildPayload(session: SessionDraft) {
-  return {
-    date: session.date,
-    startTime: session.startTime ?? null,
-    endTime: session.endTime ?? null,
-    durationMinutes: session.durationMinutes ?? null,
-    location: session.location ?? null,
-    intensity: session.intensity ?? null,
-    trainer: session.trainer ?? null,
-    athlete: session.athlete ?? null,
-    sections: session.sections ?? null,
-    microCycleId: session.microCycleId ?? null,
-    participants: session.participants ?? (session.athlete ? [session.athlete] : null),
-    notes: session.notes ?? null,
-    exercises: (session.exercises ?? []).map(mapExercisePayload),
-  };
-}
+const ACTOR_ID = import.meta.env.VITE_ATHLETE_ID ?? 'athlete-001';
+let cachedProgramId: string | null = null;
 
 function normalizeMetrics(exercise: ExerciseEntry): ExerciseEntry {
   const sets = exercise.sets ?? 0;
@@ -89,39 +48,83 @@ function withServerIds(session: SessionDraft, id: string): Session {
   };
 }
 
+type ApiSession = {
+  session: {
+    id: string;
+    athleteId: string;
+    programId: string;
+    microCycleId?: string | null;
+    scheduledAt: string;
+    durationMin: number;
+    focus?: string | null;
+    status: string;
+    notes?: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+};
+
+function mapApiSession(data: ApiSession['session']): Session {
+  return {
+    id: data.id,
+    date: data.scheduledAt.slice(0, 10),
+    startTime: data.scheduledAt,
+    endTime: null,
+    durationMinutes: data.durationMin,
+    location: null,
+    intensity: data.focus ?? null,
+    trainer: null,
+    athlete: data.athleteId,
+    participants: [data.athleteId],
+    microCycleId: data.microCycleId ?? null,
+    notes: data.notes ?? null,
+    sections: null,
+    exercises: [],
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+    sessionCode: data.programId,
+    name: data.focus ?? 'Training session'
+  };
+}
+
 async function handleResponse(res: Response): Promise<Session> {
   if (!res.ok) {
     const message = await res.text();
     throw new Error(message || `Session request failed (${res.status})`);
   }
-  const data = await res.json();
-  return {
-    id: data.id ?? '',
-    date: data.date ?? '',
-    startTime: data.startTime ?? null,
-    endTime: data.endTime ?? null,
-    durationMinutes: data.durationMinutes ?? null,
-    location: data.location ?? null,
-    intensity: data.intensity ?? null,
-    trainer: data.trainer ?? null,
-    athlete: data.athlete ?? data.participants?.[0] ?? null,
-    sections: data.sections ?? null,
-    microCycleId: data.microCycleId ?? null,
-    participants: data.participants ?? null,
-    notes: data.notes ?? null,
-    exercises: (data.exercises ?? []).map((exercise: ExerciseEntry, index: number) => ({
-      ...normalizeMetrics(exercise),
-      order: exercise.order ?? index + 1,
-    })),
-    createdAt: data.createdAt ?? '',
-    updatedAt: data.updatedAt ?? '',
-  };
+  const body = (await res.json()) as ApiSession;
+  return mapApiSession(body.session ?? body);
+}
+
+async function resolveProgramId(): Promise<string> {
+  if (cachedProgramId) {
+    return cachedProgramId;
+  }
+
+  if (!API_ROOT) {
+    return 'program-default';
+  }
+
+  const response = await fetch(`${API_ROOT}/programs/me/current`, {
+    headers: { 'x-actor-id': ACTOR_ID }
+  });
+  if (!response.ok) {
+    throw new Error('Program lookup failed');
+  }
+  const payload = await response.json();
+  cachedProgramId = payload?.program?.id ?? 'program-default';
+  return cachedProgramId;
+}
+
+function buildScheduledAt(date: string, time?: string | null) {
+  if (!time) {
+    return new Date(`${date}T08:00:00Z`).toISOString();
+  }
+  return new Date(time.includes('T') ? time : `${date}T${time}`).toISOString();
 }
 
 export async function getSession(id: string): Promise<Session> {
-  const url = `${API_BASE}/sessions/${id}`;
-
-  if (USE_MOCKS) {
+  if (USE_MOCKS || !API_ROOT) {
     return withServerIds(
       {
         id,
@@ -141,7 +144,9 @@ export async function getSession(id: string): Promise<Session> {
   }
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(`${API_ROOT}/sessions/${id}`, {
+      headers: { 'x-actor-id': ACTOR_ID }
+    });
     return await handleResponse(res);
   } catch (err) {
     console.warn('Falling back to mock session due to error', err);
@@ -160,17 +165,27 @@ export async function getSession(id: string): Promise<Session> {
 }
 
 export async function createSession(session: SessionDraft): Promise<Session> {
-  const url = `${API_BASE}/sessions`;
-
-  if (USE_MOCKS) {
+  if (USE_MOCKS || !API_ROOT) {
     return withServerIds(session, session.id ?? `session-${Date.now()}`);
   }
 
   try {
+    const url = `${API_ROOT}/sessions`;
+    const programId = await resolveProgramId();
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(buildPayload(session)),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-actor-id': ACTOR_ID
+      },
+      body: JSON.stringify({
+        programId,
+        microCycleId: session.microCycleId ?? undefined,
+        scheduledAt: buildScheduledAt(session.date, session.startTime),
+        durationMin: session.durationMinutes ?? 60,
+        focus: session.name ?? session.notes ?? 'Session',
+        notes: session.notes ?? undefined
+      })
     });
     return await handleResponse(res);
   } catch (err) {
@@ -180,17 +195,22 @@ export async function createSession(session: SessionDraft): Promise<Session> {
 }
 
 export async function updateSession(sessionId: string, session: SessionDraft): Promise<Session> {
-  const url = `${API_BASE}/sessions/${sessionId}`;
-
-  if (USE_MOCKS) {
+  if (USE_MOCKS || !API_ROOT) {
     return withServerIds({ ...session, id: sessionId }, sessionId);
   }
 
   try {
+    const url = `${API_ROOT}/sessions/${sessionId}`;
     const res = await fetch(url, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(buildPayload(session)),
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-actor-id': ACTOR_ID
+      },
+      body: JSON.stringify({
+        notes: session.notes ?? undefined,
+        durationMin: session.durationMinutes ?? undefined
+      })
     });
     return await handleResponse(res);
   } catch (err) {

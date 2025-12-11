@@ -8080,3 +8080,1818 @@
 +- Incrementally layer US2 (session details) and US3 (notes) with independent tests before polish.
 >>>>>>> 961e6f10938a445543540e9127517cb493b38544
 *** End Patch
+[2m2025-12-11T08:40:48.787813Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T08:40:50.441705Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T08:40:50.441774Z[0m [32m INFO[0m ghost commit captured: 335eca00fc27df05a44116988168eb455ecc751c
+[2m2025-12-11T08:40:50.441787Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T08:40:55.189913Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem"}
+[2m2025-12-11T08:41:00.335799Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex\\prompts\\speckit.specify.md"}
+[2m2025-12-11T08:41:13.060483Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Inspect repo context and gather feature description details", "status":"in_progress"},{"step":"Determine branch short name/number and run spec creation script", "status":"pending"},{"step":"Fill in spec and checklist per template and validate", "status":"pending"}]}
+[2m2025-12-11T08:41:17.468147Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\templates\\spec-template.md"}
+[2m2025-12-11T08:41:22.263681Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Inspect repo context and gather feature description details", "status":"completed"},{"step":"Determine branch short name/number and run spec creation script", "status":"pending"},{"step":"Fill in spec and checklist per template and validate", "status":"pending"}]}
+[2m2025-12-11T08:41:27.789539Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git status -sb"}
+[2m2025-12-11T08:41:32.405893Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git fetch --all --prune","with_escalated_permissions":true,"justification":"Need latest remote branch list to allocate next feature number"}
+[2m2025-12-11T08:41:56.969590Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git ls-remote --heads origin | Select-String -Pattern 'refs/heads/[0-9]+-connect-db-apis$'"}
+[2m2025-12-11T08:42:02.748380Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git branch | Select-String -Pattern '^[\\* ]*[0-9]+-connect-db-apis$'"}
+[2m2025-12-11T08:42:07.701578Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs -Directory | Where-Object { $_.Name -match '^[0-9]+-connect-db-apis$' }"}
+[2m2025-12-11T08:42:14.019515Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\scripts\\powershell\\create-new-feature.ps1"}
+[2m2025-12-11T08:42:24.374155Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/create-new-feature.ps1 -Json -Number 1 -ShortName \"connect-db-apis\" \"I want to hook up some apis so I can connect to the database\"","with_escalated_permissions":true,"justification":"Need to create spec scaffolding and new branch"}
+[2m2025-12-11T08:42:42.037442Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\001-connect-db-apis\\spec.md"}
+[2m2025-12-11T08:42:55.962329Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Date -Format yyyy-MM-dd"}
+[2m2025-12-11T08:43:53.489329Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/001-connect-db-apis/spec.md
+@@
+-# Feature Specification: [FEATURE NAME]
+-
+-**Feature Branch**: `[###-feature-name]`  
+-**Created**: [DATE]  
+-**Status**: Draft  
+-**Input**: User description: "$ARGUMENTS"
+-
+-## User Scenarios & Testing *(mandatory)*
+-
+-<!--
+-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
+-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
+-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
+-  
+-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
+-  Think of each story as a standalone slice of functionality that can be:
+-  - Developed independently
+-  - Tested independently
+-  - Deployed independently
+-  - Demonstrated to users independently
+--->
+-
+-### User Story 1 - [Brief Title] (Priority: P1)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 2 - [Brief Title] (Priority: P2)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-### User Story 3 - [Brief Title] (Priority: P3)
+-
+-[Describe this user journey in plain language]
+-
+-**Why this priority**: [Explain the value and why it has this priority level]
+-
+-**Independent Test**: [Describe how this can be tested independently]
+-
+-**Acceptance Scenarios**:
+-
+-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
+-
+----
+-
+-[Add more user stories as needed, each with an assigned priority]
+-
+-### Edge Cases
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right edge cases.
+--->
+-
+-- What happens when [boundary condition]?
+-- How does system handle [error scenario]?
+-
+-## Requirements *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: The content in this section represents placeholders.
+-  Fill them out with the right functional requirements.
+--->
+-
+-### Functional Requirements
+-
+-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
+-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
+-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
+-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+-
+-*Example of marking unclear requirements:*
+-
+-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
+-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+-
+-### Key Entities *(include if feature involves data)*
+-
+-- **[Entity 1]**: [What it represents, key attributes without implementation]
+-- **[Entity 2]**: [What it represents, relationships to other entities]
+-
+-## Success Criteria *(mandatory)*
+-
+-<!--
+-  ACTION REQUIRED: Define measurable success criteria.
+-  These must be technology-agnostic and measurable.
+--->
+-
+-### Measurable Outcomes
+-
+-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
+-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
+-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
+-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
++# Feature Specification: Connect Application APIs to the Database
++
++**Feature Branch**: `[001-connect-db-apis]`  
++**Created**: 2025-12-11  
++**Status**: Draft  
++**Input**: User description: "I want to hook up some apis so I can connect to the database"
++
++## User Scenarios & Testing *(mandatory)*
++
++### User Story 1 - Persisted coaching data loads through APIs (Priority: P1)
++
++Coaches and participants need every screen (profile, sessions, program progress) to pull current data through the API layer that reads from the primary database so that the experience reflects reality instead of mock data.
++
++**Why this priority**: Without real data flowing from the database, none of the recently built pages can be validated or released, so this is the critical blocker to delivering value.
++
++**Independent Test**: Seed the database with known program, session, and profile records, call the corresponding API endpoints, and confirm the payloads mirror the seeded values and arrive within the defined latency budget.
++
++**Acceptance Scenarios**:
++
++1. **Given** the database contains program, session, and profile records, **When** a client calls the respective GET APIs, **Then** the API returns the exact records with timestamps within one second.
++2. **Given** the database connection is unavailable, **When** a client calls any data API, **Then** the API responds with a descriptive service error and logs the failure for observability.
++
++---
++
++### User Story 2 - Environment-specific database configuration (Priority: P2)
++
++Operations staff need to define database hosts, credentials, and schema names per environment so that the API connects to the correct database without code changes when moving between dev, staging, and production.
++
++**Why this priority**: Misconfigured credentials or pointing to the wrong database risks data corruption; environment control guarantees safe releases.
++
++**Independent Test**: Swap configuration values for a test environment, restart the API, and verify that health checks and CRUD calls operate only on that environment’s database.
++
++**Acceptance Scenarios**:
++
++1. **Given** new credentials are stored for staging, **When** the API restarts with the updated configuration, **Then** connectivity uses the staging database and production data remains untouched.
++2. **Given** credentials are missing or expired, **When** the API loads configuration, **Then** startup fails fast with an actionable error so issues are caught before traffic is served.
++
++---
++
++### User Story 3 - Monitor and recover from connectivity issues (Priority: P3)
++
++Support and SRE teams need continuous visibility into database connectivity so they can detect outages quickly and initiate recovery steps before users notice widespread failures.
++
++**Why this priority**: Real data access is mission critical; early warnings reduce downtime and protect trust.
++
++**Independent Test**: Simulate a blocked database connection and verify that health endpoints, logs, and alerts all fire within the allowed window, then ensure the system automatically retries once access returns.
++
++**Acceptance Scenarios**:
++
++1. **Given** the database becomes unreachable, **When** automated health probes run, **Then** they surface a failing status and trigger the alert channel in under two minutes.
++2. **Given** connectivity is restored, **When** the API retries per policy, **Then** requests resume without needing a manual deploy.
++
++---
++
++### Edge Cases
++
++- Database credentials are invalid or rotated without updating the API secrets store.
++- Network partitions cause partial connectivity where writes succeed but reads fail (or vice versa).
++- Schema inconsistencies exist between environments, causing serialization errors when reading records.
++- Connection pool exhaustion occurs during spikes, preventing new requests from reaching the database.
++- A transaction partially commits (e.g., session saved but related program record fails), leaving mismatched data that needs reconciliation.
++
++## Requirements *(mandatory)*
++
++### Functional Requirements
++
++- **FR-001**: The API layer MUST load database host, port, schema, and credential values from an environment-specific configuration source at startup without requiring code edits.
++- **FR-002**: The service MUST establish and maintain a secure connection pool, validating connectivity (including credentials and schema access) before serving traffic and refusing to start if validation fails.
++- **FR-003**: Read endpoints (profiles, sessions, program progress) MUST retrieve records directly from the database, ensuring every response reflects the latest committed data and includes last-updated timestamps.
++- **FR-004**: Write endpoints MUST wrap each create/update/delete operation in a transaction, confirm the commit succeeded, and return a success payload that references the persisted record identifiers.
++- **FR-005**: The platform MUST expose a health/diagnostic endpoint that reports database connectivity status, average latency, and last failure time so monitoring tools can scrape it.
++- **FR-006**: When connectivity errors occur, the API MUST return a standardized service error to clients, log the event with correlation IDs, and retry according to a configurable policy without duplicating writes.
++- **FR-007**: Configuration changes (new credentials, new database host) MUST be deployable without downtime by allowing hot reload or zero-downtime restarts that drain traffic before reconnecting.
++
++### Key Entities
++
++- **DatabaseConnectionProfile**: Defines the environment (dev/staging/prod), host, port, schema name, credential reference, and rotation interval that the API must honor.
++- **ProgramDataResource**: Represents the combined program, session, and profile records exposed via the API; includes identifiers, ownership metadata, last-updated timestamps, and validation status flags.
++- **ConnectionHealthEvent**: Captures the timestamp, environment, status (pass/fail), latency stats, and any error codes emitted by health probes for monitoring and alerting purposes.
++
++### Assumptions
++
++- A single primary relational database already stores program, session, and profile data, and its schema is authoritative.
++- Secrets management infrastructure is available so credentials are never checked into source control.
++- API authentication and authorization are already enforced elsewhere; this work focuses only on establishing reliable data connectivity.
++- No offline caching layer is expected in this iteration, so every API request will hit the live database.
++
++## Success Criteria *(mandatory)*
++
++### Measurable Outcomes
++
++- **SC-001**: 95% of API requests that require database access return fresh data (no older than the last committed record) within 1 second under normal load.
++- **SC-002**: 100% of deployments block if the database connectivity validation fails, preventing misconfigured releases from reaching users.
++- **SC-003**: Health monitoring detects and alerts on any connectivity outage within 2 minutes, and mean time to recovery for planned failovers stays under 10 minutes.
++- **SC-004**: During beta, no more than 1% of API transactions require manual reconciliation due to partial writes or retries, demonstrating data integrity across read/write paths.
+*** End Patch
+[2m2025-12-11T08:44:00.921526Z[0m [32m INFO[0m ToolCall: shell_command {"command":"New-Item -ItemType Directory -Path specs\\001-connect-db-apis\\checklists -Force","with_escalated_permissions":true,"justification":"Need to add checklist required for feature specification"}
+[2m2025-12-11T08:44:11.317650Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/001-connect-db-apis/checklists/requirements.md
++# Specification Quality Checklist: Connect Application APIs to the Database
++ 
++**Purpose**: Validate specification completeness and quality before proceeding to planning  
++**Created**: 2025-12-11  
++**Feature**: specs/001-connect-db-apis/spec.md
++
++## Content Quality
++
++- [x] No implementation details (languages, frameworks, APIs)
++- [x] Focused on user value and business needs
++- [x] Written for non-technical stakeholders
++- [x] All mandatory sections completed
++
++## Requirement Completeness
++
++- [x] No [NEEDS CLARIFICATION] markers remain
++- [x] Requirements are testable and unambiguous
++- [x] Success criteria are measurable
++- [x] Success criteria are technology-agnostic (no implementation details)
++- [x] All acceptance scenarios are defined
++- [x] Edge cases are identified
++- [x] Scope is clearly bounded
++- [x] Dependencies and assumptions identified
++
++## Feature Readiness
++
++- [x] All functional requirements have clear acceptance criteria
++- [x] User scenarios cover primary flows
++- [x] Feature meets measurable outcomes defined in Success Criteria
++- [x] No implementation details leak into specification
++
++## Notes
++
++- All checklist items validated with no outstanding issues.
+*** End Patch
+[2m2025-12-11T08:44:18.821951Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Inspect repo context and gather feature description details", "status":"completed"},{"step":"Determine branch short name/number and run spec creation script", "status":"completed"},{"step":"Fill in spec and checklist per template and validate", "status":"completed"}]}
+[2m2025-12-11T08:44:28.039113Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\001-connect-db-apis\\spec.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T08:44:34.253278Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\001-connect-db-apis\\checklists\\requirements.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T08:54:22.007436Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T08:54:23.611566Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T08:54:23.611699Z[0m [32m INFO[0m ghost commit captured: c224e6a84fb593cfb5bfc9dcd401895b9c50d3b0
+[2m2025-12-11T08:54:23.611721Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T08:54:27.891007Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Adjust numbering references and directory names to use 005-connect-db-apis", "status":"in_progress"},{"step":"Verify spec and checklist contents reflect new numbering", "status":"pending"}]}
+[2m2025-12-11T08:54:34.132201Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git branch -m 005-connect-db-apis","with_escalated_permissions":true,"justification":"Need new feature number per user request"}
+[2m2025-12-11T08:55:05.321098Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Move-Item specs\\001-connect-db-apis specs\\005-connect-db-apis","with_escalated_permissions":true,"justification":"Must correct feature numbering directory"}
+[2m2025-12-11T08:55:14.439770Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\spec.md"}
+[2m2025-12-11T08:55:18.471210Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/005-connect-db-apis/spec.md
+@@
+-**Feature Branch**: `[001-connect-db-apis]`  
++**Feature Branch**: `[005-connect-db-apis]`  
+*** End Patch
+[2m2025-12-11T08:55:28.429860Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\checklists\\requirements.md"}
+[2m2025-12-11T08:55:32.245701Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/005-connect-db-apis/checklists/requirements.md
+@@
+-**Feature**: specs/001-connect-db-apis/spec.md
++**Feature**: specs/005-connect-db-apis/spec.md
+*** End Patch
+[2m2025-12-11T08:55:40.655941Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Adjust numbering references and directory names to use 005-connect-db-apis", "status":"completed"},{"step":"Verify spec and checklist contents reflect new numbering", "status":"in_progress"}]}
+[2m2025-12-11T08:55:44.097363Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\spec.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T08:55:50.180419Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\checklists\\requirements.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T08:55:56.096116Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Adjust numbering references and directory names to use 005-connect-db-apis", "status":"completed"},{"step":"Verify spec and checklist contents reflect new numbering", "status":"completed"}]}
+[2m2025-12-11T08:55:59.940702Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git status -sb"}
+[2m2025-12-11T08:56:52.650708Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T08:56:54.430556Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T08:56:54.430633Z[0m [32m INFO[0m ghost commit captured: cfc922ded7e14f9b062dc67e912663afa67ccdb6
+[2m2025-12-11T08:56:54.430646Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T08:57:10.946734Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Review current numbering instructions in .codex/prompts/speckit.specify.md", "status":"in_progress"},{"step":"Update instructions/template to enforce global incremental numbering (start 006 next)", "status":"pending"},{"step":"Verify updated file reflects new guidance", "status":"pending"}]}
+[2m2025-12-11T08:57:14.305364Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Review current numbering instructions in .codex/prompts/speckit.specify.md", "status":"completed"},{"step":"Update instructions/template to enforce global incremental numbering (start 006 next)", "status":"in_progress"},{"step":"Verify updated file reflects new guidance", "status":"pending"}]}
+[2m2025-12-11T08:57:19.900554Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex\\prompts\\speckit.specify.md"}
+[2m2025-12-11T08:57:36.529502Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: .codex/prompts/speckit.specify.md
+@@
+-2. **Check for existing branches before creating new one**:
++2. **Determine the next global feature number before creating the spec**:
+ 
+    a. First, fetch all remote branches to ensure we have the latest information:
+ 
+       ```bash
+       git fetch --all --prune
+       ```
+ 
+-   b. Find the highest feature number across all sources for the short-name:
+-      - Remote branches: `git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-<short-name>$'`
+-      - Local branches: `git branch | grep -E '^[* ]*[0-9]+-<short-name>$'`
+-      - Specs directories: Check for directories matching `specs/[0-9]+-<short-name>`
++   b. Collect feature numbers across the entire repository (do **not** reset numbers for new short names):
++      - Remote branches: `git ls-remote --heads origin | grep -E 'refs/heads/[0-9]+-'`
++      - Local branches: `git branch | grep -E '^[* ]*[0-9]+-'`
++      - Specs directories: Check for directories matching `specs/[0-9]+-*`
+ 
+-   c. Determine the next available number:
+-      - Extract all numbers from all three sources
+-      - Find the highest number N
+-      - Use N+1 for the new branch number
++   c. Determine the next available number globally:
++      - Extract the numeric prefix from every branch/directory discovered above
++      - Find the highest number N across all features
++      - Use N+1 for the new branch number (e.g., existing highest `005` → next is `006`)
+ 
+-   d. Run the script `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS"` with the calculated number and short-name:
+-      - Pass `--number N+1` and `--short-name "your-short-name"` along with the feature description
+-      - Bash example: `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS" --json --number 5 --short-name "user-auth" "Add user authentication"`
+-      - PowerShell example: `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS" -Json -Number 5 -ShortName "user-auth" "Add user authentication"`
++   d. Run the script `.specify/scripts/powershell/create-new-feature.ps1 -Json "$ARGUMENTS"` with the short-name (the script will pick the next number automatically in git-enabled repos). Only provide `-Number` if git metadata is unavailable and you cannot derive N from the previous step.
++      - Example: `.specify/scripts/powershell/create-new-feature.ps1 -Json -ShortName "user-auth" "Add user authentication"`
+ 
+    **IMPORTANT**:
+-   - Check all three sources (remote branches, local branches, specs directories) to find the highest number
+-   - Only match branches/directories with the exact short-name pattern
+-   - If no existing branches/directories found with this short-name, start with number 1
++   - Check all three sources (remote branches, local branches, specs directories) to find the highest global number
++   - Do **not** restart numbering for each short name; numbers are sequential across the entire project
++   - The next feature **must** be one higher than the current highest (e.g., after `005-*` comes `006-*`)
++   - Only override the number when the script cannot infer it (e.g., non-git environments)
+    - You must only ever run this script once per feature
+    - The JSON is provided in the terminal as output - always refer to it to get the actual content you're looking for
+    - The JSON output will contain BRANCH_NAME and SPEC_FILE paths
+*** End Patch
+[2m2025-12-11T08:59:13.253188Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content .codex\\prompts\\speckit.specify.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T08:59:17.727314Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Review current numbering instructions in .codex/prompts/speckit.specify.md", "status":"completed"},{"step":"Update instructions/template to enforce global incremental numbering (start 006 next)", "status":"completed"},{"step":"Verify updated file reflects new guidance", "status":"completed"}]}
+[2m2025-12-11T08:59:53.653534Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T08:59:55.248189Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T08:59:55.248628Z[0m [32m INFO[0m ghost commit captured: 000b91732f2971bbc397b9ca06d0326401cef5de
+[2m2025-12-11T08:59:55.248859Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T08:59:57.277385Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex\\prompts\\speckit.plan.md"}
+[2m2025-12-11T09:00:53.333702Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T09:00:54.944936Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T09:00:54.944988Z[0m [32m INFO[0m ghost commit captured: 1d03edc06df17b10476f4350170903e18f02e890
+[2m2025-12-11T09:00:54.944998Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T09:00:59.277582Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/setup-plan.ps1 -Json","with_escalated_permissions":true,"justification":"Plan workflow requires setup script to create plan artifacts"}
+[2m2025-12-11T09:01:12.336410Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\plan.md"}
+[2m2025-12-11T09:01:17.139311Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\memory\\constitution.md"}
+[2m2025-12-11T09:01:24.107460Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\memory\\constitution.md -TotalCount 400"}
+[2m2025-12-11T09:01:29.942773Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\memory\\constitution.md | Select-Object -Skip 100"}
+[2m2025-12-11T09:01:36.036599Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\scripts\\powershell\\update-agent-context.ps1"}
+[2m2025-12-11T09:01:41.632097Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\spec.md"}
+[2m2025-12-11T09:01:47.336547Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem .specify\\templates\\commands"}
+[2m2025-12-11T09:01:53.530848Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem backend"}
+[2m2025-12-11T09:01:58.677069Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app"}
+[2m2025-12-11T09:02:03.180268Z[0m [32m INFO[0m ToolCall: shell_command {"command":"rg --files | Select-String -Pattern 'server' -List | Select-Object -First 20"}
+[2m2025-12-11T09:02:08.578346Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src"}
+[2m2025-12-11T09:02:13.889992Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\services"}
+[2m2025-12-11T09:02:19.516486Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content README.md"}
+[2m2025-12-11T09:02:25.602508Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\package.json"}
+[2m2025-12-11T09:02:42.345876Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs"}
+[2m2025-12-11T09:02:47.437873Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs\\004-program-progress-page"}
+[2m2025-12-11T09:02:52.280647Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\004-program-progress-page\\plan.md"}
+[2m2025-12-11T09:02:58.282018Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\004-program-progress-page\\research.md"}
+[2m2025-12-11T09:03:02.963823Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\004-program-progress-page\\quickstart.md"}
+[2m2025-12-11T09:03:07.670545Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\004-program-progress-page\\data-model.md"}
+[2m2025-12-11T09:03:41.557199Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/005-connect-db-apis/plan.md
+@@
+-# Implementation Plan: [FEATURE]
+-
+-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+-
+-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
+-
+-## Summary
+-
+-[Extract from feature spec: primary requirement + technical approach from research]
+-
+-## Technical Context
+-
+-<!--
+-  ACTION REQUIRED: Replace the content in this section with the technical details
+-  for the project. The structure here is presented in advisory capacity to guide
+-  the iteration process.
+--->
+-
+-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+-**Project Type**: [single/web/mobile - determines source structure]  
+-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+-
+-## Constitution Check
+-
+-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+-
+-[Gates determined based on constitution file]
+-
+-## Project Structure
+-
+-### Documentation (this feature)
+-
+-```text
+-specs/[###-feature]/
+-ƒ"oƒ"?ƒ"? plan.md              # This file (/speckit.plan command output)
+-ƒ"oƒ"?ƒ"? research.md          # Phase 0 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? data-model.md        # Phase 1 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? quickstart.md        # Phase 1 output (/speckit.plan command)
+-ƒ"oƒ"?ƒ"? contracts/           # Phase 1 output (/speckit.plan command)
+-ƒ""ƒ"?ƒ"? tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+-```
+-
+-### Source Code (repository root)
+-<!--
+-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+-  for this feature. Delete unused options and expand the chosen structure with
+-  real paths (e.g., apps/admin, packages/something). The delivered plan must
+-  not include Option labels.
+--->
+-
+-```text
+-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+-src/
+-ƒ"oƒ"?ƒ"? models/
+-ƒ"oƒ"?ƒ"? services/
+-ƒ"oƒ"?ƒ"? cli/
+-ƒ""ƒ"?ƒ"? lib/
+-
+-tests/
+-ƒ"oƒ"?ƒ"? contract/
+-ƒ"oƒ"?ƒ"? integration/
+-ƒ""ƒ"?ƒ"? unit/
+-
+-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+-backend/
+-ƒ"oƒ"?ƒ"? src/
+-ƒ"'   ƒ"oƒ"?ƒ"? models/
+-ƒ"'   ƒ"oƒ"?ƒ"? services/
+-ƒ"'   ƒ""ƒ"?ƒ"? api/
+-ƒ""ƒ"?ƒ"? tests/
+-
+-frontend/
+-ƒ"oƒ"?ƒ"? src/
+-ƒ"'   ƒ"oƒ"?ƒ"? components/
+-ƒ"'   ƒ"oƒ"?ƒ"? pages/
+-ƒ"'   ƒ""ƒ"?ƒ"? services/
+-ƒ""ƒ"?ƒ"? tests/
+-
+-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+-api/
+-ƒ""ƒ"?ƒ"? [same as backend above]
+-
+-ios/ or android/
+-ƒ""ƒ"?ƒ"? [platform-specific structure: feature modules, UI flows, platform tests]
+-```
+-
+-**Structure Decision**: [Document the selected structure and reference the real
+-directories captured above]
+-
+-## Complexity Tracking
+-
+-> **Fill ONLY if Constitution Check has violations that must be justified**
+-
+-| Violation | Why Needed | Simpler Alternative Rejected Because |
+-|-----------|------------|-------------------------------------|
+-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
++# Implementation Plan: Connect Application APIs to the Database
++
++**Branch**: 005-connect-db-apis | **Date**: 2025-12-11 | **Spec**: specs/005-connect-db-apis/spec.md
++**Input**: Feature specification from /specs/005-connect-db-apis/spec.md
++
++## Summary
++
++Stand up a production-ready API layer that reads and writes the authoritative program, session, and profile data directly from PostgreSQL, replacing mock services and unblocking the new pages. The plan introduces a Node 20 + TypeScript Fastify service with Prisma for schema access, centralizes environment-specific configuration, enforces connection health checks/metrics, and exposes REST contracts that frontend clients can call immediately while observability and deployment safety guardrails keep parity with the constitution.
++
++## Technical Context
++
++**Language/Version**: TypeScript (Node.js 20 LTS)  
++**Primary Dependencies**: Fastify 5 (HTTP), Prisma ORM + `pg` pool, Zod for config validation, pino for structured logging  
++**Storage**: PostgreSQL 15 (primary relational DB for programs/sessions/profiles), managed via Prisma migrations  
++**Testing**: Vitest + Supertest for API/contract tests, Prisma test client + dockerized Postgres for integration  
++**Target Platform**: Linux container (Docker Compose local, containerized deploy target)  
++**Project Type**: Web backend service (`api/`) alongside existing `app/` frontend  
++**Performance Goals**: 95% of data API calls < 1s (SC-001), health alerts within 2 minutes (SC-003), deploys blocked on failed DB checks (SC-002)  
++**Constraints**: Must keep architecture minimal (single API service), reuse shared navigation/AppShell on frontend, store secrets outside git, deliver standardized error/log formats, zero-downtime config changes  
++**Scale/Scope**: Single API with 3 resource families (profiles, sessions, programs) plus health/config endpoints; initial throughput sized for <10k users but horizontally scalable via stateless workers
++
++## Constitution Check
++
++*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
++
++- **User outcomes first**: Spec enumerates P1-P3 journeys with acceptance tests; plan keeps them front-and-center (pass)
++- **Test-first reliability**: API contracts gain Vitest + Supertest coverage plus Prisma integration tests seeded via fixtures before implementation (pass)
++- **Incremental, releasable slices**: Work split into configuration, read endpoints, write endpoints, and observability slices so frontend can adopt gradually (pass)
++- **Text-first interfaces & traceability**: Fastify responds with JSON, pino logs stay structured, health endpoints emit machine-readable payloads (pass)
++- **Observability & change safety**: Mandatory startup DB validation, connection metrics, and fail-fast deploy behavior meet constitution (pass)
++
++## Project Structure
++
++### Documentation (this feature)
++
++- specs/005-connect-db-apis/plan.md (this file)
++- specs/005-connect-db-apis/research.md
++- specs/005-connect-db-apis/data-model.md
++- specs/005-connect-db-apis/quickstart.md
++- specs/005-connect-db-apis/contracts/
++- specs/005-connect-db-apis/tasks.md (created later by /speckit.tasks)
++
++### Source Code (repository root)
++
++```text
++api/
++├─ package.json
++├─ prisma/
++│  ├─ schema.prisma
++│  └─ migrations/
++├─ src/
++│  ├─ config/          # env validation, secrets handling
++│  ├─ db/              # Prisma client, connection pool helpers
++│  ├─ modules/
++│  │  ├─ profiles/
++│  │  ├─ sessions/
++│  │  └─ programs/
++│  ├─ routes/          # Fastify route registrations + schemas
++│  ├─ services/        # Use-cases that orchestrate queries/transactions
++│  └─ telemetry/       # logging, metrics, health reporters
++└─ tests/
++   ├─ integration/     # Spins up Fastify + ephemeral Postgres
++   └─ contract/        # Schema/validation/unit tests
++
++app/
++├─ src/                # Existing React frontend (consumes new APIs)
++└─ tests/
++
++docker/
++├─ compose.db.yml      # Local Postgres + pgAdmin helpers
++```
++
++**Structure Decision**: Introduce a dedicated `api/` Node service with Prisma-managed schema and Fastify routes, keeping existing `app/` React project untouched. Documentation stays under `specs/005-connect-db-apis/`. Docker assets live under `docker/` for reuse by both projects.
++
++## Complexity Tracking
++
++| Violation | Why Needed | Simpler Alternative Rejected Because |
++|-----------|------------|-------------------------------------|
++| Additional backend service (`api/`) | Real data access requires a server that can connect to PostgreSQL, validate credentials, and enforce security/observability guarantees | Embedding DB calls inside the Vite frontend would expose secrets, break constitution security, and prevent reuse by other clients |
++| Prisma ORM | Ensures migrations, schema typing, and transaction safety | Raw SQL via `pg` alone would duplicate schema definitions and make type-safe contracts harder to maintain |
+*** End Patch
+[2m2025-12-11T09:03:46.134076Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\plan.md"}
+[2m2025-12-11T09:03:51.056232Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Delete File: specs/005-connect-db-apis/plan.md
+*** End Patch
+[2m2025-12-11T09:04:18.187198Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/plan.md
++# Implementation Plan: Connect Application APIs to the Database
++
++**Branch**: 005-connect-db-apis | **Date**: 2025-12-11 | **Spec**: specs/005-connect-db-apis/spec.md  
++**Input**: Feature specification from /specs/005-connect-db-apis/spec.md
++
++## Summary
++
++Stand up a production-ready API tier that reads and writes the authoritative program, session, and profile records from PostgreSQL instead of mocks. The plan introduces a Node 20 + TypeScript Fastify service with Prisma for schema management, environment-scoped configuration (dev/stage/prod), connection pooling/health probes, and standardized REST contracts so the existing React frontend and future clients consume the same endpoints while observability plus zero-downtime deployment safeguards meet the constitution.
++
++## Technical Context
++
++**Language/Version**: TypeScript (Node.js 20 LTS)  
++**Primary Dependencies**: Fastify 5, Prisma ORM + `pg` pool, Zod for config validation, pino for structured logging  
++**Storage**: PostgreSQL 15 (authoritative relational DB) managed via Prisma migrations + seeds  
++**Testing**: Vitest + Supertest for API/contract tests, Prisma test client with dockerized Postgres for integration coverage  
++**Target Platform**: Linux containers (Docker Compose locally, containerized deploy target)  
++**Project Type**: Web backend service (`api/`) alongside the existing `app/` frontend  
++**Performance Goals**: 95% of data endpoints < 1s (SC-001), DB health alerts within 2 minutes (SC-003), deployments blocked on failed DB validation (SC-002)  
++**Constraints**: Keep architecture minimal (single API service), secrets must be externalized, logs/errors structured for traceability, configuration changes deploy without downtime, frontend keeps shared AppShell nav when consuming new data  
++**Scale/Scope**: One API with three core resource families (profiles, sessions, programs) plus health/config endpoints; sized for <10k concurrent users but horizontally scalable with stateless workers
++
++## Constitution Check
++
++*Pre-Phase-0 gates and status:*
++
++1. **User outcomes first** – Spec enumerates P1–P3 journeys, edge cases, and success metrics; plan traces work items directly to these flows. ✅  
++2. **Test-first reliability** – Every endpoint/transaction gains Vitest + Supertest coverage plus Prisma-backed integration tests seeded with fixtures before implementation. ✅  
++3. **Incremental, releasable slices** – Delivery split into configuration bootstrap, read endpoints, write endpoints, and observability slices so frontend can adopt data progressively without blocking on later work. ✅  
++4. **Text-first interfaces & traceability** – Fastify returns JSON, pino logging stays structured, health + diagnostics endpoints expose machine-readable payloads for CI/CD gates. ✅  
++5. **Observability & change safety** – Startup validates DB connectivity, connection metrics feed alerts, and config reload/drain patterns enforce zero-downtime secrets rotation. ✅
++
++Re-check required after Phase 1 to confirm design artifacts still satisfy gates.
++
++## Project Structure
++
++### Documentation (this feature)
++
++```text
++specs/005-connect-db-apis/
++├─ plan.md         # this file
++├─ research.md     # Phase 0 decisions + rationale
++├─ data-model.md   # Entity + relationship definitions
++├─ quickstart.md   # How to run API/tests locally
++└─ contracts/      # REST/OpenAPI contracts per endpoint group
++```
++
++### Source Code (repository root)
++
++```text
++api/
++├─ package.json
++├─ prisma/
++│  ├─ schema.prisma
++│  └─ migrations/
++├─ src/
++│  ├─ config/        # env loading, Zod validation, secret providers
++│  ├─ db/            # Prisma client, connection pool, transactions
++│  ├─ modules/
++│  │  ├─ profiles/
++│  │  ├─ sessions/
++│  │  └─ programs/
++│  ├─ routes/        # Fastify route + schema registration
++│  ├─ services/      # Use-case orchestration + retry policies
++│  └─ telemetry/     # logging, metrics, health reporters
++└─ tests/
++   ├─ contract/      # schema/unit tests around DTO validation
++   └─ integration/   # Fastify + Postgres end-to-end tests
++
++app/
++├─ src/              # React frontend already shipping
++└─ tests/            # Vitest suites that will call new APIs
++
++docker/
++├─ compose.db.yml    # shared Postgres + pgAdmin containers for dev/test
++```
++
++**Structure Decision**: Add a dedicated `api/` workspace so backend code can manage secrets, migrations, and observability independently, while the existing `app/` SPA only consumes the resulting endpoints via its service layer. Shared Docker assets keep both projects pointing at the same Postgres instance locally.
++
++## Complexity Tracking
++
++| Violation | Why Needed | Simpler Alternative Rejected Because |
++|-----------|------------|--------------------------------------|
++| Introduce dedicated API project (`api/`) | Database credentials and transaction logic must live server-side with health probes/alerts | Baking DB access into the Vite frontend would expose secrets, break constitution security rules, and make reuse by mobile/3rd-party clients impossible |
++| Adopt Prisma ORM | Ensures schema parity, typed models, and migrations with rollback support | Raw SQL via `pg` alone would duplicate schema definitions across layers and make transactional integrity/error handling harder to prove |
+*** End Patch
+[2m2025-12-11T09:05:14.646959Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/research.md
++# Research: Connect Application APIs to the Database
++
++## Decisions
++
++- **Database technology**: Use PostgreSQL 15 as the single authoritative store managed through Prisma migrations plus seed scripts.
++  - **Rationale**: Spec assumptions already mention a primary relational database; PostgreSQL provides strong ACID guarantees, broad tooling support, and easy compatibility with containerized dev setups.
++  - **Alternatives considered**: MySQL/MariaDB (would add new dialect quirks and tooling), hosted document stores (conflicts with relational data shape and transactions required for FR-004).
++
++- **API framework**: Build the service on Fastify 5 with TypeScript instead of Express.
++  - **Rationale**: Fastify offers better out-of-the-box schema validation, lower overhead, and structured logging hooks that align with the constitution’s text-first/observability rules.
++  - **Alternatives considered**: Express 4 (familiar but slower and needs extra middleware for schemas), NestJS (larger abstraction surface that would slow initial delivery).
++
++- **ORM + query layer**: Adopt Prisma ORM + `@prisma/client` on top of the native `pg` driver.
++  - **Rationale**: Prisma enforces schema parity, generates TS types for DTOs, and supports safe transactions/connection pooling with little boilerplate, speeding up FR-003/FR-004.
++  - **Alternatives considered**: Knex + custom types (more boilerplate and weaker typing), raw SQL (`pg` only; error-prone and harder to keep migrations traceable).
++
++- **Configuration strategy**: Centralize settings in `src/config/` that loads `.env` (for dev) plus injected secrets (for CI/prod), validates through Zod, and exposes an immutable config object.
++  - **Rationale**: Provides environment-specific DB hosts/credentials mandated by User Story 2 while guaranteeing startup fails fast if required keys are missing.
++  - **Alternatives considered**: Ad-hoc `process.env` access (risk of silent typos) or JSON config committed to git (would violate secrets guidance).
++
++- **Connection management & health**: Use Prisma’s underlying `pg` pool with explicit warm-up tests, surface `/health/db` and `/health/ready` endpoints, and emit metrics via pino + optional Prometheus formatter.
++  - **Rationale**: Meets SC-003 (alert within 2 minutes) and FR-005 by giving both HTTP and telemetry-level insight along with retryable connection policies.
++  - **Alternatives considered**: Custom pooling logic (reinvents `pg-pool`), relying solely on cloud provider health (insufficient visibility for local/CI scenarios).
++
++- **Testing approach**: Run Vitest for unit/contract checks plus dockerized Postgres for integration specs; seed data using Prisma fixtures per test suite.
++  - **Rationale**: Keeps the toolchain consistent with the frontend (Vitest) while ensuring real SQL coverage, satisfying Test-first Reliability and FR-001 – FR-007 acceptance cases.
++  - **Alternatives considered**: Jest (another runner to maintain) or mock-only tests (would not validate schema/transaction correctness).
++
++- **Deployment & rotation**: Package the API as a stateless container with graceful shutdown hooks, use rolling deploys (Kubernetes or Docker swarm) so credential rotations and schema changes can be applied without downtime.
++  - **Rationale**: Directly aligns with FR-007 (zero-downtime config changes) and gives operations a predictable restart surface.
++  - **Alternatives considered**: PM2/forever on a VM (harder to guarantee clean restarts), serverless (cold starts make <1s response guarantee harder without more work).
+*** End Patch
+[2m2025-12-11T09:05:28.786396Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/data-model.md
++# Data Model: Connect Application APIs to the Database
++
++## Entities
++
++- **AthleteProfile**
++  - Fields: `id (uuid)`, `userId`, `displayName`, `timezone`, `primaryGoal`, `coachNotes`, `updatedAt`.
++  - Validation: `displayName` 1-80 chars, timezone must match IANA string, `primaryGoal` limited to enumerated focus areas.
++
++- **TrainingProgram**
++  - Fields: `id (uuid)`, `athleteId`, `title`, `startDate`, `endDate`, `macroCycle`, `status (planned/current/completed)`, `updatedAt`.
++  - Derived metrics: `totalWeeks`, `completedWeeks`, `adherenceRate`.
++  - References: `currentPhaseId`, `nextSessionId`.
++
++- **ProgramPhase**
++  - Fields: `id`, `programId`, `name`, `focus`, `phaseOrder`, `startDate`, `endDate`, `status`.
++  - Relationship: belongs to a `TrainingProgram`; optional `microCycles[]`.
++
++- **MicroCycle**
++  - Fields: `id`, `programId`, `phaseId`, `weekIndex`, `sessionsPlanned`, `sessionsCompleted`, `readinessScore`, `status`.
++
++- **TrainingSession**
++  - Fields: `id`, `programId`, `phaseId`, `microCycleId`, `athleteId`, `title`, `scheduledAt`, `durationMinutes`, `modality`, `status (planned/completed/skipped)`, `load`.
++  - Timestamps: `scheduledAt`, `completedAt`, `updatedAt`.
++
++- **ConnectionHealthEvent**
++  - Fields: `id`, `checkedAt`, `environment`, `status (pass/fail)`, `latencyMs`, `errorCode`, `message`.
++  - Stored for observability/alert backfill; newest entry drives `/health/db`.
++
++- **DatabaseConnectionProfile**
++  - Fields: `id`, `environment`, `host`, `port`, `database`, `schema`, `credentialRef`, `rotationIntervalDays`, `lastValidatedAt`.
++  - Used for configuration audit logs; actual secrets stay external, but metadata is tracked for compliance.
++
++## Relationships
++
++- An `AthleteProfile` has many `TrainingProgram` records; only one can be `status=current` per athlete at a time.
++- `TrainingProgram` has many `ProgramPhase` entries; each phase can contain many `MicroCycle` entries, which in turn group `TrainingSession` records.
++- `TrainingSession` references both the owning `AthleteProfile` and its parent program/phase/cycle for consistent filtering.
++- `ConnectionHealthEvent` does not link to athlete data but is keyed by `environment` for dashboards.
++- `DatabaseConnectionProfile` is standalone metadata but is linked via `environment` to runtime configuration to confirm correct host/schema usage.
++
++## Notes
++
++- UUID primary keys are used across entities to simplify future synchronization across services.
++- All date/timestamps stored in UTC ISO8601; presentation/localization handled by the frontend.
++- Soft deletes are not required for this iteration; failed writes roll back entirely due to transactional scope.
++- Prisma models will enforce referential integrity (e.g., cascade delete sessions when a program is archived) but delete endpoints are out of scope for this feature.
+*** End Patch
+[2m2025-12-11T09:05:41.970392Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/quickstart.md
++# Quickstart: Connect Application APIs to the Database
++
++## Prerequisites
++
++- Node.js 20.x and npm 10.x
++- Docker + Docker Compose (for Postgres + pgAdmin locally)
++- Access to environment secrets (DATABASE_URL, JWT/Session secrets if already defined)
++
++## Run the API locally
++
++1. `cd api`
++2. Copy `.env.example` → `.env` and set:
++   - `NODE_ENV=development`
++   - `DATABASE_URL=postgresql://postgres:postgres@localhost:5433/coachcw_dev?schema=public`
++   - `ENABLE_SCHEMA_PRISMA_LOGS=false` (opt-in verbose logging)
++3. Start Postgres locally: `docker compose -f ../docker/compose.db.yml up -d`
++4. Install deps: `npm install`
++5. Generate Prisma client & run migrations: `npx prisma migrate deploy`
++6. Seed demo data (profiles/programs/sessions): `npm run seed`
++7. Start the API with hot reload: `npm run dev`
++8. Validate health endpoints:
++   - `curl http://localhost:4000/health/db`
++   - `curl http://localhost:4000/health/ready`
++
++## Run automated tests
++
++1. Ensure Postgres is running (steps above); tests will create isolated schemas.
++2. From `api/`, execute:
++   - `npm run test` (Vitest unit/contract suites)
++   - `npm run test:integration` (spins up Fastify server + temporary schema)
++3. To regenerate API schemas after editing contracts: `npm run openapi:generate`
++
++## Coordinating with the frontend
++
++1. Keep the API running on `http://localhost:4000`.
++2. In a separate terminal: `cd app && npm run dev`.
++3. Set frontend env (`VITE_API_BASE_URL=http://localhost:4000`) and toggle `VITE_USE_MOCKS=false` to route through live APIs.
++
++## What to verify manually
++
++- GET `/api/v1/programs/:athleteId/current` returns seeded program with last-updated timestamps.
++- POST `/api/v1/sessions` creates a session, commits the transaction, and returns the persisted ID.
++- When Postgres is stopped, `/health/db` returns `{ status: "fail" }` and the API logs an error before rejecting requests per retry policy.
++- Restarting Postgres leads to automatic recovery without redeploying (per FR-006/FR-007).
+*** End Patch
+[2m2025-12-11T09:05:52.790448Z[0m [32m INFO[0m ToolCall: shell_command {"command":"New-Item -ItemType Directory -Path specs\\005-connect-db-apis\\contracts -Force","with_escalated_permissions":true,"justification":"Need contracts directory for API plan outputs"}
+[2m2025-12-11T09:06:25.233767Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/contracts/openapi.yaml
++openapi: 3.0.3
++info:
++  title: CoachCW Data API
++  version: 0.1.0
++  description: >
++    REST contracts that replace mock services by reading/writing the primary PostgreSQL database.
++    All responses include `lastUpdatedAt` timestamps to prove data freshness.
++servers:
++  - url: https://api.coachcw.com
++    description: Production
++  - url: https://staging-api.coachcw.com
++    description: Staging
++  - url: http://localhost:4000
++    description: Local development
++tags:
++  - name: Profiles
++  - name: Programs
++  - name: Sessions
++  - name: Health
++paths:
++  /api/v1/profiles/{athleteId}:
++    get:
++      summary: Fetch profile with current program pointer
++      tags: [Profiles]
++      parameters:
++        - $ref: '#/components/parameters/AthleteId'
++      responses:
++        '200':
++          description: Profile found
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Profile'
++        '404':
++          $ref: '#/components/responses/NotFound'
++    patch:
++      summary: Update fields on an athlete profile
++      tags: [Profiles]
++      parameters:
++        - $ref: '#/components/parameters/AthleteId'
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/ProfilePatch'
++      responses:
++        '200':
++          description: Profile updated
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Profile'
++        '409':
++          $ref: '#/components/responses/Conflict'
++  /api/v1/programs/{athleteId}/current:
++    get:
++      summary: Load the active program for an athlete
++      tags: [Programs]
++      parameters:
++        - $ref: '#/components/parameters/AthleteId'
++      responses:
++        '200':
++          description: Active program payload
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Program'
++        '204':
++          description: Athlete has no active program
++  /api/v1/sessions:
++    get:
++      summary: List sessions by athlete/program filters
++      tags: [Sessions]
++      parameters:
++        - in: query
++          name: athleteId
++          schema:
++            type: string
++            format: uuid
++        - in: query
++          name: programId
++          schema:
++            type: string
++            format: uuid
++        - in: query
++          name: status
++          schema:
++            type: string
++            enum: [planned, completed, skipped]
++      responses:
++        '200':
++          description: Matching sessions
++          content:
++            application/json:
++              schema:
++                type: object
++                properties:
++                  sessions:
++                    type: array
++                    items:
++                      $ref: '#/components/schemas/Session'
++    post:
++      summary: Create training sessions (single or batch)
++      tags: [Sessions]
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/SessionCreateRequest'
++      responses:
++        '201':
++          description: Sessions persisted
++          content:
++            application/json:
++              schema:
++                type: object
++                properties:
++                  sessionIds:
++                    type: array
++                    items:
++                      type: string
++                      format: uuid
++  /api/v1/sessions/{sessionId}:
++    patch:
++      summary: Update status/metrics for an existing session
++      tags: [Sessions]
++      parameters:
++        - name: sessionId
++          in: path
++          required: true
++          schema:
++            type: string
++            format: uuid
++      requestBody:
++        required: true
++        content:
++          application/json:
++            schema:
++              $ref: '#/components/schemas/SessionPatch'
++      responses:
++        '200':
++          description: Session updated
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/Session'
++        '412':
++          description: Update rejected due to stale version
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/ErrorResponse'
++  /health/db:
++    get:
++      summary: Database connectivity and latency
++      tags: [Health]
++      responses:
++        '200':
++          description: Health payload
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/DbHealth'
++  /health/ready:
++    get:
++      summary: Readiness for serving traffic
++      tags: [Health]
++      responses:
++        '200':
++          description: Ready
++          content:
++            application/json:
++              schema:
++                $ref: '#/components/schemas/ReadyHealth'
++
++components:
++  parameters:
++    AthleteId:
++      name: athleteId
++      in: path
++      required: true
++      schema:
++        type: string
++        format: uuid
++  responses:
++    NotFound:
++      description: Resource not found
++      content:
++        application/json:
++          schema:
++            $ref: '#/components/schemas/ErrorResponse'
++    Conflict:
++      description: Update conflict or invalid state
++      content:
++        application/json:
++          schema:
++            $ref: '#/components/schemas/ErrorResponse'
++  schemas:
++    ErrorResponse:
++      type: object
++      properties:
++        code:
++          type: string
++          example: SESSION_NOT_FOUND
++        message:
++          type: string
++        correlationId:
++          type: string
++          format: uuid
++    Profile:
++      type: object
++      required: [id, displayName, timezone, updatedAt]
++      properties:
++        id:
++          type: string
++          format: uuid
++        displayName:
++          type: string
++        timezone:
++          type: string
++        primaryGoal:
++          type: string
++        coachNotes:
++          type: string
++        currentProgram:
++          $ref: '#/components/schemas/ProgramSummary'
++        updatedAt:
++          type: string
++          format: date-time
++    ProfilePatch:
++      type: object
++      properties:
++        displayName:
++          type: string
++          minLength: 1
++          maxLength: 80
++        timezone:
++          type: string
++        primaryGoal:
++          type: string
++        coachNotes:
++          type: string
++    ProgramSummary:
++      type: object
++      required: [id, title, status, lastUpdatedAt]
++      properties:
++        id:
++          type: string
++          format: uuid
++        title:
++          type: string
++        status:
++          type: string
++          enum: [planned, current, completed]
++        macroCycle:
++          type: string
++        currentPhase:
++          $ref: '#/components/schemas/Phase'
++        nextSessionId:
++          type: string
++          format: uuid
++        lastUpdatedAt:
++          type: string
++          format: date-time
++    Program:
++      allOf:
++        - $ref: '#/components/schemas/ProgramSummary'
++        - type: object
++          properties:
++            phases:
++              type: array
++              items:
++                $ref: '#/components/schemas/Phase'
++            microCycles:
++              type: array
++              items:
++                $ref: '#/components/schemas/MicroCycle'
++            metrics:
++              type: object
++              properties:
++                adherenceRate:
++                  type: number
++                completedWeeks:
++                  type: integer
++                totalWeeks:
++                  type: integer
++    Phase:
++      type: object
++      properties:
++        id:
++          type: string
++        name:
++          type: string
++        focus:
++          type: string
++        startDate:
++          type: string
++          format: date
++        endDate:
++          type: string
++          format: date
++        status:
++          type: string
++          enum: [planned, current, completed]
++    MicroCycle:
++      type: object
++      properties:
++        id:
++          type: string
++        phaseId:
++          type: string
++        name:
++          type: string
++        startDate:
++          type: string
++          format: date
++        endDate:
++          type: string
++          format: date
++        sessionsPlanned:
++          type: integer
++        sessionsCompleted:
++          type: integer
++        readinessScore:
++          type: number
++    Session:
++      type: object
++      required: [id, scheduledAt, status, lastUpdatedAt]
++      properties:
++        id:
++          type: string
++          format: uuid
++        athleteId:
++          type: string
++          format: uuid
++        programId:
++          type: string
++          format: uuid
++        phaseId:
++          type: string
++          format: uuid
++        microCycleId:
++          type: string
++          format: uuid
++        title:
++          type: string
++        scheduledAt:
++          type: string
++          format: date-time
++        durationMinutes:
++          type: integer
++        modality:
++          type: string
++        status:
++          type: string
++          enum: [planned, completed, skipped]
++        load:
++          type: number
++        lastUpdatedAt:
++          type: string
++          format: date-time
++    SessionCreateRequest:
++      type: object
++      required: [athleteId, programId, sessions]
++      properties:
++        athleteId:
++          type: string
++          format: uuid
++        programId:
++          type: string
++          format: uuid
++        sessions:
++          type: array
++          items:
++            type: object
++            required: [title, scheduledAt, modality]
++            properties:
++              title:
++                type: string
++              scheduledAt:
++                type: string
++                format: date-time
++              durationMinutes:
++                type: integer
++              modality:
++                type: string
++              load:
++                type: number
++    SessionPatch:
++      type: object
++      properties:
++        status:
++          type: string
++          enum: [planned, completed, skipped]
++        completedAt:
++          type: string
++          format: date-time
++        load:
++          type: number
++        coachNotes:
++          type: string
++    DbHealth:
++      type: object
++      properties:
++        status:
++          type: string
++          enum: [pass, fail]
++        latencyMs:
++          type: number
++        lastFailure:
++          type: string
++          format: date-time
++    ReadyHealth:
++      type: object
++      properties:
++        status:
++          type: string
++          enum: [ready, draining, initializing]
++        version:
++          type: string
++        db:
++          $ref: '#/components/schemas/DbHealth'
+*** End Patch
+[2m2025-12-11T09:06:38.063186Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/update-agent-context.ps1 -AgentType codex","with_escalated_permissions":true,"justification":"Plan workflow requires updating agent context after design outputs"}
+[2m2025-12-11T09:06:49.827380Z[0m [32m INFO[0m ToolCall: shell_command {"command":"git status -sb"}
+[2m2025-12-11T09:06:58.439223Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\plan.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T09:07:06.811779Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\research.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T09:07:13.150028Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\data-model.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T09:07:17.863032Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\quickstart.md | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }"}
+[2m2025-12-11T09:07:24.850068Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content specs\\005-connect-db-apis\\contracts\\openapi.yaml | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }","timeout_ms":1000}
+[2m2025-12-11T09:07:38.089562Z[0m [32m INFO[0m ToolCall: shell_command {"command":"$i=0; Get-Content AGENTS.md | Select-Object -First 80 | ForEach-Object { $i++; \"{0}`t{1}\" -f $i, $_ }","timeout_ms":1000}
+[2m2025-12-11T09:07:57.234500Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T09:07:58.905796Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T09:07:58.905865Z[0m [32m INFO[0m ghost commit captured: 41b2809443a2ffd50a3de5976e2e8c35ac91ad80
+[2m2025-12-11T09:07:58.905878Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T09:08:00.690251Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex\\prompts\\speckit.tasks.md"}
+[2m2025-12-11T09:08:05.080126Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Validate prerequisites and gather feature directory info", "status":"in_progress"},{"step":"Extract details from spec/plan/design docs for task planning", "status":"pending"},{"step":"Generate tasks.md conforming to template and reporting summary", "status":"pending"}]}
+[2m2025-12-11T09:08:08.998579Z[0m [32m INFO[0m ToolCall: shell_command {"command":".specify/scripts/powershell/check-prerequisites.ps1 -Json","with_escalated_permissions":true,"justification":"Need feature context (paths, docs) before generating task plan"}
+[2m2025-12-11T09:08:17.928886Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\plan.md"}
+[2m2025-12-11T09:08:22.310943Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\spec.md"}
+[2m2025-12-11T09:08:26.381739Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .specify\\templates\\tasks-template.md"}
+[2m2025-12-11T09:08:31.813349Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Validate prerequisites and gather feature directory info", "status":"completed"},{"step":"Extract details from spec/plan/design docs for task planning", "status":"in_progress"},{"step":"Generate tasks.md conforming to template and reporting summary", "status":"pending"}]}
+[2m2025-12-11T09:08:34.696257Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\research.md"}
+[2m2025-12-11T09:08:38.678675Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\data-model.md"}
+[2m2025-12-11T09:08:43.110327Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\contracts\\openapi.yaml"}
+[2m2025-12-11T09:08:54.930463Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Validate prerequisites and gather feature directory info", "status":"completed"},{"step":"Extract details from spec/plan/design docs for task planning", "status":"completed"},{"step":"Generate tasks.md conforming to template and reporting summary", "status":"in_progress"}]}
+[2m2025-12-11T09:08:58.616599Z[0m [32m INFO[0m ToolCall: shell_command {"command":"New-Item specs\\005-connect-db-apis\\tasks.md -ItemType File -Force","with_escalated_permissions":true,"justification":"Need to create tasks.md per planning workflow"}
+[2m2025-12-11T09:12:24.714804Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: specs/005-connect-db-apis/tasks.md
+@@
+-# Tasks: [FEATURE NAME]
+-
+-**Input**: Design documents from `/specs/[###-feature-name]/`
+-**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+-
+-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+-
+-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+-
+-## Format: `[ID] [P?] [Story] Description`
+-
+-- **[P]**: Can run in parallel (different files, no dependencies)
+-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+-- Include exact file paths in descriptions
+-
+-## Path Conventions
+-
+-- **Single project**: `src/`, `tests/` at repository root
+-- **Web app**: `backend/src/`, `frontend/src/`
+-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+-- Paths shown below assume single project - adjust based on plan.md structure
+-
+-<!-- 
+-  ============================================================================
+-  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
+-  
+-  The /speckit.tasks command MUST replace these with actual tasks based on:
+-  - User stories from spec.md (with their priorities P1, P2, P3...)
+-  - Feature requirements from plan.md
+-  - Entities from data-model.md
+-  - Endpoints from contracts/
+-  
+-  Tasks MUST be organized by user story so each story can be:
+-  - Implemented independently
+-  - Tested independently
+-  - Delivered as an MVP increment
+-  
+-  DO NOT keep these sample tasks in the generated tasks.md file.
+-  ============================================================================
+--->
+-
+-## Phase 1: Setup (Shared Infrastructure)
+-
+-**Purpose**: Project initialization and basic structure
+-
+-- [ ] T001 Create project structure per implementation plan
+-- [ ] T002 Initialize [language] project with [framework] dependencies
+-- [ ] T003 [P] Configure linting and formatting tools
+-
+----
+-
+-## Phase 2: Foundational (Blocking Prerequisites)
+-
+-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
+-
+-**ƒsÿ‹÷? CRITICAL**: No user story work can begin until this phase is complete
+-
+-Examples of foundational tasks (adjust based on your project):
+-
+-- [ ] T004 Setup database schema and migrations framework
+-- [ ] T005 [P] Implement authentication/authorization framework
+-- [ ] T006 [P] Setup API routing and middleware structure
+-- [ ] T007 Create base models/entities that all stories depend on
+-- [ ] T008 Configure error handling and logging infrastructure
+-- [ ] T009 Setup environment configuration management
+-
+-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+-
+----
+-
+-## Phase 3: User Story 1 - [Title] (Priority: P1) ÐYZî MVP
+-
+-**Goal**: [Brief description of what this story delivers]
+-
+-**Independent Test**: [How to verify this story works on its own]
+-
+-### Tests for User Story 1 (OPTIONAL - only if tests requested) ƒsÿ‹÷?
+-
+-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+-
+-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
+-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+-
+-### Implementation for User Story 1
+-
+-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
+-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
+-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
+-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
+-- [ ] T016 [US1] Add validation and error handling
+-- [ ] T017 [US1] Add logging for user story 1 operations
+-
+-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+-
+----
+-
+-## Phase 4: User Story 2 - [Title] (Priority: P2)
+-
+-**Goal**: [Brief description of what this story delivers]
+-
+-**Independent Test**: [How to verify this story works on its own]
+-
+-### Tests for User Story 2 (OPTIONAL - only if tests requested) ƒsÿ‹÷?
+-
+-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
+-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+-
+-### Implementation for User Story 2
+-
+-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
+-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
+-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
+-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+-
+-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+-
+----
+-
+-## Phase 5: User Story 3 - [Title] (Priority: P3)
+-
+-**Goal**: [Brief description of what this story delivers]
+-
+-**Independent Test**: [How to verify this story works on its own]
+-
+-### Tests for User Story 3 (OPTIONAL - only if tests requested) ƒsÿ‹÷?
+-
+-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
+-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+-
+-### Implementation for User Story 3
+-
+-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
+-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
+-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+-
+-**Checkpoint**: All user stories should now be independently functional
+-
+----
+-
+-[Add more user story phases as needed, following the same pattern]
+-
+----
+-
+-## Phase N: Polish & Cross-Cutting Concerns
+-
+-**Purpose**: Improvements that affect multiple user stories
+-
+-- [ ] TXXX [P] Documentation updates in docs/
+-- [ ] TXXX Code cleanup and refactoring
+-- [ ] TXXX Performance optimization across all stories
+-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
+-- [ ] TXXX Security hardening
+-- [ ] TXXX Run quickstart.md validation
+-
+----
+-
+-## Dependencies & Execution Order
+-
+-### Phase Dependencies
+-
+-- **Setup (Phase 1)**: No dependencies - can start immediately
+-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
+-- **User Stories (Phase 3+)**: All depend on Foundational phase completion
+-  - User stories can then proceed in parallel (if staffed)
+-  - Or sequentially in priority order (P1 ƒÅ' P2 ƒÅ' P3)
+-- **Polish (Final Phase)**: Depends on all desired user stories being complete
+-
+-### User Story Dependencies
+-
+-- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
+-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
+-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
+-
+-### Within Each User Story
+-
+-- Tests (if included) MUST be written and FAIL before implementation
+-- Models before services
+-- Services before endpoints
+-- Core implementation before integration
+-- Story complete before moving to next priority
+-
+-### Parallel Opportunities
+-
+-- All Setup tasks marked [P] can run in parallel
+-- All Foundational tasks marked [P] can run in parallel (within Phase 2)
+-- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
+-- All tests for a user story marked [P] can run in parallel
+-- Models within a story marked [P] can run in parallel
+-- Different user stories can be worked on in parallel by different team members
+-
+----
+-
+-## Parallel Example: User Story 1
+-
+-```bash
+-# Launch all tests for User Story 1 together (if tests requested):
+-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
+-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+-
+-# Launch all models for User Story 1 together:
+-Task: "Create [Entity1] model in src/models/[entity1].py"
+-Task: "Create [Entity2] model in src/models/[entity2].py"
+-```
+-
+----
+-
+-## Implementation Strategy
+-
+-### MVP First (User Story 1 Only)
+-
+-1. Complete Phase 1: Setup
+-2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
+-3. Complete Phase 3: User Story 1
+-4. **STOP and VALIDATE**: Test User Story 1 independently
+-5. Deploy/demo if ready
+-
+-### Incremental Delivery
+-
+-1. Complete Setup + Foundational ƒÅ' Foundation ready
+-2. Add User Story 1 ƒÅ' Test independently ƒÅ' Deploy/Demo (MVP!)
+-3. Add User Story 2 ƒÅ' Test independently ƒÅ' Deploy/Demo
+-4. Add User Story 3 ƒÅ' Test independently ƒÅ' Deploy/Demo
+-5. Each story adds value without breaking previous stories
+-
+-### Parallel Team Strategy
+-
+-With multiple developers:
+-
+-1. Team completes Setup + Foundational together
+-2. Once Foundational is done:
+-   - Developer A: User Story 1
+-   - Developer B: User Story 2
+-   - Developer C: User Story 3
+-3. Stories complete and integrate independently
+-
+----
+-
+-## Notes
+-
+-- [P] tasks = different files, no dependencies
+-- [Story] label maps task to specific user story for traceability
+-- Each user story should be independently completable and testable
+-- Verify tests fail before implementing
+-- Commit after each task or logical group
+-- Stop at any checkpoint to validate story independently
+-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
++# Tasks: Connect Application APIs to the Database
++
++**Input**: Design documents from `/specs/005-connect-db-apis/`
++**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
++
++**Tests**: Add contract/integration tests only where acceptance criteria require explicit verification.
++
++**Organization**: Tasks are grouped by user story to keep each slice independently deliverable.
++
++## Phase 1: Setup (Shared Infrastructure)
++
++**Purpose**: Create the backend workspace, tooling, and local DB runtime.
++
++- [ ] T001 Create `api/` workspace with package.json, tsconfig, and linting baseline matching plan.md
++- [ ] T002 Install Fastify, Prisma, Zod, pino, Vitest, Supertest, and TypeScript types in `api/package.json`
++- [ ] T003 [P] Scaffold `docker/compose.db.yml` (or extend existing file) so Postgres 15 + pgAdmin run on standard ports
++- [ ] T004 [P] Add root npm scripts (dev, build, test, migrate, seed) and document them in `api/README.md`
++
++---
++
++## Phase 2: Foundational (Blocking Prerequisites)
++
++**Purpose**: Core infrastructure that all stories depend on.
++
++- [ ] T005 Create Prisma schema (`api/prisma/schema.prisma`) with base models for AthleteProfile, TrainingProgram, ProgramPhase, MicroCycle, TrainingSession, ConnectionHealthEvent, DatabaseConnectionProfile
++- [ ] T006 Generate initial migration + seed script to populate demo data in `api/prisma/migrations/` and `api/prisma/seed.ts`
++- [ ] T007 Implement configuration loader with Zod validation in `api/src/config/index.ts` (supports dev/stage/prod credentials)
++- [ ] T008 [P] Add shared logging/telemetry setup (pino logger, correlation IDs) in `api/src/telemetry/logger.ts`
++- [ ] T009 [P] Bootstrap Fastify server entry (`api/src/server.ts`) with graceful shutdown and plugin registration
++- [ ] T010 [P] Add error/response helpers and standardized service error format in `api/src/routes/plugins/errors.ts`
++- [ ] T011 Configure Vitest + Supertest test harness in `api/tests/setup.ts` and update `vitest.config.ts`
++
++**Checkpoint**: Database schema, config, logging, server skeleton, and test harness ready.
++
++---
++
++## Phase 3: User Story 1 - Persisted coaching data loads through APIs (Priority: P1) — MVP
++
++**Goal**: Serve live profile/program/session data via REST endpoints backed by PostgreSQL.
++
++**Independent Test**: Seed DB with known data, hit GET APIs, confirm payloads match DB and responses <1s; simulate DB outage and ensure error responses/logs appear.
++
++### Tests for User Story 1
++
++- [ ] T012 [P] [US1] Write contract tests for `/api/v1/profiles/{athleteId}` in `api/tests/contract/profiles.spec.ts`
++- [ ] T013 [P] [US1] Write contract tests for `/api/v1/programs/{athleteId}/current` and `/api/v1/sessions` GET/POST/PATCH in `api/tests/contract/programs_sessions.spec.ts`
++- [ ] T014 [US1] Write integration test that seeds DB, hits all GET endpoints, and asserts 1-second SLA & latest timestamps in `api/tests/integration/live-data.spec.ts`
++
++### Implementation for User Story 1
++
++- [ ] T015 [P] [US1] Implement Prisma repositories for profiles/programs/sessions in `api/src/modules/{profiles,programs,sessions}/repository.ts`
++- [ ] T016 [P] [US1] Add service layer with DTO mapping + transactional writes in `api/src/modules/{profiles,programs,sessions}/service.ts`
++- [ ] T017 [US1] Wire Fastify routes + schema validation from OpenAPI (profiles/programs/sessions endpoints) in `api/src/routes/v1/*.ts`
++- [ ] T018 [US1] Implement standardized service error responses and log correlation for DB outage cases in `api/src/routes/plugins/errors.ts`
++- [ ] T019 [US1] Expose GET/POST/PATCH operations via Fastify plugin registration (`api/src/routes/index.ts`) and ensure registration order is deterministic
++- [ ] T020 [US1] Update `app/src/services/*` fetch wrappers to call new API base URL when `VITE_USE_MOCKS=false`
++- [ ] T021 [US1] Document manual verification steps in `specs/005-connect-db-apis/quickstart.md` (ensure instructions cover new endpoints)
++
++**Checkpoint**: Frontend can consume real data; API read/write path proven against real DB.
++
++---
++
++## Phase 4: User Story 2 - Environment-specific database configuration (Priority: P2)
++
++**Goal**: Support per-environment DB hosts/credentials with fail-fast validation and zero-downtime rotation.
++
++**Independent Test**: Swap config for staging DB, restart API, and confirm staging DB receives traffic while prod remains untouched; simulate missing/expired creds and ensure startup fails with actionable error.
++
++### Tests for User Story 2
++
++- [ ] T022 [P] [US2] Add config unit tests covering required env vars + validation errors in `api/tests/unit/config.spec.ts`
++- [ ] T023 [US2] Add integration test that launches server with alternate DATABASE_URL and ensures connection reaches the alternate DB (`api/tests/integration/env-switch.spec.ts`)
++
++### Implementation for User Story 2
++
+-- [ ] T024 [P] [US2] Extend config module to load `DatabaseConnectionProfile` metadata and expose active profile in `api/src/config/index.ts`
++- [ ] T025 [US2] Implement startup validation hook that pings DB, verifies schema access, and blocks server start on failure in `api/src/db/startup-check.ts`
++- [ ] T026 [US2] Add live reload or rolling-deploy helper to rotate credentials without downtime (drain + reconnect) in `api/src/db/connection-manager.ts`
++- [ ] T027 [US2] Persist configuration audit entries via Prisma (DatabaseConnectionProfile) and expose admin query in `api/src/modules/configuration/repository.ts`
++- [ ] T028 [US2] Update quickstart + operations notes to document multi-environment config + rotation steps (`specs/005-connect-db-apis/quickstart.md`, `docs/operations.md`)
++
++**Checkpoint**: API switches environments safely and fails fast when misconfigured.
++
++---
++
++## Phase 5: User Story 3 - Monitor and recover from connectivity issues (Priority: P3)
++
++**Goal**: Provide health endpoints, logging, metrics, and automatic retries so SREs gain visibility and rapid recovery.
++
++**Independent Test**: Block DB network access; ensure `/health/db` shows fail, alerts/logs trigger within 2 minutes, and service retries until connectivity returns without redeploy.
++
++### Tests for User Story 3
++
++- [ ] T029 [P] [US3] Add contract tests for `/health/db` and `/health/ready` responses in `api/tests/contract/health.spec.ts`
++- [ ] T030 [US3] Add integration test simulating DB outage + recovery (using Docker network controls) in `api/tests/integration/health-retry.spec.ts`
++
++### Implementation for User Story 3
++
++- [ ] T031 [P] [US3] Implement health probe services (latency sampling, last failure tracking) in `api/src/modules/health/service.ts`
++- [ ] T032 [P] [US3] Add `/health/db` and `/health/ready` Fastify routes referencing probe data in `api/src/routes/health.ts`
++- [ ] T033 [US3] Emit structured logs + metrics (e.g., Prometheus counters or pino prettifier) for health results in `api/src/telemetry/metrics.ts`
++- [ ] T034 [US3] Implement retry/backoff strategy for DB operations when failures occur, ensuring idempotent writes, in `api/src/db/retry-policy.ts`
++- [ ] T035 [US3] Wire alert hooks (e.g., SNS/webhook placeholder) and document how to plug into real alerting (`docs/operations.md`)
++
++**Checkpoint**: Health monitoring and recovery paths validated; alerts fire before users notice.
++
++---
++
++## Phase 6: Polish & Cross-Cutting Concerns
++
++- [ ] T036 [P] Harden authentication/authorization integration (ensure existing auth middleware protects new endpoints) in `api/src/routes/plugins/auth.ts`
++- [ ] T037 [P] Add performance regression tests/benchmarks for key endpoints under load in `api/tests/perf/programs.bench.ts`
++- [ ] T038 Review logs/telemetry for PII and scrub as needed in `api/src/telemetry/logger.ts`
++- [ ] T039 Update repository-level documentation (`README.md`, `AGENTS.md`) to reflect new backend commands and troubleshooting steps
++- [ ] T040 Run full quickstart validation: start DB, API, frontend; verify real data flows end-to-end; capture in `specs/005-connect-db-apis/quickstart.md`
++
++---
++
++## Dependencies & Execution Order
++
++- Phase 1 (Setup) → Phase 2 (Foundational) → User Story phases (3,4,5) → Phase 6 (Polish)
++- User Story phases can proceed in parallel once Phase 2 completes, but priority order (US1, then US2, then US3) is recommended for MVP delivery.
++- Tests within each story should be authored before implementation tasks (T012–T014 precede T015+; T022–T023 precede T024+; T029–T030 precede T031+).
++
++### User Story Dependencies
++
++1. **US1**: Relies only on foundational work; unlocks frontend real-data experience (MVP).
++2. **US2**: Depends on foundational config modules; independent of US1 behavior but uses same infrastructure.
++3. **US3**: Depends on foundational telemetry + DB layers; can run in parallel once base health structures exist.
++
++### Parallel Opportunities
++
++- Setup tasks T003–T004 can run alongside T001–T002 since they touch different files.
++- Foundational tasks T008–T011 are parallelizable once schema work (T005–T006) stabilizes.
++- Within US1, repositories (T015) and services (T016) can start concurrently after schema types exist; route wiring (T017) depends on services.
++- US2’s config validation test (T022) and integration test (T023) can run in parallel; implementation tasks T024–T027 share little overlap.
++- US3 health routes (T031–T033) can proceed while retry logic (T034) is developed.
++
++---
++
++## Implementation Strategy
++
++- **MVP**: Deliver Phase 1–3; this unlocks real data for the frontend and satisfies SC-001/SC-004.
++- **Incremental**: After MVP, tackle US2 to ensure safe environment deploys, then US3 for observability/recovery enhancements.
++- **Parallel team plan**: One developer leads foundational + US1, another handles US2 config work, a third focuses on US3 health/resiliency once base routes exist.
++
++---
++
++## Summary & Metrics
++
++- **Total tasks**: 40
++- **Tasks per story**: US1 (10), US2 (7), US3 (7); remaining tasks cover setup/foundation/polish.
++- **Parallel opportunities**: Identified in setup (T003–T004), foundational (T008–T011), and per story (tasks labeled [P]).
++- **Independent tests**: Each story has explicit contract/integration test tasks (T012–T014, T022–T023, T029–T030).
++- **Suggested MVP scope**: Complete through Phase 3 (US1) before proceeding to environment controls and observability enhancements.
+*** End Patch
+[2m2025-12-11T09:12:31.132360Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content specs\\005-connect-db-apis\\tasks.md"}
+[2m2025-12-11T09:13:07.117039Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: specs/005-connect-db-apis/tasks.md
++# Tasks: Connect Application APIs to the Database
++
++**Input**: Design documents from `/specs/005-connect-db-apis/`  
++**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
++
++**Tests**: Acceptance requires contract + integration tests for the core APIs and health probes.
++
++**Organization**: Tasks are grouped by user story so each slice is independently testable.
++
++---
++
++## Phase 1: Setup (Shared Infrastructure)
++
++**Purpose**: Bootstrap the backend workspace, tooling, and local database runtime.
++
++- [ ] T001 Create `api/` workspace (package.json, tsconfig, lint config) mirroring plan.md structure
++- [ ] T002 Install Fastify, Prisma, Zod, pino, Vitest, Supertest, and TS types in `api/package.json`
++- [ ] T003 [P] Add/extend `docker/compose.db.yml` to run PostgreSQL 15 + pgAdmin for local dev
++- [ ] T004 [P] Document npm scripts (`dev`, `build`, `test`, `migrate`, `seed`) in `api/README.md`
++
++---
++
++## Phase 2: Foundational (Blocking Prerequisites)
++
++**Purpose**: Core infrastructure required before user stories can start.
++
++- [ ] T005 Define Prisma models (AthleteProfile, TrainingProgram, ProgramPhase, MicroCycle, TrainingSession, ConnectionHealthEvent, DatabaseConnectionProfile) in `api/prisma/schema.prisma`
++- [ ] T006 Create initial migration + seed script under `api/prisma/migrations/` and `api/prisma/seed.ts`
++- [ ] T007 Implement Zod-based configuration loader in `api/src/config/index.ts` (env + secrets support)
++- [ ] T008 [P] Add logging/telemetry bootstrap with pino + correlation IDs in `api/src/telemetry/logger.ts`
++- [ ] T009 [P] Scaffold Fastify server entry with graceful shutdown in `api/src/server.ts`
++- [ ] T010 [P] Add shared error/response helpers in `api/src/routes/plugins/errors.ts`
++- [ ] T011 Configure Vitest + Supertest harness in `api/tests/setup.ts` and `vitest.config.ts`
++
++**Checkpoint**: Schema, migrations, config, server skeleton, logging, and test harness ready.
++
++---
++
++## Phase 3: User Story 1 – Persisted coaching data loads through APIs (Priority: P1) ← MVP
++
++**Goal**: Replace mock data with live PostgreSQL-backed profile/program/session APIs.
++
++**Independent Test**: Seed DB with known data, hit GET/POST/PATCH endpoints, verify payloads match DB and responses return within 1 second; simulate DB outage and confirm graceful errors/logs.
++
++### Tests for User Story 1
++
++- [ ] T012 [P] [US1] Author contract tests for `/api/v1/profiles/{athleteId}` in `api/tests/contract/profiles.spec.ts`
++- [ ] T013 [P] [US1] Author contract tests for `/api/v1/programs/{athleteId}/current` and `/api/v1/sessions` (GET/POST/PATCH) in `api/tests/contract/programs_sessions.spec.ts`
++- [ ] T014 [US1] Create integration test covering seeded data + outage fallback in `api/tests/integration/live-data.spec.ts`
++
++### Implementation for User Story 1
++
++- [ ] T015 [P] [US1] Implement Prisma repositories for profiles/programs/sessions in `api/src/modules/*/repository.ts`
++- [ ] T016 [P] [US1] Build service layer with DTO mapping + transactional writes in `api/src/modules/*/service.ts`
++- [ ] T017 [US1] Wire Fastify routes + schemas from OpenAPI under `api/src/routes/v1/`
++- [ ] T018 [US1] Implement standardized DB outage error handling + logging in `api/src/routes/plugins/errors.ts`
++- [ ] T019 [US1] Register v1 route plugins inside `api/src/routes/index.ts`
++- [ ] T020 [US1] Update frontend service toggles to call live API when `VITE_USE_MOCKS=false` in `app/src/services/*.ts`
++- [ ] T021 [US1] Extend `specs/005-connect-db-apis/quickstart.md` with verification steps for new endpoints
++
++**Checkpoint**: Frontend can consume live profile/program/session data via REST; MVP achieved.
++
++---
++
++## Phase 4: User Story 2 – Environment-specific database configuration (Priority: P2)
++
++**Goal**: Manage per-environment DB hosts/credentials with fail-fast validation and zero-downtime rotation.
++
++**Independent Test**: Point API at staging DB without code changes; confirm production remains untouched; missing/expired credentials must block startup with actionable errors.
++
++### Tests for User Story 2
++
++- [ ] T022 [P] [US2] Add config validation unit tests covering required env vars in `api/tests/unit/config.spec.ts`
++- [ ] T023 [US2] Add integration test switching DATABASE_URL to alternate schema in `api/tests/integration/env-switch.spec.ts`
++
++### Implementation for User Story 2
++
++- [ ] T024 [P] [US2] Extend config to surface `DatabaseConnectionProfile` metadata in `api/src/config/index.ts`
++- [ ] T025 [US2] Add startup DB validation hook (credential + schema check) in `api/src/db/startup-check.ts`
++- [ ] T026 [US2] Implement connection-manager with drain/reconnect support for credential rotation in `api/src/db/connection-manager.ts`
++- [ ] T027 [US2] Persist configuration audits via Prisma and expose admin query in `api/src/modules/configuration/repository.ts`
++- [ ] T028 [US2] Document environment setup + rotation workflow in `specs/005-connect-db-apis/quickstart.md` and `docs/operations.md`
++
++**Checkpoint**: Environment changes deploy safely with fast feedback on misconfigurations.
++
++---
++
++## Phase 5: User Story 3 – Monitor and recover from connectivity issues (Priority: P3)
++
++**Goal**: Deliver health probes, telemetry, and retry policies so outages are detected and recovered automatically.
++
++**Independent Test**: Block DB network access; `/health/db` shows fail and logs/alerts fire within 2 minutes; once DB returns, service recovers without redeploy.
++
++### Tests for User Story 3
++
++- [ ] T029 [P] [US3] Add contract tests for `/health/db` and `/health/ready` in `api/tests/contract/health.spec.ts`
++- [ ] T030 [US3] Add integration test simulating DB outage/recovery in `api/tests/integration/health-retry.spec.ts`
++
++### Implementation for User Story 3
++
++- [ ] T031 [P] [US3] Implement health probe services collecting latency + last failure in `api/src/modules/health/service.ts`
++- [ ] T032 [P] [US3] Expose `/health/db` and `/health/ready` routes in `api/src/routes/health.ts`
++- [ ] T033 [US3] Emit structured metrics/logs for health status in `api/src/telemetry/metrics.ts`
++- [ ] T034 [US3] Implement retry/backoff policy for DB operations ensuring idempotent writes in `api/src/db/retry-policy.ts`
++- [ ] T035 [US3] Add alert hook (webhook/SNS placeholder) + documentation in `docs/operations.md`
++
++**Checkpoint**: Observability and auto-recovery guardrails satisfied.
++
++---
++
++## Phase 6: Polish & Cross-Cutting Concerns
++
++- [ ] T036 [P] Ensure new Fastify routes respect existing auth middleware in `api/src/routes/plugins/auth.ts`
++- [ ] T037 [P] Add performance regression tests/benchmarks for key endpoints in `api/tests/perf/programs.bench.ts`
++- [ ] T038 Scrub logs for PII and document logging policy in `api/src/telemetry/logger.ts`
++- [ ] T039 Update top-level docs (`README.md`, `AGENTS.md`) with API instructions and troubleshooting notes
++- [ ] T040 Run end-to-end quickstart verification (DB + API + frontend) and record steps in `specs/005-connect-db-apis/quickstart.md`
++
++---
++
++## Dependencies & Execution Order
++
++- **Phase 1 → Phase 2 → User Story phases → Phase 6**. User stories can run in parallel after Phase 2, but delivering in priority order (US1 then US2 then US3) ensures MVP readiness.
++- Within each story, contract/integration tests (T012–T014, T022–T023, T029–T030) should be written before implementation tasks.
++
++### User Story Dependencies
++
++- **US1**: Depends solely on foundational work; delivering it unlocks the MVP.
++- **US2**: Depends on config modules from Phase 2; independent of US1 behavior but touches shared config files.
++- **US3**: Depends on telemetry scaffolding from Phase 2; can run alongside US2 once base infrastructure exists.
++
++### Parallel Opportunities
++
++- Setup tasks T003–T004 can run while T001–T002 finalize dependencies.
++- Foundational tasks T008–T011 touch different files and can progress concurrently after schema/migration work stabilizes.
++- For US1, repository (T015) and service (T016) work can proceed in parallel once models exist; route wiring (T017) follows services.
++- US2 tasks T024–T027 are largely independent and can be split among engineers after tests are drafted.
++- US3 health routes (T031–T033) can progress while retry policy (T034) is implemented.
++
++---
++
++## Implementation Strategy
++
++1. **MVP**: Complete Phases 1–3 so the frontend consumes real data.
++2. **Environment Hardening**: Deliver Phase 4 to unblock staging/production deployments.
++3. **Observability & Recovery**: Deliver Phase 5 to satisfy alerting and resilience requirements.
++4. **Polish**: Address Phase 6 items before handoff to `/speckit.implement`.
++
++---
++
++## Summary Metrics
++
++- **Total tasks**: 40  
++- **Tasks per story**: US1 = 10, US2 = 7, US3 = 7  
++- **Parallel opportunities**: Tasks marked `[P]` can run concurrently (setup, foundational, and per-story tests/implementation).  
++- **Independent test criteria**: Each story includes explicit contract/integration tests to validate acceptance scenarios.  
++- **Suggested MVP scope**: Phases 1–3 (through US1) deliver live data APIs; later phases harden environment controls and observability.
+*** End Patch
+[2m2025-12-11T09:13:21.839231Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"step":"Validate prerequisites and gather feature directory info", "status":"completed"},{"step":"Extract details from spec/plan/design docs for task planning", "status":"completed"},{"step":"Generate tasks.md conforming to template and reporting summary", "status":"completed"}]}
