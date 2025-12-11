@@ -29,7 +29,7 @@ const statusClasses: Record<Subscription['status'], string> = {
 };
 
 type ProfilePageProps = {
-  onNavigate?: (page: 'landing' | 'profile' | 'session') => void;
+  onNavigate?: (page: 'landing' | 'profile' | 'session' | 'program') => void;
 };
 
 function ProfilePage({ onNavigate }: ProfilePageProps) {
@@ -210,6 +210,7 @@ function ProfilePage({ onNavigate }: ProfilePageProps) {
               if (target === 'overview') onNavigate?.('landing');
               if (target === 'profile') onNavigate?.('profile');
               if (target === 'sessions') onNavigate?.('session');
+              if (target === 'program') onNavigate?.('program');
             }}
           />
         </div>

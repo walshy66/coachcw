@@ -75,8 +75,21 @@
 {"session_id":"019b00b9-449c-7693-b815-e4954444a8fa","ts":1765257410,"text":"go through my files and logs and see if you can find me the constitution.md document that is not the template."}
 {"session_id":"019b00b9-449c-7693-b815-e4954444a8fa","ts":1765257808,"text":"stage all my changes to be ready to go into github please"}
 {"session_id":"019b00b9-449c-7693-b815-e4954444a8fa","ts":1765257863,"text":"ignore the command, doing this via the gui"}
+<<<<<<< HEAD
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765433861,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.specify.md I need to build out the program page to show progress through the program and also where to get to micro cycles and sessions"}
+=======
 {"session_id":"019b022b-b814-7763-a9e1-7461c795e9b0","ts":1765268210,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.specify.md build a session page, to record exercises completed in the session and session details with a notes section"}
 {"session_id":"019b022b-b814-7763-a9e1-7461c795e9b0","ts":1765268456,"text":"keep going with your changes but make the folder name 003-session-page and all areas where the short name is going be for the feature as the feature number is 003"}
 {"session_id":"019b022b-b814-7763-a9e1-7461c795e9b0","ts":1765268613,"text":"retire the 001-session-page branch/spec please."}
 {"session_id":"019b022b-b814-7763-a9e1-7461c795e9b0","ts":1765268656,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.plan.md"}
 {"session_id":"019b022b-b814-7763-a9e1-7461c795e9b0","ts":1765269263,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.tasks.md"}
+>>>>>>> 961e6f10938a445543540e9127517cb493b38544
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765435815,"text":"please reverse everything you've done, I need to start again."}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765436938,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.specify.md I need to build a program page that will display macro and micro cycles and graphs on the progress of the program"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765437318,"text":"why are you not naming the folders correctly this should be 004-program-progress-page"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765437985,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.plan.md"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765438490,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.tasks.md"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765438663,"text":"c:\\Users\\camer\\Documents\\coachcw\\coachcw\\.codex\\prompts\\speckit.analyze.md"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765439149,"text":"yes"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765439216,"text":"yes"}
+{"session_id":"019b0c0e-1c98-7751-9bfe-70beeb7a6821","ts":1765440343,"text":"nah"}

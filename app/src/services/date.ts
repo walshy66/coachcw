@@ -70,3 +70,32 @@ export function formatFullDate(date?: string | null) {
   const parsed = new Date(`${date}T00:00:00`);
   return isNaN(parsed.getTime()) ? '' : format(parsed, 'MMM d, yyyy');
 }
+
+export function formatRangeLabel(start?: string | null, end?: string | null) {
+  const startDate = start ? new Date(`${start}T00:00:00`) : null;
+  const endDate = end ? new Date(`${end}T00:00:00`) : null;
+  const hasStart = !!startDate && !isNaN(startDate.getTime());
+  const hasEnd = !!endDate && !isNaN(endDate.getTime());
+
+  if (hasStart && hasEnd) {
+    const sameYear = startDate!.getFullYear() === endDate!.getFullYear();
+    const sameMonth = sameYear && startDate!.getMonth() === endDate!.getMonth();
+    if (!sameYear) {
+      return `${format(startDate!, 'MMM d, yyyy')} – ${format(endDate!, 'MMM d, yyyy')}`;
+    }
+    if (sameMonth) {
+      return `${format(startDate!, 'MMM d')} – ${format(endDate!, 'd, yyyy')}`;
+    }
+    return `${format(startDate!, 'MMM d')} – ${format(endDate!, 'MMM d, yyyy')}`;
+  }
+
+  if (hasStart) {
+    return formatFullDate(start) || 'Date not provided';
+  }
+
+  if (hasEnd) {
+    return formatFullDate(end) || 'Date not provided';
+  }
+
+  return 'Dates not provided';
+}

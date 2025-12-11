@@ -31,7 +31,7 @@ const emptyMetrics: MetricSnapshot = {
 };
 
 type LandingPageProps = {
-  onNavigate?: (page: 'landing' | 'profile' | 'session') => void;
+  onNavigate?: (page: 'landing' | 'profile' | 'session' | 'program') => void;
 };
 
 function LandingPage({ onNavigate }: LandingPageProps) {
@@ -122,6 +122,7 @@ function LandingPage({ onNavigate }: LandingPageProps) {
             if (target === 'profile') onNavigate?.('profile');
             if (target === 'overview') onNavigate?.('landing');
             if (target === 'sessions') onNavigate?.('session');
+            if (target === 'program') onNavigate?.('program');
           }}
         />
       </header>

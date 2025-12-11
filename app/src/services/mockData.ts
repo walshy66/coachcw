@@ -1,9 +1,25 @@
-import type { MetricSnapshot, SessionEntry, Subscription, UserProfile, WeekView } from './types';
+import type {
+  MetricSnapshot,
+  MicroCycleSummary,
+  ProgramPhase,
+  ProgramProgressSample,
+  ProgramSnapshot,
+  SessionEntry,
+  Subscription,
+  UserProfile,
+  WeekView,
+} from './types';
 import { getWeekBounds } from './date';
 
 const now = new Date();
 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 const bounds = getWeekBounds(now, tz);
+
+function addDays(date: string, days: number) {
+  const d = new Date(`${date}T00:00:00`);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
 
 const baseSessions: SessionEntry[] = [
   {
@@ -109,4 +125,131 @@ export const mockCanceledSubscription: Subscription = {
   renewalDate: null,
   sessionsPerPeriod: 0,
   addOns: [],
+};
+
+const phases: ProgramPhase[] = [
+  {
+    id: 'phase-1',
+    name: 'Foundation',
+    focus: 'Aerobic base + mobility',
+    startDate: addDays(bounds.startDate, -28),
+    endDate: addDays(bounds.startDate, -1),
+    completedWeeks: 4,
+    totalWeeks: 4,
+  },
+  {
+    id: 'phase-2',
+    name: 'Build',
+    focus: 'Threshold and tempo strength',
+    startDate: bounds.startDate,
+    endDate: addDays(bounds.startDate, 27),
+    completedWeeks: 1,
+    totalWeeks: 4,
+  },
+  {
+    id: 'phase-3',
+    name: 'Peak',
+    focus: 'Sharpen + taper',
+    startDate: addDays(bounds.startDate, 28),
+    endDate: addDays(bounds.startDate, 42),
+    completedWeeks: 0,
+    totalWeeks: 2,
+  },
+];
+
+const microCycles: MicroCycleSummary[] = [
+  {
+    id: 'mc-4',
+    name: 'Week 4 · Aerobic base',
+    startDate: addDays(bounds.startDate, -7),
+    endDate: addDays(bounds.startDate, -1),
+    focus: 'Volume and hill strides',
+    sessionsPlanned: 5,
+    sessionsCompleted: 4,
+    readinessScore: 0.78,
+    status: 'done',
+  },
+  {
+    id: 'mc-5',
+    name: 'Week 5 · Threshold blend',
+    startDate: bounds.startDate,
+    endDate: bounds.endDate,
+    focus: 'Tempo ladders + long aerobic',
+    sessionsPlanned: 5,
+    sessionsCompleted: 2,
+    readinessScore: 0.86,
+    status: 'current',
+  },
+  {
+    id: 'mc-6',
+    name: 'Week 6 · Speed changeups',
+    startDate: addDays(bounds.startDate, 7),
+    endDate: addDays(bounds.startDate, 13),
+    focus: 'Fartlek and strides',
+    sessionsPlanned: 5,
+    sessionsCompleted: 0,
+    readinessScore: 0.81,
+    status: 'upcoming',
+  },
+];
+
+const programProgress: ProgramProgressSample[] = [
+  {
+    id: 'prog-1',
+    label: 'Week 1',
+    sessionsPlanned: 5,
+    sessionsCompleted: 4,
+    volume: 420,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-2',
+    label: 'Week 2',
+    sessionsPlanned: 4,
+    sessionsCompleted: 3,
+    volume: 380,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-3',
+    label: 'Week 3',
+    sessionsPlanned: 5,
+    sessionsCompleted: 5,
+    volume: 455,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-4',
+    label: 'Week 4',
+    sessionsPlanned: 4,
+    sessionsCompleted: 2,
+    volume: 300,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-5',
+    label: 'Week 5',
+    sessionsPlanned: 5,
+    sessionsCompleted: 2,
+    volume: 210,
+    unit: 'minutes',
+  },
+];
+
+export const mockProgram: ProgramSnapshot = {
+  programName: 'Half-marathon block',
+  goal: 'Break 1:35 at the spring race',
+  targetEvent: 'Capital Half',
+  startDate: phases[0].startDate,
+  endDate: phases[phases.length - 1].endDate,
+  totalWeeks: 10,
+  completedWeeks: 5,
+  adherenceRate: 0.82,
+  overallProgress: 0.5,
+  phases,
+  currentPhaseId: 'phase-2',
+  microCycles,
+  currentMicroCycleId: 'mc-5',
+  nextSession: baseSessions.find((s) => s.status !== 'completed') ?? baseSessions[0],
+  progressSamples: programProgress,
 };

@@ -47,6 +47,57 @@ export interface NavigationTarget {
 
 export type SubscriptionStatus = 'active' | 'on_hold' | 'canceled';
 
+export type MicroCycleStatus = 'current' | 'upcoming' | 'done';
+
+export interface ProgramProgressSample {
+  id: string;
+  label: string;
+  sessionsPlanned: number;
+  sessionsCompleted: number;
+  volume?: number;
+  unit?: string;
+}
+
+export interface ProgramPhase {
+  id: string;
+  name: string;
+  focus: string;
+  startDate: string;
+  endDate: string;
+  completedWeeks: number;
+  totalWeeks: number;
+}
+
+export interface MicroCycleSummary {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  focus: string;
+  sessionsPlanned: number;
+  sessionsCompleted: number;
+  readinessScore: number; // 0-1 range
+  status: MicroCycleStatus;
+}
+
+export interface ProgramSnapshot {
+  programName: string;
+  goal: string;
+  targetEvent?: string;
+  startDate: string;
+  endDate: string;
+  totalWeeks: number;
+  completedWeeks: number;
+  adherenceRate: number; // 0-1 range
+  overallProgress: number; // 0-1 range
+  phases: ProgramPhase[];
+  currentPhaseId?: string;
+  microCycles: MicroCycleSummary[];
+  currentMicroCycleId?: string;
+  nextSession?: SessionEntry;
+  progressSamples: ProgramProgressSample[];
+}
+
 export interface UserProfile {
   id: string;
   fullName: string;
@@ -71,3 +122,5 @@ export interface Subscription {
   autoRenew: boolean;
   addOns?: string[];
 }
+
+export type PageKey = 'landing' | 'profile' | 'program';
