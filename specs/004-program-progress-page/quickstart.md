@@ -11,11 +11,12 @@
 
 1. `cd app`
 2. `npm test` (Vitest) to run unit/integration suite.
-3. For focused work, use `npm test -- --runInBand program` (once Program tests exist).
+3. For focused work, use `npm test -- program.page` to run the Program page suite.
 
 ## What to verify
 
 - Program page renders macro phase timeline, micro cycle list, and progress graphs with mock data.
 - Current phase/cycle and next session are highlighted and linked to sessions.
 - Empty/error states render when program data is missing or failing to load.
+- With `VITE_USE_MOCKS=true`, clicking **Program** from the nav should render the page within ~2 seconds (meets SC-002 render-time check).
 - Nav links remain consistent with shared `NavLinks` component.

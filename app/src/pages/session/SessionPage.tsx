@@ -9,7 +9,7 @@ import { createSession, getSession, updateSession } from '../../services/session
 import { createTempId } from '../../features/session/idUtils';
 
 type SessionPageProps = {
-  onNavigate?: (page: 'landing' | 'profile' | 'session') => void;
+  onNavigate?: (page: 'landing' | 'profile' | 'session' | 'program') => void;
   sessionId?: string;
 };
 
@@ -137,7 +137,7 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
     }
   };
 
-  const handleNavigate = (target: 'landing' | 'profile' | 'session') => {
+  const handleNavigate = (target: 'landing' | 'profile' | 'session' | 'program') => {
     if (!confirmNavigation()) return;
     onNavigate?.(target);
   };
@@ -249,6 +249,7 @@ function SessionPage({ onNavigate, sessionId }: SessionPageProps) {
             if (target === 'overview') handleNavigate('landing');
             if (target === 'profile') handleNavigate('profile');
             if (target === 'sessions') handleNavigate('session');
+            if (target === 'program') handleNavigate('program');
           }}
         />
       </header>

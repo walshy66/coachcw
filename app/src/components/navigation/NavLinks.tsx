@@ -33,7 +33,8 @@ function NavLinks({ badges = {}, onNavigate }: NavLinksProps) {
         const count = (badges as Record<string, number | undefined>)[link.id];
         const showBadge = !!count && count > 0;
         const badgeText = count && count > 9 ? '9+' : count?.toString();
-        const interceptNavigation = onNavigate && (link.id === 'profile' || link.id === 'overview' || link.id === 'sessions');
+        const interceptNavigation =
+          onNavigate && (link.id === 'profile' || link.id === 'overview' || link.id === 'sessions' || link.id === 'program');
         const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
           if (!interceptNavigation || !onNavigate) return;
           event.preventDefault();

@@ -2,6 +2,7 @@ import type {
   MetricSnapshot,
   MicroCycleSummary,
   ProgramPhase,
+  ProgramProgressSample,
   ProgramSnapshot,
   SessionEntry,
   Subscription,
@@ -192,6 +193,49 @@ const microCycles: MicroCycleSummary[] = [
   },
 ];
 
+const programProgress: ProgramProgressSample[] = [
+  {
+    id: 'prog-1',
+    label: 'Week 1',
+    sessionsPlanned: 5,
+    sessionsCompleted: 4,
+    volume: 420,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-2',
+    label: 'Week 2',
+    sessionsPlanned: 4,
+    sessionsCompleted: 3,
+    volume: 380,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-3',
+    label: 'Week 3',
+    sessionsPlanned: 5,
+    sessionsCompleted: 5,
+    volume: 455,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-4',
+    label: 'Week 4',
+    sessionsPlanned: 4,
+    sessionsCompleted: 2,
+    volume: 300,
+    unit: 'minutes',
+  },
+  {
+    id: 'prog-5',
+    label: 'Week 5',
+    sessionsPlanned: 5,
+    sessionsCompleted: 2,
+    volume: 210,
+    unit: 'minutes',
+  },
+];
+
 export const mockProgram: ProgramSnapshot = {
   programName: 'Half-marathon block',
   goal: 'Break 1:35 at the spring race',
@@ -205,5 +249,7 @@ export const mockProgram: ProgramSnapshot = {
   phases,
   currentPhaseId: 'phase-2',
   microCycles,
+  currentMicroCycleId: 'mc-5',
   nextSession: baseSessions.find((s) => s.status !== 'completed') ?? baseSessions[0],
+  progressSamples: programProgress,
 };
