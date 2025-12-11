@@ -6721,3 +6721,267 @@
 [2m2025-12-09T05:24:24.201873Z[0m [32m INFO[0m ghost snapshot blocking task finished
 [2m2025-12-09T05:24:24.201910Z[0m [32m INFO[0m ghost commit captured: 06f7940e2b5dc1e984354bbf13e294127b7eadf7
 [2m2025-12-09T05:24:24.201917Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T06:17:41.557735Z[0m [32m INFO[0m spawning ghost snapshot task
+[2m2025-12-11T06:17:42.326616Z[0m [32m INFO[0m ghost snapshot blocking task finished
+[2m2025-12-11T06:17:42.326666Z[0m [32m INFO[0m ghost commit captured: 5a182f345a82fbbc33fb3e9dbbd97506da5bef8a
+[2m2025-12-11T06:17:42.326676Z[0m [32m INFO[0m ghost snapshot gate marked ready
+[2m2025-12-11T06:17:48.462984Z[0m [32m INFO[0m ToolCall: shell_command {"command":"pwd"}
+[2m2025-12-11T06:17:51.988414Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content .codex\\prompts\\speckit.specify.md"}
+[2m2025-12-11T06:17:58.908115Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem"}
+[2m2025-12-11T06:18:03.009236Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app"}
+[2m2025-12-11T06:18:07.817163Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src"}
+[2m2025-12-11T06:18:12.324082Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\pages"}
+[2m2025-12-11T06:18:16.010055Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\pages\\landing"}
+[2m2025-12-11T06:18:19.408356Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\pages\\profile"}
+[2m2025-12-11T06:18:24.534698Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\App.tsx"}
+[2m2025-12-11T06:18:28.706428Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\services"}
+[2m2025-12-11T06:18:32.701351Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\services\\mockData.ts"}
+[2m2025-12-11T06:18:36.603013Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\services\\types.ts"}
+[2m2025-12-11T06:18:41.734822Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\pages\\landing\\LandingPage.tsx"}
+[2m2025-12-11T06:18:45.196064Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\pages\\profile\\ProfilePage.tsx"}
+[2m2025-12-11T06:18:49.208534Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\components\\navigation\\NavLinks.tsx"}
+[2m2025-12-11T06:18:53.808625Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\components"}
+[2m2025-12-11T06:19:04.138166Z[0m [32m INFO[0m ToolCall: shell_command {"command":"rg -n \"program\" app\\src"}
+[2m2025-12-11T06:19:08.033700Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\App.css"}
+[2m2025-12-11T06:19:12.950085Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\index.css"}
+[2m2025-12-11T06:19:16.221025Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\pages\\landing\\LandingPage.css"}
+[2m2025-12-11T06:19:21.648313Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\pages\\profile\\ProfilePage.css"}
+[2m2025-12-11T06:19:25.641789Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\services\\schedule.ts"}
+[2m2025-12-11T06:19:30.791638Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\services\\metrics.ts"}
+[2m2025-12-11T06:19:34.346080Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\services\\profile.ts"}
+[2m2025-12-11T06:19:38.674195Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\tests"}
+[2m2025-12-11T06:19:41.944844Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\tests\\integration"}
+[2m2025-12-11T06:19:44.996097Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\tests\\integration\\landing.calendar.test.tsx"}
+[2m2025-12-11T06:19:49.237869Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\tests\\unit"}
+[2m2025-12-11T06:19:51.970612Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\tests\\unit\\graphs.test.tsx"}
+[2m2025-12-11T06:19:57.488587Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\tests\\unit\\navigation.test.tsx"}
+[2m2025-12-11T06:20:01.893828Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem app\\src\\components\\calendar"}
+[2m2025-12-11T06:20:06.398936Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\components\\calendar\\WeekCalendar.tsx"}
+[2m2025-12-11T06:20:09.168590Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-ChildItem specs"}
+[2m2025-12-11T06:20:19.219343Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"in_progress","step":"Review existing navigation/data patterns and determine needed program data to display progress and link to micro cycles and sessions."},{"status":"pending","step":"Implement program page UI, data mocks/service, and navigation entry points to micro cycles/sessions."},{"status":"pending","step":"Add/update tests covering program page rendering and navigation hooks; ensure consistency."}],"explanation":"Plan to add a program page that shows progress and entry points to micro cycles and sessions while aligning with existing patterns."}
+[2m2025-12-11T06:20:22.579402Z[0m [32m INFO[0m ToolCall: shell_command {"command":"Get-Content app\\src\\components\\graphs\\CompletionChart.tsx"}
+[2m2025-12-11T06:21:34.668118Z[0m [32m INFO[0m ToolCall: update_plan {"plan":[{"status":"completed","step":"Review existing navigation/data patterns and determine needed program data to display progress and link to micro cycles and sessions."},{"status":"in_progress","step":"Implement program page UI, data mocks/service, and navigation entry points to micro cycles/sessions."},{"status":"pending","step":"Add/update tests covering program page rendering and navigation hooks; ensure consistency."}]}
+[2m2025-12-11T06:22:40.974046Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/types.ts
+@@
+ export interface NavigationTarget {
+   id: 'program' | 'sessions' | 'messages' | 'reports';
+   label: string;
+   url: string;
+   badge?: string;
+ }
+ 
+ export type SubscriptionStatus = 'active' | 'on_hold' | 'canceled';
+ 
++export type MicroCycleStatus = 'current' | 'upcoming' | 'done';
++
++export interface ProgramPhase {
++  id: string;
++  name: string;
++  focus: string;
++  startDate: string;
++  endDate: string;
++  completedWeeks: number;
++  totalWeeks: number;
++}
++
++export interface MicroCycleSummary {
++  id: string;
++  name: string;
++  startDate: string;
++  endDate: string;
++  focus: string;
++  sessionsPlanned: number;
++  sessionsCompleted: number;
++  readinessScore: number; // 0-1 range
++  status: MicroCycleStatus;
++}
++
++export interface ProgramSnapshot {
++  programName: string;
++  goal: string;
++  targetEvent?: string;
++  startDate: string;
++  endDate: string;
++  totalWeeks: number;
++  completedWeeks: number;
++  adherenceRate: number; // 0-1 range
++  overallProgress: number; // 0-1 range
++  phases: ProgramPhase[];
++  currentPhaseId?: string;
++  microCycles: MicroCycleSummary[];
++  nextSession?: SessionEntry;
++}
++
+ export interface UserProfile {
+   id: string;
+   fullName: string;
+   username: string;
+   email: string;
+@@
+   period?: 'month' | 'year';
+   autoRenew: boolean;
+   addOns?: string[];
+ }
++
++export type PageKey = 'landing' | 'profile' | 'program';
+*** End Patch
+[2m2025-12-11T06:23:21.472645Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Update File: app/src/services/mockData.ts
+@@
+-import type { MetricSnapshot, SessionEntry, Subscription, UserProfile, WeekView } from './types';
++import type {
++  MetricSnapshot,
++  MicroCycleSummary,
++  ProgramPhase,
++  ProgramSnapshot,
++  SessionEntry,
++  Subscription,
++  UserProfile,
++  WeekView,
++} from './types';
+ import { getWeekBounds } from './date';
+ 
+ const now = new Date();
+ const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+ const bounds = getWeekBounds(now, tz);
++
++function addDays(date: string, days: number) {
++  const d = new Date(`${date}T00:00:00`);
++  d.setDate(d.getDate() + days);
++  return d.toISOString().slice(0, 10);
++}
+@@
+ export const mockCanceledSubscription: Subscription = {
+   ...mockSubscription,
+   id: 'sub-3',
+   status: 'canceled',
+   renewalDate: null,
+   sessionsPerPeriod: 0,
+   addOns: [],
+ };
++
++const phases: ProgramPhase[] = [
++  {
++    id: 'phase-1',
++    name: 'Foundation',
++    focus: 'Aerobic base + mobility',
++    startDate: addDays(bounds.startDate, -28),
++    endDate: addDays(bounds.startDate, -1),
++    completedWeeks: 4,
++    totalWeeks: 4,
++  },
++  {
++    id: 'phase-2',
++    name: 'Build',
++    focus: 'Threshold and tempo strength',
++    startDate: bounds.startDate,
++    endDate: addDays(bounds.startDate, 27),
++    completedWeeks: 1,
++    totalWeeks: 4,
++  },
++  {
++    id: 'phase-3',
++    name: 'Peak',
++    focus: 'Sharpen + taper',
++    startDate: addDays(bounds.startDate, 28),
++    endDate: addDays(bounds.startDate, 42),
++    completedWeeks: 0,
++    totalWeeks: 2,
++  },
++];
++
++const microCycles: MicroCycleSummary[] = [
++  {
++    id: 'mc-4',
++    name: 'Week 4 · Aerobic base',
++    startDate: addDays(bounds.startDate, -7),
++    endDate: addDays(bounds.startDate, -1),
++    focus: 'Volume and hill strides',
++    sessionsPlanned: 5,
++    sessionsCompleted: 4,
++    readinessScore: 0.78,
++    status: 'done',
++  },
++  {
++    id: 'mc-5',
++    name: 'Week 5 · Threshold blend',
++    startDate: bounds.startDate,
++    endDate: bounds.endDate,
++    focus: 'Tempo ladders + long aerobic',
++    sessionsPlanned: 5,
++    sessionsCompleted: 2,
++    readinessScore: 0.86,
++    status: 'current',
++  },
++  {
++    id: 'mc-6',
++    name: 'Week 6 · Speed changeups',
++    startDate: addDays(bounds.startDate, 7),
++    endDate: addDays(bounds.startDate, 13),
++    focus: 'Fartlek and strides',
++    sessionsPlanned: 5,
++    sessionsCompleted: 0,
++    readinessScore: 0.81,
++    status: 'upcoming',
++  },
++];
++
++export const mockProgram: ProgramSnapshot = {
++  programName: 'Half-marathon block',
++  goal: 'Break 1:35 at the spring race',
++  targetEvent: 'Capital Half',
++  startDate: phases[0].startDate,
++  endDate: phases[phases.length - 1].endDate,
++  totalWeeks: 10,
++  completedWeeks: 5,
++  adherenceRate: 0.82,
++  overallProgress: 0.5,
++  phases,
++  currentPhaseId: 'phase-2',
++  microCycles,
++  nextSession: baseSessions.find((s) => s.status !== 'completed') ?? baseSessions[0],
++};
+*** End Patch
+[2m2025-12-11T06:46:28.811028Z[0m [32m INFO[0m ToolCall: apply_patch *** Begin Patch
+*** Add File: app/src/services/program.ts
++import type { ProgramSnapshot } from './types';
++import { mockProgram } from './mockData';
++
++const API_BASE = import.meta.env.VITE_API_BASE ?? '';
++const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === 'true';
++
++export async function fetchProgramOverview(clientId: string): Promise<ProgramSnapshot> {
++  const url = `${API_BASE}/clients/${clientId}/program`;
++
++  if (USE_MOCKS) {
++    return mockProgram;
++  }
++
++  try {
++    const res = await fetch(url);
++    if (!res.ok) {
++      throw new Error(`Failed to load program (${res.status})`);
++    }
++    const data = await res.json();
++    return {
++      programName: data.programName ?? mockProgram.programName,
++      goal: data.goal ?? mockProgram.goal,
++      targetEvent: data.targetEvent ?? mockProgram.targetEvent,
++      startDate: data.startDate ?? mockProgram.startDate,
++      endDate: data.endDate ?? mockProgram.endDate,
++      totalWeeks: data.totalWeeks ?? mockProgram.totalWeeks,
++      completedWeeks: data.completedWeeks ?? mockProgram.completedWeeks,
++      adherenceRate: data.adherenceRate ?? mockProgram.adherenceRate,
++      overallProgress: data.overallProgress ?? mockProgram.overallProgress,
++      phases: data.phases ?? mockProgram.phases,
++      currentPhaseId: data.currentPhaseId ?? mockProgram.currentPhaseId,
++      microCycles: data.microCycles ?? mockProgram.microCycles,
++      nextSession: data.nextSession ?? mockProgram.nextSession,
++    };
++  } catch (err) {
++    console.warn('Program fetch failed, falling back to mock data', err);
++    return mockProgram;
++  }
++}
+*** End Patch
